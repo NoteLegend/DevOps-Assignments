@@ -1,0 +1,52 @@
+Name:             lifecycle-running
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:10 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.36
+IPs:
+  IP:  10.244.0.36
+Containers:
+  nginx:
+    Container ID:   containerd://270f5ebcbb978bce7377636405a74bd1491baf4ad3f354ffedc685c4e6a2244b
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:30 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zvs2j (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-zvs2j:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  51s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-running to devops-course
+  Normal  Pulling    50s   kubelet            spec.containers{nginx}: Pulling image "nginx:1.27"
+  Normal  Pulled     31s   kubelet            spec.containers{nginx}: Successfully pulled image "nginx:1.27" in 18.625s (18.625s including waiting). Image size: 72406859 bytes.
+  Normal  Created    31s   kubelet            spec.containers{nginx}: Container created
+  Normal  Started    31s   kubelet            spec.containers{nginx}: Container started

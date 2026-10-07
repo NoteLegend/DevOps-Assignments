@@ -1,0 +1,57 @@
+Name:             image-error
+Namespace:        a13
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:37:18 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.91
+IPs:
+  IP:  10.244.0.91
+Containers:
+  app:
+    Container ID:  
+    Image:         nginx:this-tag-does-not-exist
+    Image ID:      
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-jg94d (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-jg94d:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  47s                default-scheduler  Successfully assigned a13/image-error to devops-course
+  Normal   Pulling    25s (x2 over 45s)  kubelet            spec.containers{app}: Pulling image "nginx:this-tag-does-not-exist"
+  Warning  Failed     23s (x2 over 41s)  kubelet            spec.containers{app}: Failed to pull image "nginx:this-tag-does-not-exist": rpc error: code = NotFound desc = failed to pull and unpack image "docker.io/library/nginx:this-tag-does-not-exist": failed to resolve reference "docker.io/library/nginx:this-tag-does-not-exist": docker.io/library/nginx:this-tag-does-not-exist: not found
+  Warning  Failed     23s (x2 over 41s)  kubelet            spec.containers{app}: Error: ErrImagePull
+  Normal   BackOff    9s (x2 over 41s)   kubelet            spec.containers{app}: Back-off pulling image "nginx:this-tag-does-not-exist"
+  Warning  Failed     9s (x2 over 41s)   kubelet            spec.containers{app}: Error: ImagePullBackOff

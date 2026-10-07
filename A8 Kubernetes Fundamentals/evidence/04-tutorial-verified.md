@@ -1,0 +1,160 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+minikube start -p devops-course --driver=docker --cpus=3 --memory=4096 --kubernetes-version=v1.36.0
+minikube status -p devops-course
+kubectl version
+kubectl cluster-info
+kubectl wait --for=condition=Ready nodes --all --timeout=240s
+kubectl get nodes -o wide
+kubectl get pods -n kube-system
+kubectl create namespace a08 --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n a08 create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --dry-run=client -o yaml | kubectl apply -f -
+kubectl -n a08 rollout status deployment/kubernetes-bootcamp --timeout=180s
+kubectl -n a08 get deployments,pods
+kubectl -n a08 describe deployment kubernetes-bootcamp
+kubectl -n a08 logs deployment/kubernetes-bootcamp
+kubectl -n a08 exec deployment/kubernetes-bootcamp -- env | grep -E 'HOSTNAME|KUBERNETES_SERVICE_HOST'
+kubectl -n a08 expose deployment kubernetes-bootcamp --type=NodePort --port=8080 --dry-run=client -o yaml | kubectl apply -f -
+../../.local-tools/vm.sh 'nohup kubectl -n a08 port-forward --address=0.0.0.0 svc/kubernetes-bootcamp 8080:8080 >/tmp/devops-a08-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a08-forward.pid'
+curl --retry 15 --retry-connrefused --retry-delay 2 -fsS http://127.0.0.1:8080
+/tmp/devops-tools-venv/bin/python ../../.local-tools/evidence.py . 02-tutorial-application --url http://127.0.0.1:8080
+kubectl -n a08 scale deployment kubernetes-bootcamp --replicas=4
+kubectl -n a08 rollout status deployment/kubernetes-bootcamp --timeout=180s
+kubectl -n a08 get pods -o wide
+kubectl -n a08 set image deployment/kubernetes-bootcamp kubernetes-bootcamp=docker.io/jocatalin/kubernetes-bootcamp:v2
+kubectl -n a08 rollout status deployment/kubernetes-bootcamp --timeout=180s
+kubectl -n a08 get pods
+kubectl -n a08 rollout history deployment/kubernetes-bootcamp
+kubectl -n a08 rollout undo deployment/kubernetes-bootcamp
+kubectl -n a08 rollout status deployment/kubernetes-bootcamp --timeout=180s
+kubectl -n a08 get deployment kubernetes-bootcamp -o jsonpath='{.spec.template.spec.containers[0].image}{"\n"}'
+kubectl -n a08 get deployment,svc -o yaml > evidence/tutorial-resources.yaml
+../../.local-tools/vm.sh 'kill "$(cat /tmp/devops-a08-forward.pid)"'
+kubectl delete namespace a08
+
+```
+
+```text
+Executed 2026-10-07T13:38:37.713916+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-08-Session-09
+Script: tutorial.sh
+Exit status: 56
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ minikube start -p devops-course --driver=docker --cpus=3 --memory=4096 --kubernetes-version=v1.36.0
+* [devops-course] minikube v1.39.0 on Ubuntu 24.04 (kvm/amd64)
+* Kubernetes 1.37.0 is now available. If you would like to upgrade, specify: --kubernetes-version=v1.37.0
+* Using the docker driver based on existing profile
+* Starting "devops-course" primary control-plane node in "devops-course" cluster
+* Pulling base image v0.0.51 ...
+* Preparing Kubernetes v1.36.0 on containerd 2.3.4 ...
+* Verifying Kubernetes components...
+  - Using image gcr.io/k8s-minikube/storage-provisioner:v5
+* Enabled addons: default-storageclass, storage-provisioner
+* Done! kubectl is now configured to use "devops-course" cluster and "default" namespace by default
++ minikube status -p devops-course
+devops-course
+type: Control Plane
+host: Running
+kubelet: Running
+apiserver: Running
+kubeconfig: Configured
+
++ kubectl version
+Client Version: v1.37.1
+Kustomize Version: v5.8.1
+Server Version: v1.36.0
++ kubectl cluster-info
+Kubernetes control plane is running at https://192.168.49.2:8443
+CoreDNS is running at https://192.168.49.2:8443/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+
+To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
++ kubectl wait --for=condition=Ready nodes --all --timeout=240s
+node/devops-course condition met
++ kubectl get nodes -o wide
+NAME            STATUS   ROLES           AGE   VERSION   INTERNAL-IP    EXTERNAL-IP   OS-IMAGE                         KERNEL-VERSION              CONTAINER-RUNTIME
+devops-course   Ready    control-plane   10m   v1.36.0   192.168.49.2   <none>        Debian GNU/Linux 12 (bookworm)   6.8.0-142-generic (amd64)   containerd://2.3.4
++ kubectl get pods -n kube-system
+NAME                                    READY   STATUS    RESTARTS   AGE
+coredns-589f44dc88-7r7bm                1/1     Running   0          10m
+etcd-devops-course                      1/1     Running   0          10m
+kindnet-w2tvm                           1/1     Running   0          6m8s
+kube-apiserver-devops-course            1/1     Running   0          10m
+kube-controller-manager-devops-course   1/1     Running   0          10m
+kube-proxy-qg2k5                        1/1     Running   0          10m
+kube-scheduler-devops-course            1/1     Running   0          10m
+storage-provisioner                     1/1     Running   0          10m
++ kubectl create namespace a08 --dry-run=client -o yaml
++ kubectl apply -f -
+Warning: resource namespaces/a08 is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+namespace/a08 configured
++ kubectl -n a08 create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1 --dry-run=client -o yaml
++ kubectl apply -f -
+Warning: resource deployments/kubernetes-bootcamp is missing the kubectl.kubernetes.io/last-applied-configuration annotation which is required by kubectl apply. kubectl apply should only be used on resources created declaratively by either kubectl create --save-config or kubectl apply. The missing annotation will be patched automatically.
+deployment.apps/kubernetes-bootcamp configured
++ kubectl -n a08 rollout status deployment/kubernetes-bootcamp --timeout=180s
+deployment "kubernetes-bootcamp" successfully rolled out
++ kubectl -n a08 get deployments,pods
+NAME                                  READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/kubernetes-bootcamp   1/1     1            1           10m
+
+NAME                                      READY   STATUS    RESTARTS   AGE
+pod/kubernetes-bootcamp-66d5c96cb-f2vl2   1/1     Running   0          10m
++ kubectl -n a08 describe deployment kubernetes-bootcamp
+Name:                   kubernetes-bootcamp
+Namespace:              a08
+CreationTimestamp:      Wed, 07 Oct 2026 07:58:12 +0000
+Labels:                 app=kubernetes-bootcamp
+Annotations:            deployment.kubernetes.io/revision: 1
+Selector:               app=kubernetes-bootcamp
+Replicas:               1 desired | 1 updated | 1 total | 1 available | 0 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=kubernetes-bootcamp
+  Containers:
+   kubernetes-bootcamp:
+    Image:         gcr.io/google-samples/kubernetes-bootcamp:v1
+    Port:          <none>
+    Host Port:     <none>
+    Environment:   <none>
+    Mounts:        <none>
+  Volumes:         <none>
+  Node-Selectors:  <none>
+  Tolerations:     <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    NewReplicaSetAvailable
+OldReplicaSets:  <none>
+NewReplicaSet:   kubernetes-bootcamp-66d5c96cb (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  10m   deployment-controller  Scaled up replica set kubernetes-bootcamp-66d5c96cb from 0 to 1
++ kubectl -n a08 logs deployment/kubernetes-bootcamp
+Kubernetes Bootcamp App Started At: 2026-10-07T08:03:08.652Z | Running On:  kubernetes-bootcamp-66d5c96cb-f2vl2 
+
++ kubectl -n a08 exec deployment/kubernetes-bootcamp -- env
++ grep -E 'HOSTNAME|KUBERNETES_SERVICE_HOST'
+HOSTNAME=kubernetes-bootcamp-66d5c96cb-f2vl2
+KUBERNETES_SERVICE_HOST=10.96.0.1
++ kubectl -n a08 expose deployment kubernetes-bootcamp --type=NodePort --port=8080 --dry-run=client -o yaml
++ kubectl apply -f -
+service/kubernetes-bootcamp created
++ ../../.local-tools/vm.sh 'nohup kubectl -n a08 port-forward --address=0.0.0.0 svc/kubernetes-bootcamp 8080:8080 >/tmp/devops-a08-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a08-forward.pid'
++ curl --retry 15 --retry-connrefused --retry-delay 2 -fsS http://127.0.0.1:8080
+curl: (56) Recv failure: Connection reset by peer
+
+```

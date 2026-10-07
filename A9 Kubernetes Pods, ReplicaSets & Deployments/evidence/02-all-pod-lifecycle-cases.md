@@ -1,0 +1,1119 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+kubectl create namespace a09-lifecycle
+for file in pod-lifecycle/*.yaml; do kubectl -n a09-lifecycle apply -f "$file"; done
+sleep 45
+for file in pod-lifecycle/*.yaml; do
+ name=$(sed -n 's/^  name: //p' "$file" | head -1)
+ kubectl -n a09-lifecycle get pod "$name" -o wide
+ kubectl -n a09-lifecycle describe pod "$name" > "evidence/$name-details.txt"
+ cat "evidence/$name-details.txt"
+ kubectl -n a09-lifecycle logs "$name" --all-containers=true || true
+done
+for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination; do kubectl -n a09-lifecycle wait --for=condition=Ready "pod/$name" --timeout=120s; done
+kubectl -n a09-lifecycle get pods
+kubectl -n a09-lifecycle get pod lifecycle-succeeded -o jsonpath='{.status.phase}{"\n"}' | grep Succeeded
+kubectl -n a09-lifecycle get pod lifecycle-failed -o jsonpath='{.status.phase}{"\n"}' | grep Failed
+kubectl -n a09-lifecycle get pod lifecycle-pending -o jsonpath='{.status.phase}{"\n"}' | grep Pending
+kubectl -n a09-lifecycle get pod lifecycle-liveness -o jsonpath='{.status.containerStatuses[0].restartCount}{"\n"}'
+# Show actual termination cleanup before namespace cleanup.
+kubectl -n a09-lifecycle logs -f lifecycle-termination > evidence/termination-log.txt & log_pid=$!
+kubectl -n a09-lifecycle delete pod lifecycle-termination
+wait "$log_pid" || true
+cat evidence/termination-log.txt
+kubectl -n a09-lifecycle get events --sort-by=.metadata.creationTimestamp
+
+```
+
+```text
+Executed 2026-10-07T13:42:29.733175+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-09-Session-10
+Script: lifecycle.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl create namespace a09-lifecycle
+namespace/a09-lifecycle created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/01-running.yaml
+pod/lifecycle-running created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/02-pending.yaml
+pod/lifecycle-pending created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/03-succeeded.yaml
+pod/lifecycle-succeeded created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/04-failed.yaml
+pod/lifecycle-failed created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/05-crashloopbackoff.yaml
+pod/lifecycle-crashloop created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/06-imagepullbackoff.yaml
+pod/lifecycle-image-error created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/07-readiness.yaml
+pod/lifecycle-readiness created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/08-liveness.yaml
+pod/lifecycle-liveness created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/09-startup.yaml
+pod/lifecycle-startup created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/10-init-container.yaml
+pod/lifecycle-init created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/11-multi-container.yaml
+pod/lifecycle-multi-container created
++ for file in pod-lifecycle/*.yaml
++ kubectl -n a09-lifecycle apply -f pod-lifecycle/12-termination.yaml
+pod/lifecycle-termination created
++ sleep 45
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/01-running.yaml
+++ head -1
++ name=lifecycle-running
++ kubectl -n a09-lifecycle get pod lifecycle-running -o wide
+NAME                READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-running   1/1     Running   0          51s   10.244.0.36   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-running
++ cat evidence/lifecycle-running-details.txt
+Name:             lifecycle-running
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:10 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.36
+IPs:
+  IP:  10.244.0.36
+Containers:
+  nginx:
+    Container ID:   containerd://270f5ebcbb978bce7377636405a74bd1491baf4ad3f354ffedc685c4e6a2244b
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:30 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zvs2j (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-zvs2j:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  51s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-running to devops-course
+  Normal  Pulling    50s   kubelet            spec.containers{nginx}: Pulling image "nginx:1.27"
+  Normal  Pulled     31s   kubelet            spec.containers{nginx}: Successfully pulled image "nginx:1.27" in 18.625s (18.625s including waiting). Image size: 72406859 bytes.
+  Normal  Created    31s   kubelet            spec.containers{nginx}: Container created
+  Normal  Started    31s   kubelet            spec.containers{nginx}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-running --all-containers=true
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/10/07 08:11:30 [notice] 1#1: using the "epoll" event method
+2026/10/07 08:11:30 [notice] 1#1: nginx/1.27.5
+2026/10/07 08:11:30 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
+2026/10/07 08:11:30 [notice] 1#1: OS: Linux 6.8.0-142-generic
+2026/10/07 08:11:30 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/07 08:11:30 [notice] 1#1: start worker processes
+2026/10/07 08:11:30 [notice] 1#1: start worker process 28
+2026/10/07 08:11:30 [notice] 1#1: start worker process 29
+2026/10/07 08:11:30 [notice] 1#1: start worker process 30
+2026/10/07 08:11:30 [notice] 1#1: start worker process 31
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/02-pending.yaml
+++ head -1
++ name=lifecycle-pending
++ kubectl -n a09-lifecycle get pod lifecycle-pending -o wide
+NAME                READY   STATUS    RESTARTS   AGE   IP       NODE     NOMINATED NODE   READINESS GATES
+lifecycle-pending   0/1     Pending   0          51s   <none>   <none>   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-pending
++ cat evidence/lifecycle-pending-details.txt
+Name:             lifecycle-pending
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             <none>
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               
+IPs:              <none>
+Containers:
+  impossible-resource:
+    Image:      nginx:1.27
+    Port:       <none>
+    Host Port:  <none>
+    Requests:
+      cpu:        1
+      memory:     9Gi
+    Environment:  <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-tspld (ro)
+Conditions:
+  Type           Status
+  PodScheduled   False 
+Volumes:
+  kube-api-access-tspld:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason            Age                From               Message
+  ----     ------            ----               ----               -------
+  Warning  FailedScheduling  25s (x5 over 51s)  default-scheduler  0/1 nodes are available: 1 Insufficient memory. no new claims to deallocate, preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
++ kubectl -n a09-lifecycle logs lifecycle-pending --all-containers=true
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/03-succeeded.yaml
+++ head -1
++ name=lifecycle-succeeded
++ kubectl -n a09-lifecycle get pod lifecycle-succeeded -o wide
+NAME                  READY   STATUS      RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-succeeded   0/1     Completed   0          52s   10.244.0.37   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-succeeded
++ cat evidence/lifecycle-succeeded-details.txt
+Name:             lifecycle-succeeded
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:11 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Succeeded
+IP:               10.244.0.37
+IPs:
+  IP:  10.244.0.37
+Containers:
+  task:
+    Container ID:  containerd://afa2989cb39eefcf6a0c272c7957bb79d1e1f828a9e4350939f26612d20febb0
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Task started'; sleep 5; echo 'Task completed successfully'; exit 0
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 08:11:13 +0000
+      Finished:     Wed, 07 Oct 2026 08:11:18 +0000
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-9k7tm (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-9k7tm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  52s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-succeeded to devops-course
+  Normal  Pulled     51s   kubelet            spec.containers{task}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    51s   kubelet            spec.containers{task}: Container created
+  Normal  Started    50s   kubelet            spec.containers{task}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-succeeded --all-containers=true
+Task started
+Task completed successfully
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/04-failed.yaml
+++ head -1
++ name=lifecycle-failed
++ kubectl -n a09-lifecycle get pod lifecycle-failed -o wide
+NAME               READY   STATUS   RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-failed   0/1     Error    0          52s   10.244.0.38   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-failed
++ cat evidence/lifecycle-failed-details.txt
+Name:             lifecycle-failed
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:12 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Failed
+IP:               10.244.0.38
+IPs:
+  IP:  10.244.0.38
+Containers:
+  task:
+    Container ID:  containerd://7a2babdd258b8d5d2f8d580bc18c58503989aa934616770417249f47613b774d
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Task started'; sleep 5; echo 'Task failed'; exit 1
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 08:11:13 +0000
+      Finished:     Wed, 07 Oct 2026 08:11:18 +0000
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qcq9v (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-qcq9v:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  52s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-failed to devops-course
+  Normal  Pulled     51s   kubelet            spec.containers{task}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    51s   kubelet            spec.containers{task}: Container created
+  Normal  Started    51s   kubelet            spec.containers{task}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-failed --all-containers=true
+Task started
+Task failed
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/05-crashloopbackoff.yaml
+++ head -1
++ name=lifecycle-crashloop
++ kubectl -n a09-lifecycle get pod lifecycle-crashloop -o wide
+NAME                  READY   STATUS   RESTARTS      AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-crashloop   0/1     Error    3 (30s ago)   53s   10.244.0.39   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-crashloop
++ cat evidence/lifecycle-crashloop-details.txt
+Name:             lifecycle-crashloop
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:12 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.39
+IPs:
+  IP:  10.244.0.39
+Containers:
+  crashing-app:
+    Container ID:  containerd://e6fe8e836e83705d914cca9e7f54ac1c39e72ccee0b3819d9277914624929c72
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Application started'; sleep 3; echo 'Application crashed'; exit 1
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 08:12:00 +0000
+      Finished:     Wed, 07 Oct 2026 08:12:03 +0000
+    Last State:     Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 08:11:32 +0000
+      Finished:     Wed, 07 Oct 2026 08:11:35 +0000
+    Ready:          False
+    Restart Count:  3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-6j5t9 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-6j5t9:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age               From               Message
+  ----     ------     ----              ----               -------
+  Normal   Scheduled  53s               default-scheduler  Successfully assigned a09-lifecycle/lifecycle-crashloop to devops-course
+  Normal   Pulled     5s (x4 over 51s)  kubelet            spec.containers{crashing-app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal   Created    5s (x4 over 51s)  kubelet            spec.containers{crashing-app}: Container created
+  Normal   Started    5s (x4 over 51s)  kubelet            spec.containers{crashing-app}: Container started
+  Warning  BackOff    1s (x3 over 43s)  kubelet            spec.containers{crashing-app}: Back-off restarting failed container crashing-app in pod lifecycle-crashloop_a09-lifecycle(4072ad31-f13a-4210-b5e8-faece5f5d16a)
++ kubectl -n a09-lifecycle logs lifecycle-crashloop --all-containers=true
+Application started
+Application crashed
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/06-imagepullbackoff.yaml
+++ head -1
++ name=lifecycle-image-error
++ kubectl -n a09-lifecycle get pod lifecycle-image-error -o wide
+NAME                    READY   STATUS         RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-image-error   0/1     ErrImagePull   0          53s   10.244.0.40   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-image-error
++ cat evidence/lifecycle-image-error-details.txt
+Name:             lifecycle-image-error
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:13 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.40
+IPs:
+  IP:  10.244.0.40
+Containers:
+  broken-image:
+    Container ID:   
+    Image:          jakwehrgkaejw:kahsdfgkhj
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-dffdf (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-dffdf:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  53s                default-scheduler  Successfully assigned a09-lifecycle/lifecycle-image-error to devops-course
+  Normal   Pulling    23s (x2 over 52s)  kubelet            spec.containers{broken-image}: Pulling image "jakwehrgkaejw:kahsdfgkhj"
+  Warning  Failed     22s (x2 over 35s)  kubelet            spec.containers{broken-image}: Failed to pull image "jakwehrgkaejw:kahsdfgkhj": failed to pull and unpack image "docker.io/library/jakwehrgkaejw:kahsdfgkhj": failed to resolve reference "docker.io/library/jakwehrgkaejw:kahsdfgkhj": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+  Warning  Failed     22s (x2 over 35s)  kubelet            spec.containers{broken-image}: Error: ErrImagePull
+  Normal   BackOff    9s (x2 over 34s)   kubelet            spec.containers{broken-image}: Back-off pulling image "jakwehrgkaejw:kahsdfgkhj"
+  Warning  Failed     9s (x2 over 34s)   kubelet            spec.containers{broken-image}: Error: ImagePullBackOff
++ kubectl -n a09-lifecycle logs lifecycle-image-error --all-containers=true
+Error from server (BadRequest): container "broken-image" in pod "lifecycle-image-error" is waiting to start: image can't be pulled
++ true
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/07-readiness.yaml
+++ head -1
++ name=lifecycle-readiness
++ kubectl -n a09-lifecycle get pod lifecycle-readiness -o wide
+NAME                  READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-readiness   1/1     Running   0          54s   10.244.0.41   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-readiness
++ cat evidence/lifecycle-readiness-details.txt
+Name:             lifecycle-readiness
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:13 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.41
+IPs:
+  IP:  10.244.0.41
+Containers:
+  nginx:
+    Container ID:   containerd://d44d748016f1c0af4686159a842e40e2b3a879633e39eb6a447d610205f15864
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:34 +0000
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:80/ delay=5s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-plvzk (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-plvzk:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  54s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-readiness to devops-course
+  Normal  Pulling    53s   kubelet            spec.containers{nginx}: Pulling image "nginx:1.27"
+  Normal  Pulled     33s   kubelet            spec.containers{nginx}: Successfully pulled image "nginx:1.27" in 2.241s (19.185s including waiting). Image size: 72406859 bytes.
+  Normal  Created    33s   kubelet            spec.containers{nginx}: Container created
+  Normal  Started    33s   kubelet            spec.containers{nginx}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-readiness --all-containers=true
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/10/07 08:11:34 [notice] 1#1: using the "epoll" event method
+2026/10/07 08:11:34 [notice] 1#1: nginx/1.27.5
+2026/10/07 08:11:34 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
+2026/10/07 08:11:34 [notice] 1#1: OS: Linux 6.8.0-142-generic
+2026/10/07 08:11:34 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/07 08:11:34 [notice] 1#1: start worker processes
+2026/10/07 08:11:34 [notice] 1#1: start worker process 29
+2026/10/07 08:11:34 [notice] 1#1: start worker process 30
+2026/10/07 08:11:34 [notice] 1#1: start worker process 31
+2026/10/07 08:11:34 [notice] 1#1: start worker process 32
+10.244.0.1 - - [07/Oct/2026:08:11:40 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
+10.244.0.1 - - [07/Oct/2026:08:11:45 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
+10.244.0.1 - - [07/Oct/2026:08:11:50 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
+10.244.0.1 - - [07/Oct/2026:08:11:55 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
+10.244.0.1 - - [07/Oct/2026:08:12:00 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
+10.244.0.1 - - [07/Oct/2026:08:12:05 +0000] "GET / HTTP/1.1" 200 615 "-" "kube-probe/1.36" "-"
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/08-liveness.yaml
+++ head -1
++ name=lifecycle-liveness
++ kubectl -n a09-lifecycle get pod lifecycle-liveness -o wide
+NAME                 READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-liveness   1/1     Running   0          54s   10.244.0.42   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-liveness
++ cat evidence/lifecycle-liveness-details.txt
+Name:             lifecycle-liveness
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:14 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.42
+IPs:
+  IP:  10.244.0.42
+Containers:
+  app:
+    Container ID:  containerd://8e092133a18100e6adc5614bfac789baf21d75f3a93c850c9613b5bfd0799536
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'App started'; touch /tmp/healthy; sleep 20; rm /tmp/healthy; echo 'Health file removed'; sleep 300
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:15 +0000
+    Ready:          True
+    Restart Count:  0
+    Liveness:       exec [sh -c test -f /tmp/healthy] delay=5s timeout=1s period=5s successThreshold=1 failureThreshold=2
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-xdsch (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-xdsch:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  54s                default-scheduler  Successfully assigned a09-lifecycle/lifecycle-liveness to devops-course
+  Normal   Pulled     53s                kubelet            spec.containers{app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal   Created    53s                kubelet            spec.containers{app}: Container created
+  Normal   Started    53s                kubelet            spec.containers{app}: Container started
+  Warning  Unhealthy  24s (x2 over 29s)  kubelet            spec.containers{app}: Liveness probe failed:
+  Normal   Killing    24s                kubelet            spec.containers{app}: Container app failed liveness probe, will be restarted
++ kubectl -n a09-lifecycle logs lifecycle-liveness --all-containers=true
+App started
+Health file removed
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/09-startup.yaml
+++ head -1
++ name=lifecycle-startup
++ kubectl -n a09-lifecycle get pod lifecycle-startup -o wide
+NAME                READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-startup   1/1     Running   0          55s   10.244.0.43   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-startup
++ cat evidence/lifecycle-startup-details.txt
+Name:             lifecycle-startup
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:14 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.43
+IPs:
+  IP:  10.244.0.43
+Containers:
+  slow-app:
+    Container ID:  containerd://8b011ddd4a6333ef0a22e65733640976ba45bfe0fa1254530a7de22b941521d2
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Application starting...'; sleep 30; touch /tmp/started; echo 'Application started'; sleep 300
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:16 +0000
+    Ready:          True
+    Restart Count:  0
+    Startup:        exec [sh -c test -f /tmp/started] delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=10
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-z2nws (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-z2nws:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  55s                default-scheduler  Successfully assigned a09-lifecycle/lifecycle-startup to devops-course
+  Normal   Pulled     54s                kubelet            spec.containers{slow-app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal   Created    53s                kubelet            spec.containers{slow-app}: Container created
+  Normal   Started    53s                kubelet            spec.containers{slow-app}: Container started
+  Warning  Unhealthy  25s (x6 over 50s)  kubelet            spec.containers{slow-app}: Startup probe failed:
++ kubectl -n a09-lifecycle logs lifecycle-startup --all-containers=true
+Application starting...
+Application started
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/10-init-container.yaml
+++ head -1
++ name=lifecycle-init
++ kubectl -n a09-lifecycle get pod lifecycle-init -o wide
+NAME             READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-init   1/1     Running   0          56s   10.244.0.44   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-init
++ cat evidence/lifecycle-init-details.txt
+Name:             lifecycle-init
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:15 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.44
+IPs:
+  IP:  10.244.0.44
+Init Containers:
+  setup:
+    Container ID:  containerd://1bf54bbdeb64870535bd7fc8f640eb17024ef670b392dfe51ba7f79728a97d83
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Init container running'; sleep 10; echo 'Init complete'
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 08:11:17 +0000
+      Finished:     Wed, 07 Oct 2026 08:11:27 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hnx87 (ro)
+Containers:
+  app:
+    Container ID:   containerd://7e59c4510194c776556ba44e933a355640a1d373e0ac33654b510a55357cdab5
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:39 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-hnx87 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-hnx87:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  56s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-init to devops-course
+  Normal  Pulled     55s   kubelet            spec.initContainers{setup}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    54s   kubelet            spec.initContainers{setup}: Container created
+  Normal  Started    54s   kubelet            spec.initContainers{setup}: Container started
+  Normal  Pulling    43s   kubelet            spec.containers{app}: Pulling image "nginx:1.27"
+  Normal  Pulled     33s   kubelet            spec.containers{app}: Successfully pulled image "nginx:1.27" in 2.377s (10.655s including waiting). Image size: 72406859 bytes.
+  Normal  Created    32s   kubelet            spec.containers{app}: Container created
+  Normal  Started    32s   kubelet            spec.containers{app}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-init --all-containers=true
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/10/07 08:11:39 [notice] 1#1: using the "epoll" event method
+2026/10/07 08:11:39 [notice] 1#1: nginx/1.27.5
+2026/10/07 08:11:39 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
+2026/10/07 08:11:39 [notice] 1#1: OS: Linux 6.8.0-142-generic
+2026/10/07 08:11:39 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/07 08:11:39 [notice] 1#1: start worker processes
+2026/10/07 08:11:39 [notice] 1#1: start worker process 29
+2026/10/07 08:11:39 [notice] 1#1: start worker process 30
+2026/10/07 08:11:39 [notice] 1#1: start worker process 31
+2026/10/07 08:11:39 [notice] 1#1: start worker process 32
+Init container running
+Init complete
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/11-multi-container.yaml
+++ head -1
++ name=lifecycle-multi-container
++ kubectl -n a09-lifecycle get pod lifecycle-multi-container -o wide
+NAME                        READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-multi-container   2/2     Running   0          57s   10.244.0.45   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-multi-container
++ cat evidence/lifecycle-multi-container-details.txt
+Name:             lifecycle-multi-container
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:15 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.45
+IPs:
+  IP:  10.244.0.45
+Containers:
+  app:
+    Container ID:   containerd://8b869378cb30a052bdf2b2272e5eb994df6414699f03d5d60cea3fd95f4e55f4
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-86d2g (ro)
+  sidecar:
+    Container ID:  containerd://03c8e90ca7f4f94e78b813be7d88b2271d4ef25bc497d09ec3281d0048efe7ca
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do echo 'Sidecar is running'; sleep 10; done
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-86d2g (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-86d2g:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  57s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-multi-container to devops-course
+  Normal  Pulling    55s   kubelet            spec.containers{app}: Pulling image "nginx:1.27"
+  Normal  Pulled     36s   kubelet            spec.containers{app}: Successfully pulled image "nginx:1.27" in 2.255s (19.25s including waiting). Image size: 72406859 bytes.
+  Normal  Created    36s   kubelet            spec.containers{app}: Container created
+  Normal  Started    36s   kubelet            spec.containers{app}: Container started
+  Normal  Pulled     36s   kubelet            spec.containers{sidecar}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    36s   kubelet            spec.containers{sidecar}: Container created
+  Normal  Started    35s   kubelet            spec.containers{sidecar}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-multi-container --all-containers=true
+/docker-entrypoint.sh: /docker-entrypoint.d/ is not empty, will attempt to perform configuration
+/docker-entrypoint.sh: Looking for shell scripts in /docker-entrypoint.d/
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/10-listen-on-ipv6-by-default.sh
+10-listen-on-ipv6-by-default.sh: info: Getting the checksum of /etc/nginx/conf.d/default.conf
+10-listen-on-ipv6-by-default.sh: info: Enabled listen on IPv6 in /etc/nginx/conf.d/default.conf
+/docker-entrypoint.sh: Sourcing /docker-entrypoint.d/15-local-resolvers.envsh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/20-envsubst-on-templates.sh
+/docker-entrypoint.sh: Launching /docker-entrypoint.d/30-tune-worker-processes.sh
+/docker-entrypoint.sh: Configuration complete; ready for start up
+2026/10/07 08:11:36 [notice] 1#1: using the "epoll" event method
+2026/10/07 08:11:36 [notice] 1#1: nginx/1.27.5
+2026/10/07 08:11:36 [notice] 1#1: built by gcc 12.2.0 (Debian 12.2.0-14) 
+2026/10/07 08:11:36 [notice] 1#1: OS: Linux 6.8.0-142-generic
+2026/10/07 08:11:36 [notice] 1#1: getrlimit(RLIMIT_NOFILE): 1048576:1048576
+2026/10/07 08:11:36 [notice] 1#1: start worker processes
+2026/10/07 08:11:36 [notice] 1#1: start worker process 28
+2026/10/07 08:11:36 [notice] 1#1: start worker process 29
+2026/10/07 08:11:36 [notice] 1#1: start worker process 30
+2026/10/07 08:11:36 [notice] 1#1: start worker process 31
+Sidecar is running
+Sidecar is running
+Sidecar is running
+Sidecar is running
++ for file in pod-lifecycle/*.yaml
+++ sed -n 's/^  name: //p' pod-lifecycle/12-termination.yaml
+++ head -1
++ name=lifecycle-termination
++ kubectl -n a09-lifecycle get pod lifecycle-termination -o wide
+NAME                    READY   STATUS    RESTARTS   AGE   IP            NODE            NOMINATED NODE   READINESS GATES
+lifecycle-termination   1/1     Running   0          58s   10.244.0.46   devops-course   <none>           <none>
++ kubectl -n a09-lifecycle describe pod lifecycle-termination
++ cat evidence/lifecycle-termination-details.txt
+Name:             lifecycle-termination
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:16 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.46
+IPs:
+  IP:  10.244.0.46
+Containers:
+  graceful-app:
+    Container ID:  containerd://44ca8b0e6ce91fe5547a71d2842126765e92c9789934812d066b64ac25ecefd3
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      trap 'echo "SIGTERM received; cleaning up..."; sleep 10; echo "Cleanup complete"; exit 0' TERM
+      echo "Application running"
+      while true; do sleep 2; done
+      
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:18 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-xf28s (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-xf28s:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  58s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-termination to devops-course
+  Normal  Pulled     56s   kubelet            spec.containers{graceful-app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    55s   kubelet            spec.containers{graceful-app}: Container created
+  Normal  Started    55s   kubelet            spec.containers{graceful-app}: Container started
++ kubectl -n a09-lifecycle logs lifecycle-termination --all-containers=true
+Application running
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-running --timeout=120s
+pod/lifecycle-running condition met
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-readiness --timeout=120s
+pod/lifecycle-readiness condition met
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-startup --timeout=120s
+pod/lifecycle-startup condition met
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-init --timeout=120s
+pod/lifecycle-init condition met
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-multi-container --timeout=120s
+pod/lifecycle-multi-container condition met
++ for name in lifecycle-running lifecycle-readiness lifecycle-startup lifecycle-init lifecycle-multi-container lifecycle-termination
++ kubectl -n a09-lifecycle wait --for=condition=Ready pod/lifecycle-termination --timeout=120s
+pod/lifecycle-termination condition met
++ kubectl -n a09-lifecycle get pods
+NAME                        READY   STATUS             RESTARTS      AGE
+lifecycle-crashloop         0/1     Error              3 (41s ago)   64s
+lifecycle-failed            0/1     Error              0             64s
+lifecycle-image-error       0/1     ImagePullBackOff   0             63s
+lifecycle-init              1/1     Running            0             61s
+lifecycle-liveness          1/1     Running            1 (2s ago)    62s
+lifecycle-multi-container   2/2     Running            0             61s
+lifecycle-pending           0/1     Pending            0             65s
+lifecycle-readiness         1/1     Running            0             63s
+lifecycle-running           1/1     Running            0             66s
+lifecycle-startup           1/1     Running            0             62s
+lifecycle-succeeded         0/1     Completed          0             65s
+lifecycle-termination       1/1     Running            0             61s
++ kubectl -n a09-lifecycle get pod lifecycle-succeeded -o 'jsonpath={.status.phase}{"\n"}'
++ grep Succeeded
+Succeeded
++ kubectl -n a09-lifecycle get pod lifecycle-failed -o 'jsonpath={.status.phase}{"\n"}'
++ grep Failed
+Failed
++ kubectl -n a09-lifecycle get pod lifecycle-pending -o 'jsonpath={.status.phase}{"\n"}'
++ grep Pending
+Pending
++ kubectl -n a09-lifecycle get pod lifecycle-liveness -o 'jsonpath={.status.containerStatuses[0].restartCount}{"\n"}'
+1
++ log_pid=111460
++ kubectl -n a09-lifecycle delete pod lifecycle-termination
++ kubectl -n a09-lifecycle logs -f lifecycle-termination
+pod "lifecycle-termination" deleted from a09-lifecycle namespace
++ wait 111460
++ cat evidence/termination-log.txt
+Application running
+SIGTERM received; cleaning up...
+Cleanup complete
++ kubectl -n a09-lifecycle get events --sort-by=.metadata.creationTimestamp
+LAST SEEN   TYPE      REASON             OBJECT                          MESSAGE
+79s         Normal    Scheduled          pod/lifecycle-running           Successfully assigned a09-lifecycle/lifecycle-running to devops-course
+78s         Normal    Pulling            pod/lifecycle-running           Pulling image "nginx:1.27"
+1s          Warning   FailedScheduling   pod/lifecycle-pending           0/1 nodes are available: 1 Insufficient memory. no new claims to deallocate, preemption: 0/1 nodes are available: 1 Preemption is not helpful for scheduling.
+78s         Normal    Scheduled          pod/lifecycle-succeeded         Successfully assigned a09-lifecycle/lifecycle-succeeded to devops-course
+77s         Normal    Created            pod/lifecycle-succeeded         Container created
+77s         Normal    Scheduled          pod/lifecycle-crashloop         Successfully assigned a09-lifecycle/lifecycle-crashloop to devops-course
+77s         Normal    Scheduled          pod/lifecycle-failed            Successfully assigned a09-lifecycle/lifecycle-failed to devops-course
+77s         Normal    Pulled             pod/lifecycle-succeeded         Container image "busybox:1.36" already present on machine and can be accessed by the pod
+76s         Normal    Scheduled          pod/lifecycle-image-error       Successfully assigned a09-lifecycle/lifecycle-image-error to devops-course
+76s         Normal    Started            pod/lifecycle-succeeded         Container started
+76s         Normal    Started            pod/lifecycle-failed            Container started
+76s         Normal    Created            pod/lifecycle-failed            Container created
+76s         Normal    Pulled             pod/lifecycle-failed            Container image "busybox:1.36" already present on machine and can be accessed by the pod
+76s         Normal    Scheduled          pod/lifecycle-readiness         Successfully assigned a09-lifecycle/lifecycle-readiness to devops-course
+29s         Normal    Pulled             pod/lifecycle-crashloop         Container image "busybox:1.36" already present on machine and can be accessed by the pod
+20s         Normal    Pulling            pod/lifecycle-image-error       Pulling image "jakwehrgkaejw:kahsdfgkhj"
+29s         Normal    Created            pod/lifecycle-crashloop         Container created
+29s         Normal    Started            pod/lifecycle-crashloop         Container started
+75s         Normal    Scheduled          pod/lifecycle-liveness          Successfully assigned a09-lifecycle/lifecycle-liveness to devops-course
+75s         Normal    Pulling            pod/lifecycle-readiness         Pulling image "nginx:1.27"
+75s         Normal    Scheduled          pod/lifecycle-startup           Successfully assigned a09-lifecycle/lifecycle-startup to devops-course
+74s         Normal    Pulled             pod/lifecycle-startup           Container image "busybox:1.36" already present on machine and can be accessed by the pod
+15s         Normal    Pulled             pod/lifecycle-liveness          Container image "busybox:1.36" already present on machine and can be accessed by the pod
+15s         Normal    Created            pod/lifecycle-liveness          Container created
+15s         Normal    Started            pod/lifecycle-liveness          Container started
+74s         Normal    Scheduled          pod/lifecycle-init              Successfully assigned a09-lifecycle/lifecycle-init to devops-course
+74s         Normal    Scheduled          pod/lifecycle-multi-container   Successfully assigned a09-lifecycle/lifecycle-multi-container to devops-course
+74s         Normal    Scheduled          pod/lifecycle-termination       Successfully assigned a09-lifecycle/lifecycle-termination to devops-course
+73s         Normal    Pulled             pod/lifecycle-init              Container image "busybox:1.36" already present on machine and can be accessed by the pod
+73s         Normal    Started            pod/lifecycle-startup           Container started
+73s         Normal    Created            pod/lifecycle-startup           Container created
+72s         Normal    Pulling            pod/lifecycle-multi-container   Pulling image "nginx:1.27"
+72s         Normal    Started            pod/lifecycle-init              Container started
+72s         Normal    Created            pod/lifecycle-init              Container created
+72s         Normal    Pulled             pod/lifecycle-termination       Container image "busybox:1.36" already present on machine and can be accessed by the pod
+71s         Normal    Created            pod/lifecycle-termination       Container created
+71s         Normal    Started            pod/lifecycle-termination       Container started
+45s         Warning   Unhealthy          pod/lifecycle-startup           Startup probe failed:
+25s         Warning   BackOff            pod/lifecycle-crashloop         Back-off restarting failed container crashing-app in pod lifecycle-crashloop_a09-lifecycle(4072ad31-f13a-4210-b5e8-faece5f5d16a)
+61s         Normal    Pulling            pod/lifecycle-init              Pulling image "nginx:1.27"
+59s         Normal    Pulled             pod/lifecycle-running           Successfully pulled image "nginx:1.27" in 18.625s (18.625s including waiting). Image size: 72406859 bytes.
+59s         Normal    Started            pod/lifecycle-running           Container started
+59s         Normal    Created            pod/lifecycle-running           Container created
+18s         Warning   Failed             pod/lifecycle-image-error       Failed to pull image "jakwehrgkaejw:kahsdfgkhj": failed to pull and unpack image "docker.io/library/jakwehrgkaejw:kahsdfgkhj": failed to resolve reference "docker.io/library/jakwehrgkaejw:kahsdfgkhj": pull access denied, repository does not exist or may require authorization: server message: insufficient_scope: authorization failed
+18s         Warning   Failed             pod/lifecycle-image-error       Error: ErrImagePull
+4s          Warning   Failed             pod/lifecycle-image-error       Error: ImagePullBackOff
+4s          Normal    BackOff            pod/lifecycle-image-error       Back-off pulling image "jakwehrgkaejw:kahsdfgkhj"
+55s         Normal    Created            pod/lifecycle-readiness         Container created
+55s         Normal    Started            pod/lifecycle-readiness         Container started
+55s         Normal    Pulled             pod/lifecycle-readiness         Successfully pulled image "nginx:1.27" in 2.241s (19.185s including waiting). Image size: 72406859 bytes.
+53s         Normal    Created            pod/lifecycle-multi-container   Container created
+53s         Normal    Started            pod/lifecycle-multi-container   Container started
+53s         Normal    Pulled             pod/lifecycle-multi-container   Container image "busybox:1.36" already present on machine and can be accessed by the pod
+53s         Normal    Created            pod/lifecycle-multi-container   Container created
+53s         Normal    Pulled             pod/lifecycle-multi-container   Successfully pulled image "nginx:1.27" in 2.255s (19.25s including waiting). Image size: 72406859 bytes.
+52s         Normal    Started            pod/lifecycle-multi-container   Container started
+51s         Normal    Pulled             pod/lifecycle-init              Successfully pulled image "nginx:1.27" in 2.377s (10.655s including waiting). Image size: 72406859 bytes.
+50s         Normal    Started            pod/lifecycle-init              Container started
+45s         Warning   Unhealthy          pod/lifecycle-liveness          Liveness probe failed:
+50s         Normal    Created            pod/lifecycle-init              Container created
+45s         Normal    Killing            pod/lifecycle-liveness          Container app failed liveness probe, will be restarted
+11s         Normal    Killing            pod/lifecycle-termination       Stopping container graceful-app
+
+```

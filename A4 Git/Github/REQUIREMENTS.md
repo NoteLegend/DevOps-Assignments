@@ -1,0 +1,39 @@
+# Assignment 04 — Sessions 05
+
+Docker Hello World Applications. PDF pages [5, 6]. User-corrected session mapping.
+
+```text
+ 
+Docker Homework Tasks 
+Task: Hello World Applications 
+Create simple Hello World web applications using Docker for: 
+●​ Node.js application (preferably React) 
+●​ Python application 
+●​ Java application 
+●​ Apache web server 
+●​ React application 
+●​ Nginx application 
+Requirements 
+For each application: 
+●​ Create a separate folder: 
+○​ nodejs-app 
+○​ python-app 
+○​ java-app 
+○​ Apache-app 
+○​ React-app 
+○​ nginx-app 
+ 
+●​ Add the application code. 
+●​ Create a Dockerfile. 
+●​ Build the Docker image. 
+●​ Run the application using Docker. 
+●​ Verify that Hello World is displayed on a webpage. 
+Submission 
+●​ Push all applications and Dockerfiles to your GitHub repository. 
+
+ 
+●​ Maintain the folder structure mentioned above. 
+ 
+ 
+
+```

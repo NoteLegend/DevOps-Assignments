@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"up","instance":"127.0.0.1:8090","job":"application"},"value":[1791363083.837,"1"]},{"metric":{"__name__":"up","instance":"127.0.0.1:9100","job":"local-node"},"value":[1791363083.837,"1"]}]}}

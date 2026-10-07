@@ -1,0 +1,180 @@
+Executed 2026-10-07T14:48:16.366055+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-08-Session-09
+Script: tutorial-api-and-failure.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl create namespace a08-more
+namespace/a08-more created
++ kubectl -n a08-more create deployment kubernetes-bootcamp --image=gcr.io/google-samples/kubernetes-bootcamp:v1
+deployment.apps/kubernetes-bootcamp created
++ kubectl -n a08-more rollout status deployment/kubernetes-bootcamp --timeout=180s
+Waiting for deployment "kubernetes-bootcamp" rollout to finish: 0 of 1 updated replicas are available...
+deployment "kubernetes-bootcamp" successfully rolled out
++ kubectl -n a08-more expose deployment kubernetes-bootcamp --type=NodePort --port=8080
+service/kubernetes-bootcamp exposed
++ ../../.local-tools/vm.sh 'nohup kubectl proxy --port=8001 >/tmp/devops-a08-proxy.log 2>&1 </dev/null & echo $! >/tmp/devops-a08-proxy.pid'
++ ../../.local-tools/vm.sh 'curl --retry 10 --retry-all-errors --retry-delay 1 -fsS http://127.0.0.1:8001/version; curl -fsS http://127.0.0.1:8001/api/v1/namespaces/a08-more/services/kubernetes-bootcamp:8080/proxy/'
+{
+  "major": "1",
+  "minor": "36",
+  "emulationMajor": "1",
+  "emulationMinor": "36",
+  "minCompatibilityMajor": "1",
+  "minCompatibilityMinor": "35",
+  "gitVersion": "v1.36.0",
+  "gitCommit": "ecf6decece6a6de25a57aad9ba90b6ce580f6f78",
+  "gitTreeState": "clean",
+  "buildDate": "2026-04-22T13:51:52Z",
+  "goVersion": "go1.26.2",
+  "compiler": "gc",
+  "platform": "linux/amd64"
+}Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-66d5c96cb-s8j2x | v=1
+++ kubectl -n a08-more get pods -l app=kubernetes-bootcamp -o 'jsonpath={.items[0].metadata.name}'
++ pod=kubernetes-bootcamp-66d5c96cb-s8j2x
++ kubectl -n a08-more label pod kubernetes-bootcamp-66d5c96cb-s8j2x version=v1
+pod/kubernetes-bootcamp-66d5c96cb-s8j2x labeled
++ kubectl -n a08-more get pods -l version=v1
+NAME                                  READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-66d5c96cb-s8j2x   1/1     Running   0          4s
++ kubectl -n a08-more describe service kubernetes-bootcamp
+Name:                     kubernetes-bootcamp
+Namespace:                a08-more
+Labels:                   app=kubernetes-bootcamp
+Annotations:              <none>
+Selector:                 app=kubernetes-bootcamp
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.96.2.169
+IPs:                      10.96.2.169
+Port:                     <unset>  8080/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  31853/TCP
+Endpoints:                10.244.0.135:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a08-more delete pod kubernetes-bootcamp-66d5c96cb-s8j2x
+pod "kubernetes-bootcamp-66d5c96cb-s8j2x" deleted from a08-more namespace
++ kubectl -n a08-more rollout status deployment/kubernetes-bootcamp --timeout=180s
+deployment "kubernetes-bootcamp" successfully rolled out
++ kubectl -n a08-more get pods
+NAME                                  READY   STATUS    RESTARTS   AGE
+kubernetes-bootcamp-66d5c96cb-2g7ch   1/1     Running   0          32s
++ kubectl -n a08-more set image deployment/kubernetes-bootcamp kubernetes-bootcamp=jocatalin/kubernetes-bootcamp:v10
+deployment.apps/kubernetes-bootcamp image updated
++ kubectl -n a08-more rollout status deployment/kubernetes-bootcamp --timeout=30s
+Waiting for deployment "kubernetes-bootcamp" rollout to finish: 1 old replicas are pending termination...
+error: timed out waiting for the condition
++ echo 'Invalid v10 image prevents rollout, as expected'
+Invalid v10 image prevents rollout, as expected
++ kubectl -n a08-more describe pods
+Name:             kubernetes-bootcamp-66d5c96cb-2g7ch
+Namespace:        a08-more
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 09:16:28 +0000
+Labels:           app=kubernetes-bootcamp
+                  pod-template-hash=66d5c96cb
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.136
+IPs:
+  IP:           10.244.0.136
+Controlled By:  ReplicaSet/kubernetes-bootcamp-66d5c96cb
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   containerd://e893d2d87107cdf3b3c752a7de37d79a197bf1cebb5e4ec558c9ba3d99694c3c
+    Image:          gcr.io/google-samples/kubernetes-bootcamp:v1
+    Image ID:       gcr.io/google-samples/kubernetes-bootcamp@sha256:0d6b8ee63bb57c5f5b6156f446b3bc3b3c143d233037f3a2f00e279c8fcc64af
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 07 Oct 2026 09:16:29 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zxdpz (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-zxdpz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             kubernetes-bootcamp-fd885dc6c-dsqq5
+Namespace:        a08-more
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 09:17:01 +0000
+Labels:           app=kubernetes-bootcamp
+                  pod-template-hash=fd885dc6c
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.137
+IPs:
+  IP:           10.244.0.137
+Controlled By:  ReplicaSet/kubernetes-bootcamp-fd885dc6c
+Containers:
+  kubernetes-bootcamp:
+    Container ID:   
+    Image:          jocatalin/kubernetes-bootcamp:v10
+    Image ID:       
+    Port:           <none>
+    Host Port:      <none>
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cw8l8 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-cw8l8:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
++ kubectl -n a08-more rollout undo deployment/kubernetes-bootcamp
+deployment.apps/kubernetes-bootcamp rolled back
++ kubectl -n a08-more rollout status deployment/kubernetes-bootcamp --timeout=180s
+deployment "kubernetes-bootcamp" successfully rolled out
++ ../../.local-tools/vm.sh 'curl -fsS http://127.0.0.1:8001/api/v1/namespaces/a08-more/services/kubernetes-bootcamp:8080/proxy/; kill "$(cat /tmp/devops-a08-proxy.pid)"'
+Hello Kubernetes bootcamp! | Running on: kubernetes-bootcamp-66d5c96cb-2g7ch | v=1
++ kubectl delete namespace a08-more
+namespace "a08-more" deleted

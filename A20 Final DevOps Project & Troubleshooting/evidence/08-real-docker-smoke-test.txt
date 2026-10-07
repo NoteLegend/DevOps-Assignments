@@ -1,0 +1,38 @@
+Executed 2026-10-07T14:29:03.071098+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-20-Session-21
+Script: docker-smoke-test.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ docker run -d --name devops-a20-smoke --label assignment=20 -p 8080:8080 devops-a20-final:local
+aca2a348e853ec2176e830498a6f554f478d7c92cbf17747275db444c27eeda4
++ curl --retry 15 --retry-all-errors --retry-delay 2 --max-time 10 -fsS http://127.0.0.1:8080/health
+curl: (56) Recv failure: Connection reset by peer
+{"secret_injected":false,"status":"healthy","version":"v1"}
++ curl -fsS -H 'Content-Type: application/json' -d '{"marker":"actual-docker-storage-test"}' http://127.0.0.1:8080/storage
+{"marker":"actual-docker-storage-test"}
++ curl -fsS http://127.0.0.1:8080/storage
+{"marker":"actual-docker-storage-test"}
++ curl -fsS http://127.0.0.1:8080/metrics
+# TYPE application_requests_total counter
+application_requests_total 4
+process_cpu_seconds_total 1.235662
+process_peak_memory_bytes 36208640
++ /tmp/devops-tools-venv/bin/python ../../.local-tools/evidence.py . 09-final-docker-page --url http://127.0.0.1:8080
++ docker ps --filter label=assignment=20
+CONTAINER ID   IMAGE                    COMMAND                  CREATED         STATUS         PORTS                                         NAMES
+aca2a348e853   devops-a20-final:local   "python -u applicati…"   6 seconds ago   Up 6 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   devops-a20-smoke
++ docker logs --tail 6 devops-a20-smoke
+{"trace_id": "b7c647c4e2f84f06ac49c195373e137e", "path": "/storage", "status": 200, "duration_ms": 0.364}
+{"trace_id": "3033d795e91649d897359d7bda19d999", "path": "/metrics", "status": 200, "duration_ms": 0.14}
+{"trace_id": "971eaba53b7a4ce993e76445782eb24c", "path": "/", "status": 200, "duration_ms": 0.178}
+10.0.2.2 - - [07/Oct/2026 08:58:58] "GET /storage HTTP/1.1" 200 -
+10.0.2.2 - - [07/Oct/2026 08:58:58] "GET /metrics HTTP/1.1" 200 -
+10.0.2.2 - - [07/Oct/2026 08:58:58] "GET / HTTP/1.1" 200 -
++ docker rm -f devops-a20-smoke
+devops-a20-smoke

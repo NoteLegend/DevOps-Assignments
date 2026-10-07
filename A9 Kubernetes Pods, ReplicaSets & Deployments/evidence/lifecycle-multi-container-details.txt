@@ -1,0 +1,72 @@
+Name:             lifecycle-multi-container
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:15 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.45
+IPs:
+  IP:  10.244.0.45
+Containers:
+  app:
+    Container ID:   containerd://8b869378cb30a052bdf2b2272e5eb994df6414699f03d5d60cea3fd95f4e55f4
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           <none>
+    Host Port:      <none>
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-86d2g (ro)
+  sidecar:
+    Container ID:  containerd://03c8e90ca7f4f94e78b813be7d88b2271d4ef25bc497d09ec3281d0048efe7ca
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      while true; do echo 'Sidecar is running'; sleep 10; done
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:36 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-86d2g (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-86d2g:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  57s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-multi-container to devops-course
+  Normal  Pulling    55s   kubelet            spec.containers{app}: Pulling image "nginx:1.27"
+  Normal  Pulled     36s   kubelet            spec.containers{app}: Successfully pulled image "nginx:1.27" in 2.255s (19.25s including waiting). Image size: 72406859 bytes.
+  Normal  Created    36s   kubelet            spec.containers{app}: Container created
+  Normal  Started    36s   kubelet            spec.containers{app}: Container started
+  Normal  Pulled     36s   kubelet            spec.containers{sidecar}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    36s   kubelet            spec.containers{sidecar}: Container created
+  Normal  Started    35s   kubelet            spec.containers{sidecar}: Container started

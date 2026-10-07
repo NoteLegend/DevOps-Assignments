@@ -1,0 +1,16 @@
+Name:                     final-app
+Namespace:                a20
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=wrong-app
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.101.40.108
+IPs:                      10.101.40.108
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+Endpoints:                
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>

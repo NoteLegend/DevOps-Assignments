@@ -1,0 +1,103 @@
+---
+# Source: demo-chart/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: example-demo-chart
+  labels:
+    helm.sh/chart: demo-chart-0.1.0
+    app.kubernetes.io/name: demo-chart
+    app.kubernetes.io/instance: example
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+automountServiceAccountToken: true
+
+---
+# Source: demo-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: example-demo-chart
+  labels:
+    helm.sh/chart: demo-chart-0.1.0
+    app.kubernetes.io/name: demo-chart
+    app.kubernetes.io/instance: example
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  type: ClusterIP
+  ports:
+    - port: 80
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app.kubernetes.io/name: demo-chart
+    app.kubernetes.io/instance: example
+
+---
+# Source: demo-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-demo-chart
+  labels:
+    helm.sh/chart: demo-chart-0.1.0
+    app.kubernetes.io/name: demo-chart
+    app.kubernetes.io/instance: example
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: demo-chart
+      app.kubernetes.io/instance: example
+  template:
+    metadata:
+      labels:
+        helm.sh/chart: demo-chart-0.1.0
+        app.kubernetes.io/name: demo-chart
+        app.kubernetes.io/instance: example
+        app.kubernetes.io/version: "1.16.0"
+        app.kubernetes.io/managed-by: Helm
+    spec:
+      serviceAccountName: example-demo-chart
+      containers:
+        - name: demo-chart
+          image: "nginx:1.16.0"
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+---
+# Source: demo-chart/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "example-demo-chart-test-connection"
+  labels:
+    helm.sh/chart: demo-chart-0.1.0
+    app.kubernetes.io/name: demo-chart
+    app.kubernetes.io/instance: example
+    app.kubernetes.io/version: "1.16.0"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['example-demo-chart:80']
+  restartPolicy: Never
+

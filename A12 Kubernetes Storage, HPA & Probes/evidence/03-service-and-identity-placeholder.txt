@@ -1,0 +1,41 @@
+Executed 2026-10-07T13:54:01.970213+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-12-Session-13
+Script: verify-service-identity.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl -n production-webapp exec deployment/web-app -- sh -c 'echo "Student: <YOUR NAME>" > /data/student.txt; cat /data/student.txt'
+Student: <YOUR NAME>
++ ../../.local-tools/vm.sh 'nohup kubectl -n production-webapp port-forward --address=0.0.0.0 svc/web-service 8092:80 >/tmp/devops-a12-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a12-forward.pid'
++ curl --retry 15 --retry-all-errors --retry-delay 2 --max-time 10 -fsS http://127.0.0.1:8092
+curl: (56) Recv failure: Connection reset by peer
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
++ /tmp/devops-tools-venv/bin/python ../../.local-tools/evidence.py . 04-mini-project-page --url http://127.0.0.1:8092
++ ../../.local-tools/vm.sh 'kill "$(cat /tmp/devops-a12-forward.pid)"'

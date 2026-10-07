@@ -1,0 +1,57 @@
+Name:             config-error
+Namespace:        a13
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:37:18 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.88
+IPs:
+  IP:  10.244.0.88
+Containers:
+  app:
+    Container ID:  containerd://d109a677740f94393bb3fc50568852aa1e9a1db4e9cd358f2d340ff088093125
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      sleep 3600
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:38:25 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:
+      APP_MODE:  <set to the key 'MODE' of config map 'missing-config'>  Optional: false
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-wz7xt (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-wz7xt:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                From               Message
+  ----     ------     ----               ----               -------
+  Normal   Scheduled  76s                default-scheduler  Successfully assigned a13/config-error to devops-course
+  Warning  Failed     24s (x6 over 75s)  kubelet            spec.containers{app}: Error: configmap "missing-config" not found
+  Normal   Pulled     9s (x7 over 75s)   kubelet            spec.containers{app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal   Created    9s                 kubelet            spec.containers{app}: Container created
+  Normal   Started    9s                 kubelet            spec.containers{app}: Container started

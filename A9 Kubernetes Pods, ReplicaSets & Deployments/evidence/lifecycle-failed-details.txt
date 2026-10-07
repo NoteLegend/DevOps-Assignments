@@ -1,0 +1,58 @@
+Name:             lifecycle-failed
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:12 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Failed
+IP:               10.244.0.38
+IPs:
+  IP:  10.244.0.38
+Containers:
+  task:
+    Container ID:  containerd://7a2babdd258b8d5d2f8d580bc18c58503989aa934616770417249f47613b774d
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      echo 'Task started'; sleep 5; echo 'Task failed'; exit 1
+    State:          Terminated
+      Reason:       Error
+      Exit Code:    1
+      Started:      Wed, 07 Oct 2026 08:11:13 +0000
+      Finished:     Wed, 07 Oct 2026 08:11:18 +0000
+    Ready:          False
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-qcq9v (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   False 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-qcq9v:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  52s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-failed to devops-course
+  Normal  Pulled     51s   kubelet            spec.containers{task}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    51s   kubelet            spec.containers{task}: Container created
+  Normal  Started    51s   kubelet            spec.containers{task}: Container started

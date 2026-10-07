@@ -1,0 +1,47 @@
+Executed 2026-10-07T14:18:59.736368+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19
+Script: validate.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ terraform version
+Terraform v1.16.5
+on linux_amd64
++ cd terraform-project
++ export TF_PLUGIN_CACHE_DIR=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/terraform-cache
++ TF_PLUGIN_CACHE_DIR=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/terraform-cache
++ mkdir -p /home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/terraform-cache
++ terraform init -backend=false -input=false
+Initializing provider plugins...
+- Finding hashicorp/aws versions matching "~> 6.0"...
+- Installing hashicorp/aws v6.67.0...
+- Installed hashicorp/aws v6.67.0 (signed by HashiCorp)
+
+Terraform has created a lock file .terraform.lock.hcl to record the provider
+selections it made above. Include this file in your version control repository
+so that Terraform can guarantee to make the same selections by default when
+you run "terraform init" in the future.
+
+Terraform has been successfully initialized!
+
+You may now begin working with Terraform. Try running "terraform plan" to see
+any changes that are required for your infrastructure. All Terraform commands
+should now work.
+
+If you ever set or change modules or backend configuration for Terraform,
+rerun this command to reinitialize your working directory. If you forget, other
+commands will detect it and remind you to do so if necessary.
++ terraform fmt
+main.tf
+provider.tf
+terraform.tfvars
+variables.tf
++ terraform fmt -check
++ terraform validate
+Success! The configuration is valid.
+

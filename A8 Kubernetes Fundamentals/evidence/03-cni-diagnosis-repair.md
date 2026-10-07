@@ -1,0 +1,56 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+kubectl get nodes
+kubectl -n kube-system get pods -l app=kindnet
+docker exec devops-course crictl images | grep kindnet
+kubectl -n kube-system delete pod -l app=kindnet --force --grace-period=0
+docker exec devops-course systemctl restart containerd kubelet
+kubectl wait --for=condition=Ready nodes --all --timeout=180s
+kubectl -n kube-system get pods
+
+```
+
+```text
+Executed 2026-10-07T13:32:43.841016+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-08-Session-09
+Script: repair-cni.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl get nodes
+NAME            STATUS     ROLES           AGE     VERSION
+devops-course   NotReady   control-plane   4m24s   v1.36.0
++ kubectl -n kube-system get pods -l app=kindnet
+NAME            READY   STATUS        RESTARTS   AGE
+kindnet-lk6wh   0/1     Terminating   0          4m15s
++ docker exec devops-course crictl images
++ grep kindnet
+docker.io/kindest/kindnetd                v20250512-df8de77b   409467f978b4a       44.4MB
+docker.io/kindest/kindnetd                v20260820-69b56db7   4626fe10df5b9       39.7MB
++ kubectl -n kube-system delete pod -l app=kindnet --force --grace-period=0
+Warning: Immediate deletion does not wait for confirmation that the running resource has been terminated. The resource may continue to run on the cluster indefinitely.
+pod "kindnet-lk6wh" force deleted from kube-system namespace
++ docker exec devops-course systemctl restart containerd kubelet
++ kubectl wait --for=condition=Ready nodes --all --timeout=180s
+node/devops-course condition met
++ kubectl -n kube-system get pods
+NAME                                    READY   STATUS              RESTARTS   AGE
+coredns-589f44dc88-7r7bm                0/1     ContainerCreating   0          4m31s
+etcd-devops-course                      1/1     Running             0          4m37s
+kindnet-w2tvm                           1/1     Running             0          17s
+kube-apiserver-devops-course            1/1     Running             0          4m37s
+kube-controller-manager-devops-course   1/1     Running             0          4m37s
+kube-proxy-qg2k5                        1/1     Running             0          4m32s
+kube-scheduler-devops-course            1/1     Running             0          4m37s
+storage-provisioner                     0/1     ContainerCreating   0          4m35s
+
+```

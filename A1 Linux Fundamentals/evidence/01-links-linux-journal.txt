@@ -1,0 +1,155 @@
+Executed 2026-10-07T12:53:23.844530+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-01-Session-01-02
+Script: practice-host.sh
+Exit status: 0
+
++ mkdir -p work/links work/cheatsheet
++ cd work/links
++ printf 'original content\n'
++ ln -s original.txt soft-link
++ ln original.txt hard-link
++ ls -li
+total 12
+121397 -rw-r--r-- 2 rushixd rushixd 17 Oct  7 12:53 hard-link
+121397 -rw-r--r-- 2 rushixd rushixd 17 Oct  7 12:53 original.txt
+121398 lrwxrwxrwx 1 rushixd rushixd 12 Oct  7 12:53 soft-link -> original.txt
++ stat -c '%n inode=%i links=%h type=%F' original.txt soft-link hard-link
+original.txt inode=121397 links=2 type=regular file
+soft-link inode=121398 links=1 type=symbolic link
+hard-link inode=121397 links=2 type=regular file
++ cat soft-link hard-link
+original content
+original content
++ rm original.txt
++ cat soft-link
+cat: soft-link: No such file or directory
++ echo 'Symlink is dangling after target deletion (expected).'
+Symlink is dangling after target deletion (expected).
++ cat hard-link
+original content
++ rm soft-link hard-link
++ cd ../cheatsheet
++ pwd
+/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-01-Session-01-02/work/cheatsheet
++ printf 'INFO started\nERROR demo\nINFO finished\n'
++ ls -l
+total 4
+-rw-r--r-- 1 rushixd rushixd 38 Oct  7 12:53 app.log
++ cp app.log copy.log
++ mv copy.log renamed.log
++ cat app.log
+INFO started
+ERROR demo
+INFO finished
++ head -n 2 app.log
+INFO started
+ERROR demo
++ tail -n 1 app.log
+INFO finished
++ grep ERROR app.log
+ERROR demo
++ chmod 640 app.log
++ stat -c '%a %n' app.log
+640 app.log
++ find . -type f -name '*.log'
+./app.log
+./renamed.log
++ du -sh .
+8.0K	.
++ df -h .
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/nvme0n1p6   91G   33G   58G  37% /home
++ head -20
+++ id -u
++ ps -u 1000 -o pid,comm
+    PID COMMAND
+   1413 systemd
+   1416 (sd-pam)
+   1425 sh
+   1445 dbus-broker-lau
+   1446 dbus-broker
+   1455 waitpid
+   1457 systemctl
+   1507 start-hyprland
+   1512 Hyprland
+   1546 polkit-gnome-au
+   1547 wl-paste
+   1548 wl-paste
+   1555 mpris-proxy
+   1559 gnome-keyring-d
+   1568 dconf-service
+   1585 Xwayland
+   1598 at-spi-bus-laun
+   1604 dbus-broker-lau
+   1605 dbus-broker
++ demo_pid=94667
++ kill 94667
++ wait 94667
++ true
++ uname -a
+Linux rushi-OMENcachyOS 7.2.0-1-cachyos #1 SMP PREEMPT_DYNAMIC Thu, 20 Aug 2026 16:18:38 +0000 x86_64 GNU/Linux
++ hostname
+rushi-OMENcachyOS
++ whoami
+rushixd
++ id
+uid=1000(rushixd) gid=1000(rushixd) groups=1000(rushixd),3(sys),90(network),967(nopasswdlogin),980(rfkill),982(users),983(video),985(storage),989(lp),995(audio),998(wheel)
++ groups
+rushixd sys network nopasswdlogin rfkill users video storage lp audio wheel
++ uptime
+ 12:53:23 up  3:06,  1 user,  load average: 1.80, 2.01, 1.90
++ free -h
+               total        used        free      shared  buff/cache   available
+Mem:            15Gi       5.4Gi       2.8Gi       850Mi       8.5Gi       9.9Gi
+Swap:           24Gi       189Mi        24Gi
++ date --iso-8601=seconds
+2026-10-07T12:53:23+05:30
++ umask
+0022
++ lsblk -o NAME,SIZE,TYPE
++ head -20
+NAME          SIZE TYPE
+zram0        15.3G disk
+nvme0n1     953.9G disk
+├─nvme0n1p1   260M part
+├─nvme0n1p2    16M part
+├─nvme0n1p3 852.1G part
+├─nvme0n1p4   846M part
+├─nvme0n1p5   1.5G part
+├─nvme0n1p6  90.1G part
+└─nvme0n1p7   9.1G part
++ systemctl --user list-units --type=service --state=running --no-pager
++ head -20
+  UNIT                                         LOAD   ACTIVE SUB     DESCRIPTION
+  at-spi-dbus-bus.service                      loaded active running Accessibility services bus
+  dbus-:1.17-org.a11y.atspi.Registry@0.service loaded active running dbus-:1.17-org.a11y.atspi.Registry@0.service
+  dbus-broker.service                          loaded active running D-Bus User Message Bus
+  dconf.service                                loaded active running User preferences database
+  gnome-keyring-daemon.service                 loaded active running GNOME Keyring daemon
+  pipewire-pulse.service                       loaded active running PipeWire PulseAudio
+  pipewire.service                             loaded active running PipeWire Multimedia Service
+  wayland-session-bindpid@1425.service         loaded active running Bind graphical session to PID 1425
+  wayland-wm@hyprland.desktop.service          loaded active running Main service for Hyprland, An intelligent dynamic tiling Wayland compositor
+  wireplumber.service                          loaded active running Multimedia Service Session Manager
+  xdg-desktop-portal-gtk.service               loaded active running Portal service (GTK/GNOME implementation)
+  xdg-desktop-portal-hyprland.service          loaded active running Portal service (Hyprland implementation)
+  xdg-desktop-portal.service                   loaded active running Portal service
+  xdg-document-portal.service                  loaded active running flatpak document portal service
+  xdg-permission-store.service                 loaded active running sandboxed app permission store
+
+Legend: LOAD   → Reflects whether the unit definition was properly loaded.
+        ACTIVE → The high-level unit activation state, i.e. generalization of SUB.
+        SUB    → The low-level unit activation state, values depend on unit type.
++ journalctl --user -n 5 --no-pager
+Oct 07 12:39:49 rushi-OMENcachyOS gcr-prompter[88162]: Gcr: unregistering prompter
+Oct 07 12:39:49 rushi-OMENcachyOS gcr-prompter[88162]: Gcr: disposing prompter
+Oct 07 12:39:49 rushi-OMENcachyOS gcr-prompter[88162]: Gcr: finalizing prompter
+Oct 07 12:47:36 rushi-OMENcachyOS sudo[92506]:  rushixd : a password is required ; PWD=/home/rushixd/Wurk/Scaler/DevOps ; USER=root ; COMMAND=/usr/bin/true
+Oct 07 12:50:41 rushi-OMENcachyOS systemd[1413]: Started app-org.chromium.Chromium-93464.scope.
++ journalctl -u docker.service -n 5 --no-pager
+Oct 07 09:46:56 rushi-OMENcachyOS dockerd[1071]: time="2026-10-07T09:46:56.588553869+05:30" level=info msg="Initializing buildkit"
+Oct 07 09:46:56 rushi-OMENcachyOS dockerd[1071]: time="2026-10-07T09:46:56.664716644+05:30" level=info msg="Completed buildkit initialization"
+Oct 07 09:46:56 rushi-OMENcachyOS dockerd[1071]: time="2026-10-07T09:46:56.668363426+05:30" level=info msg="Daemon has completed initialization"
+Oct 07 09:46:56 rushi-OMENcachyOS dockerd[1071]: time="2026-10-07T09:46:56.668434226+05:30" level=info msg="API listen on /run/docker.sock"
+Oct 07 09:46:56 rushi-OMENcachyOS systemd[1]: Started Docker Application Container Engine.
++ rm renamed.log

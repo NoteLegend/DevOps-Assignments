@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"instance":"127.0.0.1:9100","job":"local-node"},"value":[1791363083.894,"22.52198798695455"]}]}}

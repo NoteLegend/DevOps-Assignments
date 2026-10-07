@@ -1,0 +1,58 @@
+Name:             lifecycle-termination
+Namespace:        a09-lifecycle
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:11:16 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.46
+IPs:
+  IP:  10.244.0.46
+Containers:
+  graceful-app:
+    Container ID:  containerd://44ca8b0e6ce91fe5547a71d2842126765e92c9789934812d066b64ac25ecefd3
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      trap 'echo "SIGTERM received; cleaning up..."; sleep 10; echo "Cleanup complete"; exit 0' TERM
+      echo "Application running"
+      while true; do sleep 2; done
+      
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:11:18 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-xf28s (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-xf28s:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age   From               Message
+  ----    ------     ----  ----               -------
+  Normal  Scheduled  58s   default-scheduler  Successfully assigned a09-lifecycle/lifecycle-termination to devops-course
+  Normal  Pulled     56s   kubelet            spec.containers{graceful-app}: Container image "busybox:1.36" already present on machine and can be accessed by the pod
+  Normal  Created    55s   kubelet            spec.containers{graceful-app}: Container created
+  Normal  Started    55s   kubelet            spec.containers{graceful-app}: Container started

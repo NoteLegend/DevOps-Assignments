@@ -1,0 +1,184 @@
+Executed 2026-10-07T14:03:07.102976+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-12-Session-13
+Script: verify-probe-examples.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl -n default get pods liveness-demo readiness-demo startup-demo
+NAME             READY   STATUS    RESTARTS   AGE
+liveness-demo    1/1     Running   0          6m41s
+readiness-demo   1/1     Running   0          6m41s
+startup-demo     1/1     Running   0          6m41s
++ for name in liveness-demo readiness-demo startup-demo
++ kubectl -n default describe pod liveness-demo
+Name:             liveness-demo
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:26:23 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.78
+IPs:
+  IP:  10.244.0.78
+Containers:
+  nginx:
+    Container ID:   containerd://cee21024896634734aaa5010f95a76f15f5bedbc84a093f40b6c77b84ee35ffa
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:26:25 +0000
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:80/ delay=5s timeout=2s period=5s successThreshold=1 failureThreshold=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-cs782 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-cs782:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m41s  default-scheduler  Successfully assigned default/liveness-demo to devops-course
+  Normal  Pulled     6m40s  kubelet            spec.containers{nginx}: Container image "nginx:1.27" already present on machine and can be accessed by the pod
+  Normal  Created    6m39s  kubelet            spec.containers{nginx}: Container created
+  Normal  Started    6m39s  kubelet            spec.containers{nginx}: Container started
++ for name in liveness-demo readiness-demo startup-demo
++ kubectl -n default describe pod readiness-demo
+Name:             readiness-demo
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:26:23 +0000
+Labels:           app=readiness-demo
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.79
+IPs:
+  IP:  10.244.0.79
+Containers:
+  nginx:
+    Container ID:   containerd://2ef18fc1e78e4961d63c9030c8c1baa4f84a96aabb6a6e2965a6a1ffe110dcba
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:26:25 +0000
+    Ready:          True
+    Restart Count:  0
+    Readiness:      http-get http://:80/ delay=5s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-x94dv (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-x94dv:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m41s  default-scheduler  Successfully assigned default/readiness-demo to devops-course
+  Normal  Pulled     6m40s  kubelet            spec.containers{nginx}: Container image "nginx:1.27" already present on machine and can be accessed by the pod
+  Normal  Created    6m39s  kubelet            spec.containers{nginx}: Container created
+  Normal  Started    6m39s  kubelet            spec.containers{nginx}: Container started
++ for name in liveness-demo readiness-demo startup-demo
++ kubectl -n default describe pod startup-demo
+Name:             startup-demo
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:26:23 +0000
+Labels:           <none>
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.80
+IPs:
+  IP:  10.244.0.80
+Containers:
+  nginx:
+    Container ID:   containerd://5986e10be0652d279a9298d6803545159b3a315d178237120f0275513e8de6d2
+    Image:          nginx:1.27
+    Image ID:       docker.io/library/nginx@sha256:6784fb0834aa7dbbe12e3d7471e69c290df3e6ba810dc38b34ae33d3c1c05f7d
+    Port:           80/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:26:25 +0000
+    Ready:          True
+    Restart Count:  0
+    Liveness:       http-get http://:80/ delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:      http-get http://:80/ delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Startup:        http-get http://:80/ delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment:    <none>
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-r7g5d (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-r7g5d:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type    Reason     Age    From               Message
+  ----    ------     ----   ----               -------
+  Normal  Scheduled  6m42s  default-scheduler  Successfully assigned default/startup-demo to devops-course
+  Normal  Pulled     6m40s  kubelet            spec.containers{nginx}: Container image "nginx:1.27" already present on machine and can be accessed by the pod
+  Normal  Created    6m40s  kubelet            spec.containers{nginx}: Container created
+  Normal  Started    6m40s  kubelet            spec.containers{nginx}: Container started
++ kubectl -n default delete pods liveness-demo readiness-demo startup-demo
+pod "liveness-demo" deleted from default namespace
+pod "readiness-demo" deleted from default namespace
+pod "startup-demo" deleted from default namespace

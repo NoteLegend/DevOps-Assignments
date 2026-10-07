@@ -1,0 +1,1 @@
+{"status":"success","data":{"resultType":"vector","result":[{"metric":{"__name__":"application_requests_total","instance":"127.0.0.1:8090","job":"application"},"value":[1791363083.903,"3"]}]}}

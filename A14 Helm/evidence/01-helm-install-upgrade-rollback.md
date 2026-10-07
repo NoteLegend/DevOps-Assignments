@@ -1,0 +1,377 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+helm version --short
+helm create demo-chart
+helm lint demo-chart
+helm template example demo-chart > evidence/generated-chart.yaml
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+helm repo update prometheus-community
+helm repo list
+helm search repo prometheus-community/prometheus | sed -n '1,12p'
+kubectl create namespace a14
+helm lint mini-project/notes-chart
+helm template notes-dev mini-project/notes-chart > evidence/notes-rendered.yaml
+helm install notes-dev mini-project/notes-chart -n a14 --wait --timeout=3m
+helm list -n a14
+helm status notes-dev -n a14
+helm get all notes-dev -n a14
+kubectl -n a14 exec deployment/notes-dev-deploy -- curl -fsS localhost
+kubectl -n a14 exec deployment/notes-dev-deploy -- printenv ENVIRONMENT APP_NAME
+helm upgrade notes-dev mini-project/notes-chart -n a14 -f mini-project/notes-chart/values-prod.yaml --wait --timeout=3m
+kubectl -n a14 get pods
+kubectl -n a14 exec deployment/notes-dev-deploy -- printenv ENVIRONMENT
+helm upgrade notes-dev mini-project/notes-chart -n a14 -f mini-project/notes-chart/values-prod.yaml --set image.tag=broken-tag-does-not-exist
+sleep 35
+kubectl -n a14 get pods
+kubectl -n a14 describe deployment notes-dev-deploy
+helm history notes-dev -n a14
+helm rollback notes-dev 2 -n a14 --wait --timeout=3m
+kubectl -n a14 get pods
+kubectl -n a14 exec deployment/notes-dev-deploy -- curl -fsS localhost
+helm history notes-dev -n a14
+helm uninstall notes-dev -n a14
+helm list -n a14
+kubectl -n a14 get all
+kubectl delete namespace a14
+
+```
+
+```text
+Executed 2026-10-07T14:10:43.118995+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-14-Session-15
+Script: verify.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ helm version --short
+v4.3.0+gbec5b06
++ helm create demo-chart
+Creating demo-chart
++ helm lint demo-chart
+==> Linting demo-chart
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
++ helm template example demo-chart
++ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+"prometheus-community" has been added to your repositories
++ helm repo update prometheus-community
+Hang tight while we grab the latest from your chart repositories...
+...Successfully got an update from the "prometheus-community" chart repository
+Update Complete. ⎈Happy Helming!⎈
++ helm repo list
+NAME                	URL                                               
+prometheus-community	https://prometheus-community.github.io/helm-charts
++ helm search repo prometheus-community/prometheus
++ sed -n 1,12p
+NAME                                              	CHART VERSION	APP VERSION	DESCRIPTION                                       
+prometheus-community/prometheus                   	29.35.0      	v3.15.0    	Prometheus is a monitoring system and time seri...
+prometheus-community/prometheus-adapter           	5.3.0        	v0.12.0    	A Helm chart for k8s prometheus adapter           
+prometheus-community/prometheus-blackbox-exporter 	11.19.1      	v0.28.0    	Prometheus Blackbox Exporter                      
+prometheus-community/prometheus-cloudwatch-expo...	0.28.2       	0.16.0     	A Helm chart for prometheus cloudwatch-exporter   
+prometheus-community/prometheus-conntrack-stats...	0.5.40       	v0.4.48    	A Helm chart for conntrack-stats-exporter         
+prometheus-community/prometheus-consul-exporter   	1.1.1        	v0.13.0    	A Helm chart for the Prometheus Consul Exporter   
+prometheus-community/prometheus-couchdb-exporter  	1.1.0        	1.0        	A Helm chart to export the metrics from couchdb...
+prometheus-community/prometheus-druid-exporter    	1.2.0        	v0.11.0    	Druid exporter to monitor druid metrics with Pr...
+prometheus-community/prometheus-elasticsearch-e...	7.4.0        	v1.11.0    	Elasticsearch stats exporter for Prometheus       
+prometheus-community/prometheus-fastly-exporter   	0.14.1       	v10.3.0    	A Helm chart for the Prometheus Fastly Exporter   
+prometheus-community/prometheus-ipmi-exporter     	0.8.2        	v1.10.1    	This is an IPMI exporter for Prometheus.          
++ kubectl create namespace a14
+namespace/a14 created
++ helm lint mini-project/notes-chart
+==> Linting mini-project/notes-chart
+[INFO] Chart.yaml: icon is recommended
+
+1 chart(s) linted, 0 chart(s) failed
++ helm template notes-dev mini-project/notes-chart
++ helm install notes-dev mini-project/notes-chart -n a14 --wait --timeout=3m
+NAME: notes-dev
+LAST DEPLOYED: Wed Oct  7 08:39:45 2026
+NAMESPACE: a14
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+TEST SUITE: None
++ helm list -n a14
+NAME     	NAMESPACE	REVISION	UPDATED                                	STATUS  	CHART            	APP VERSION
+notes-dev	a14      	1       	2026-10-07 08:39:45.423412397 +0000 UTC	deployed	notes-chart-0.1.0	1.0        
++ helm status notes-dev -n a14
+NAME: notes-dev
+LAST DEPLOYED: Wed Oct  7 08:39:45 2026
+NAMESPACE: a14
+STATUS: deployed
+REVISION: 1
+DESCRIPTION: Install complete
+RESOURCES:
+==> v1/ConfigMap
+NAME               DATA   AGE
+notes-dev-config   2      2s
+
+==> v1/Service
+NAME            TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
+notes-dev-svc   NodePort   10.107.225.22   <none>        80:30090/TCP   2s
+
+==> v1/Deployment
+NAME               READY   UP-TO-DATE   AVAILABLE   AGE
+notes-dev-deploy   1/1     1            1           2s
+
+==> v1/Pod(related)
+NAME                                READY   STATUS    RESTARTS   AGE
+notes-dev-deploy-545b99fc65-xdxzm   1/1     Running   0          2s
+
+
+TEST SUITE: None
++ helm get all notes-dev -n a14
+NAME: notes-dev
+LAST DEPLOYED: Wed Oct  7 08:39:45 2026
+NAMESPACE: a14
+STATUS: deployed
+REVISION: 1
+CHART: notes-chart
+VERSION: 0.1.0
+APP_VERSION: 1.0
+DESCRIPTION: Install complete
+TEST SUITE: None
+USER-SUPPLIED VALUES:
+null
+
+COMPUTED VALUES:
+app:
+  environment: development
+  name: notes-app
+image:
+  repository: nginx
+  tag: "1.24"
+replicaCount: 1
+service:
+  nodePort: 30090
+  port: 80
+
+HOOKS:
+MANIFEST:
+---
+# Source: notes-chart/templates/configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: notes-dev-config
+data:
+  APP_NAME: "notes-app"
+  ENVIRONMENT: "development"
+
+---
+# Source: notes-chart/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: notes-dev-svc
+spec:
+  type: NodePort
+  selector:
+    app: notes-dev
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30090
+
+---
+# Source: notes-chart/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notes-dev-deploy
+  labels:
+    app: notes-dev
+    environment: development
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notes-dev
+  template:
+    metadata:
+      labels:
+        app: notes-dev
+    spec:
+      containers:
+        - name: notes
+          image: "nginx:1.24"
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: notes-dev-config
+
+
++ kubectl -n a14 exec deployment/notes-dev-deploy -- curl -fsS localhost
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
++ kubectl -n a14 exec deployment/notes-dev-deploy -- printenv ENVIRONMENT APP_NAME
+development
+notes-app
++ helm upgrade notes-dev mini-project/notes-chart -n a14 -f mini-project/notes-chart/values-prod.yaml --wait --timeout=3m
+Release "notes-dev" has been upgraded. Happy Helming!
+NAME: notes-dev
+LAST DEPLOYED: Wed Oct  7 08:39:49 2026
+NAMESPACE: a14
+STATUS: deployed
+REVISION: 2
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
++ kubectl -n a14 get pods
+NAME                                READY   STATUS      RESTARTS   AGE
+notes-dev-deploy-545b99fc65-xdxzm   0/1     Completed   0          10s
+notes-dev-deploy-c55458b7b-b7zss    1/1     Running     0          2s
+notes-dev-deploy-c55458b7b-ggmt5    1/1     Running     0          6s
+notes-dev-deploy-c55458b7b-nh5kw    1/1     Running     0          4s
++ kubectl -n a14 exec deployment/notes-dev-deploy -- printenv ENVIRONMENT
+production
++ helm upgrade notes-dev mini-project/notes-chart -n a14 -f mini-project/notes-chart/values-prod.yaml --set image.tag=broken-tag-does-not-exist
+Release "notes-dev" has been upgraded. Happy Helming!
+NAME: notes-dev
+LAST DEPLOYED: Wed Oct  7 08:39:56 2026
+NAMESPACE: a14
+STATUS: deployed
+REVISION: 3
+DESCRIPTION: Upgrade complete
+TEST SUITE: None
++ sleep 35
++ kubectl -n a14 get pods
+NAME                                READY   STATUS         RESTARTS   AGE
+notes-dev-deploy-5dddfdf84b-v5kc4   0/1     ErrImagePull   0          36s
+notes-dev-deploy-c55458b7b-b7zss    1/1     Running        0          39s
+notes-dev-deploy-c55458b7b-ggmt5    1/1     Running        0          43s
+notes-dev-deploy-c55458b7b-nh5kw    1/1     Running        0          41s
++ kubectl -n a14 describe deployment notes-dev-deploy
+Name:                   notes-dev-deploy
+Namespace:              a14
+CreationTimestamp:      Wed, 07 Oct 2026 08:39:45 +0000
+Labels:                 app=notes-dev
+                        app.kubernetes.io/managed-by=Helm
+                        environment=production
+Annotations:            deployment.kubernetes.io/revision: 3
+                        meta.helm.sh/release-name: notes-dev
+                        meta.helm.sh/release-namespace: a14
+Selector:               app=notes-dev
+Replicas:               3 desired | 1 updated | 4 total | 3 available | 1 unavailable
+StrategyType:           RollingUpdate
+MinReadySeconds:        0
+RollingUpdateStrategy:  25% max unavailable, 25% max surge
+Pod Template:
+  Labels:  app=notes-dev
+  Containers:
+   notes:
+    Image:      nginx:broken-tag-does-not-exist
+    Port:       80/TCP
+    Host Port:  0/TCP
+    Environment Variables from:
+      notes-dev-config  ConfigMap  Optional: false
+    Environment:        <none>
+    Mounts:             <none>
+  Volumes:              <none>
+  Node-Selectors:       <none>
+  Tolerations:          <none>
+Conditions:
+  Type           Status  Reason
+  ----           ------  ------
+  Available      True    MinimumReplicasAvailable
+  Progressing    True    ReplicaSetUpdated
+OldReplicaSets:  notes-dev-deploy-545b99fc65 (0/0 replicas created), notes-dev-deploy-c55458b7b (3/3 replicas created)
+NewReplicaSet:   notes-dev-deploy-5dddfdf84b (1/1 replicas created)
+Events:
+  Type    Reason             Age   From                   Message
+  ----    ------             ----  ----                   -------
+  Normal  ScalingReplicaSet  47s   deployment-controller  Scaled up replica set notes-dev-deploy-545b99fc65 from 0 to 1
+  Normal  ScalingReplicaSet  43s   deployment-controller  Scaled up replica set notes-dev-deploy-545b99fc65 from 1 to 3
+  Normal  ScalingReplicaSet  43s   deployment-controller  Scaled up replica set notes-dev-deploy-c55458b7b from 0 to 1
+  Normal  ScalingReplicaSet  41s   deployment-controller  Scaled down replica set notes-dev-deploy-545b99fc65 from 3 to 2
+  Normal  ScalingReplicaSet  41s   deployment-controller  Scaled up replica set notes-dev-deploy-c55458b7b from 1 to 2
+  Normal  ScalingReplicaSet  39s   deployment-controller  Scaled down replica set notes-dev-deploy-545b99fc65 from 2 to 1
+  Normal  ScalingReplicaSet  39s   deployment-controller  Scaled up replica set notes-dev-deploy-c55458b7b from 2 to 3
+  Normal  ScalingReplicaSet  38s   deployment-controller  Scaled down replica set notes-dev-deploy-545b99fc65 from 1 to 0
+  Normal  ScalingReplicaSet  36s   deployment-controller  Scaled up replica set notes-dev-deploy-5dddfdf84b from 0 to 1
++ helm history notes-dev -n a14
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Wed Oct  7 08:39:45 2026	superseded	notes-chart-0.1.0	1.0        	Install complete
+2       	Wed Oct  7 08:39:49 2026	superseded	notes-chart-0.1.0	1.0        	Upgrade complete
+3       	Wed Oct  7 08:39:56 2026	deployed  	notes-chart-0.1.0	1.0        	Upgrade complete
++ helm rollback notes-dev 2 -n a14 --wait --timeout=3m
+Rollback was a success! Happy Helming!
++ kubectl -n a14 get pods
+NAME                               READY   STATUS    RESTARTS   AGE
+notes-dev-deploy-c55458b7b-b7zss   1/1     Running   0          40s
+notes-dev-deploy-c55458b7b-ggmt5   1/1     Running   0          44s
+notes-dev-deploy-c55458b7b-nh5kw   1/1     Running   0          42s
++ kubectl -n a14 exec deployment/notes-dev-deploy -- curl -fsS localhost
+<!DOCTYPE html>
+<html>
+<head>
+<title>Welcome to nginx!</title>
+<style>
+html { color-scheme: light dark; }
+body { width: 35em; margin: 0 auto;
+font-family: Tahoma, Verdana, Arial, sans-serif; }
+</style>
+</head>
+<body>
+<h1>Welcome to nginx!</h1>
+<p>If you see this page, the nginx web server is successfully installed and
+working. Further configuration is required.</p>
+
+<p>For online documentation and support please refer to
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
+
+<p><em>Thank you for using nginx.</em></p>
+</body>
+</html>
++ helm history notes-dev -n a14
+REVISION	UPDATED                 	STATUS    	CHART            	APP VERSION	DESCRIPTION     
+1       	Wed Oct  7 08:39:45 2026	superseded	notes-chart-0.1.0	1.0        	Install complete
+2       	Wed Oct  7 08:39:49 2026	superseded	notes-chart-0.1.0	1.0        	Upgrade complete
+3       	Wed Oct  7 08:39:56 2026	superseded	notes-chart-0.1.0	1.0        	Upgrade complete
+4       	Wed Oct  7 08:40:33 2026	deployed  	notes-chart-0.1.0	1.0        	Rollback to 2   
++ helm uninstall notes-dev -n a14
+release "notes-dev" uninstalled
++ helm list -n a14
+NAME	NAMESPACE	REVISION	UPDATED	STATUS	CHART	APP VERSION
++ kubectl -n a14 get all
+NAME                                   READY   STATUS      RESTARTS   AGE
+pod/notes-dev-deploy-c55458b7b-b7zss   0/1     Completed   0          43s
+pod/notes-dev-deploy-c55458b7b-ggmt5   0/1     Completed   0          47s
+pod/notes-dev-deploy-c55458b7b-nh5kw   0/1     Completed   0          45s
++ kubectl delete namespace a14
+namespace "a14" deleted
+
+```

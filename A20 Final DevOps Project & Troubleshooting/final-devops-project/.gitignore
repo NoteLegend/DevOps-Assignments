@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.terraform/
+*.tfstate*
+*.tfplan
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+runtime-data/

@@ -1,0 +1,17 @@
+Executed 2026-10-07T13:55:37.958244+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-12-Session-13
+Script: observe-scale-down.sh
+Exit status: 1
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ for attempt in {1..45}
++ kubectl -n production-webapp get hpa,pods
+No resources found in production-webapp namespace.
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
+Error from server (NotFound): namespaces "production-webapp" not found
++ replicas=

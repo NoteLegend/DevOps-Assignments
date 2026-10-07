@@ -1,0 +1,144 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+export DOCKER_CONFIG="$DEVOPS_WORKSPACE/.local-tools/runtime/anonymous-docker"
+cd final-devops-project
+docker build -t devops-a20-final:local -f docker/Dockerfile .
+docker run --rm devops-a20-final:local sh -c 'test -z "$(find /app -name "*.pyc")" && echo "No host bytecode copied into runtime"'
+docker save devops-a20-final:local -o /workspace/.local-tools/runtime/a20-image.tar
+trivy image --input ../../../.local-tools/runtime/a20-image.tar --format json --output ../evidence/image-scan.json
+bash security/gate.sh ../../../.local-tools/runtime/a20-image.tar
+minikube -p devops-course image load devops-a20-final:local
+
+```
+
+```text
+Executed 2026-10-07T14:28:53.730970+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-20-Session-21
+Script: verify-clean-image.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ export DOCKER_CONFIG=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/anonymous-docker
++ DOCKER_CONFIG=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/anonymous-docker
++ cd final-devops-project
++ docker build -t devops-a20-final:local -f docker/Dockerfile .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 443B done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-alpine
+#2 DONE 1.1s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 141B 0.0s done
+#3 DONE 0.1s
+
+#4 [internal] load build context
+#4 DONE 0.0s
+
+#5 [dependencies 1/4] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+#5 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.1s done
+#5 DONE 0.2s
+
+#4 [internal] load build context
+#4 transferring context: 232B 0.1s done
+#4 DONE 0.1s
+
+#6 [dependencies 2/4] WORKDIR /app
+#6 CACHED
+
+#7 [dependencies 3/4] COPY requirements.txt .
+#7 CACHED
+
+#8 [dependencies 4/4] RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+#8 CACHED
+
+#9 [stage-1 3/5] COPY --from=dependencies /install /usr/local
+#9 CACHED
+
+#10 [stage-1 4/5] COPY application ./application
+#10 DONE 0.3s
+
+#11 [stage-1 5/5] RUN mkdir /data && chown 10001:10001 /data
+#11 DONE 0.7s
+
+#12 exporting to image
+#12 exporting layers
+#12 exporting layers 1.0s done
+#12 exporting manifest sha256:02c14d6d866e0e8a4dd7bd6b959b55b6c8629f5d93a4cdf9b7b40ade9eacf675 0.1s done
+#12 exporting config sha256:617ea3855ec91d65ea8f64816abf0bee5eb061ae859702e2c105ee0dff310adf
+#12 exporting config sha256:617ea3855ec91d65ea8f64816abf0bee5eb061ae859702e2c105ee0dff310adf 0.2s done
+#12 exporting attestation manifest sha256:484196a233a919347a76469ea7dc274d58a5fcb3cf100815f6bd51533308d0b9
+#12 exporting attestation manifest sha256:484196a233a919347a76469ea7dc274d58a5fcb3cf100815f6bd51533308d0b9 0.3s done
+#12 exporting manifest list sha256:c5b01c997eccc20d5c9c048eb0bc788bfb11e515e0427cd39b4b563395607fe5
+#12 exporting manifest list sha256:c5b01c997eccc20d5c9c048eb0bc788bfb11e515e0427cd39b4b563395607fe5 0.2s done
+#12 naming to docker.io/library/devops-a20-final:local
+#12 naming to docker.io/library/devops-a20-final:local 0.0s done
+#12 unpacking to docker.io/library/devops-a20-final:local
+#12 unpacking to docker.io/library/devops-a20-final:local 0.3s done
+#12 DONE 2.3s
++ docker run --rm devops-a20-final:local sh -c 'test -z "$(find /app -name "*.pyc")" && echo "No host bytecode copied into runtime"'
+No host bytecode copied into runtime
++ docker save devops-a20-final:local -o /workspace/.local-tools/runtime/a20-image.tar
++ trivy image --input ../../../.local-tools/runtime/a20-image.tar --format json --output ../evidence/image-scan.json
+2026-10-07T14:28:44+05:30	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-07T14:28:44+05:30	INFO	[secret] Secret scanning is enabled
+2026-10-07T14:28:44+05:30	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-07T14:28:44+05:30	INFO	[secret] Please see https://trivy.dev/docs/v0.75/guide/scanner/secret#recommendation for faster secret detection
+2026-10-07T14:28:44+05:30	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-10-07T14:28:44+05:30	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=38
+2026-10-07T14:28:44+05:30	INFO	Number of language-specific files	num=1
+2026-10-07T14:28:44+05:30	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-07T14:28:44+05:30	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
++ bash security/gate.sh ../../../.local-tools/runtime/a20-image.tar
+2026-10-07T14:28:45+05:30	INFO	[vuln] Vulnerability scanning is enabled
+2026-10-07T14:28:45+05:30	INFO	[secret] Secret scanning is enabled
+2026-10-07T14:28:45+05:30	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+2026-10-07T14:28:45+05:30	INFO	[secret] Please see https://trivy.dev/docs/v0.75/guide/scanner/secret#recommendation for faster secret detection
+2026-10-07T14:28:45+05:30	INFO	Detected OS	family="alpine" version="3.24.2"
+2026-10-07T14:28:45+05:30	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=38
+2026-10-07T14:28:45+05:30	INFO	Number of language-specific files	num=1
+2026-10-07T14:28:45+05:30	INFO	[python-pkg] Detecting vulnerabilities...
+2026-10-07T14:28:45+05:30	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.75/guide/scanner/vulnerability#severity-selection for details.
+
+Report Summary
+
+┌──────────────────────────────────────────────────────────────────────────────┬────────────┬─────────────────┬─────────┐
+│                                    Target                                    │    Type    │ Vulnerabilities │ Secrets │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ ../../../.local-tools/runtime/a20-image.tar (alpine 3.24.2)                  │   alpine   │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/blinker-1.9.0.dist-info/METADATA      │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/click-8.5.0.dist-info/METADATA        │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/flask-3.1.3.dist-info/METADATA        │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/itsdangerous-2.2.0.dist-info/METADATA │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/jinja2-3.1.6.dist-info/METADATA       │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/markupsafe-3.0.4.dist-info/METADATA   │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/pip-25.0.1.dist-info/METADATA         │ python-pkg │        0        │    -    │
+├──────────────────────────────────────────────────────────────────────────────┼────────────┼─────────────────┼─────────┤
+│ usr/local/lib/python3.12/site-packages/werkzeug-3.1.9.dist-info/METADATA     │ python-pkg │        0        │    -    │
+└──────────────────────────────────────────────────────────────────────────────┴────────────┴─────────────────┴─────────┘
+Legend:
+- '-': Not scanned
+- '0': Clean (no security findings detected)
+
++ minikube -p devops-course image load devops-a20-final:local
+
+```

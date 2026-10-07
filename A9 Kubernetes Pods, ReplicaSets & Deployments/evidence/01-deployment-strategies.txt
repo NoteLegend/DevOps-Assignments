@@ -1,0 +1,188 @@
+Executed 2026-10-07T13:41:44.588656+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-09-Session-10
+Script: strategies.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl create namespace a09
+namespace/a09 created
++ kubectl -n a09 run client --image=busybox:1.36 --restart=Never --command -- sleep 3600
+pod/client created
++ kubectl -n a09 wait --for=condition=Ready pod/client --timeout=180s
+pod/client condition met
++ kubectl -n a09 apply -f strategies/rolling-v1.yaml
+deployment.apps/rolling created
++ kubectl -n a09 rollout status deployment/rolling --timeout=180s
+Waiting for deployment "rolling" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "rolling" rollout to finish: 1 of 2 updated replicas are available...
+deployment "rolling" successfully rolled out
++ kubectl -n a09 get pods,rs -l app=rolling
+NAME                           READY   STATUS    RESTARTS   AGE
+pod/rolling-54d8b44dfb-qr2xn   1/1     Running   0          7s
+pod/rolling-54d8b44dfb-skgzh   1/1     Running   0          7s
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/rolling-54d8b44dfb   2         2         2       7s
++ watcher=110602
++ kubectl -n a09 apply -f strategies/rolling-v2.yaml
++ timeout 25 kubectl -n a09 get pods -l app=rolling -w
+deployment.apps/rolling configured
++ kubectl -n a09 get pods,rs -l app=rolling
+NAME                           READY   STATUS              RESTARTS   AGE
+pod/rolling-5475fdc8dc-fx2v8   0/1     ContainerCreating   0          0s
+pod/rolling-54d8b44dfb-qr2xn   1/1     Running             0          8s
+pod/rolling-54d8b44dfb-skgzh   1/1     Running             0          8s
+
+NAME                                 DESIRED   CURRENT   READY   AGE
+replicaset.apps/rolling-5475fdc8dc   1         1         0       0s
+replicaset.apps/rolling-54d8b44dfb   2         2         2       8s
++ kubectl -n a09 rollout status deployment/rolling --timeout=180s
+Waiting for deployment "rolling" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "rolling" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "rolling" rollout to finish: 1 out of 2 new replicas have been updated...
+Waiting for deployment "rolling" rollout to finish: 1 old replicas are pending termination...
+Waiting for deployment "rolling" rollout to finish: 1 old replicas are pending termination...
+deployment "rolling" successfully rolled out
++ wait 110602
++ test 124 = 124
++ cat evidence/rolling-watch.txt
+NAME                       READY   STATUS    RESTARTS   AGE
+rolling-54d8b44dfb-qr2xn   1/1     Running   0          8s
+rolling-54d8b44dfb-skgzh   1/1     Running   0          8s
+rolling-5475fdc8dc-fx2v8   0/1     Pending   0          0s
+rolling-5475fdc8dc-fx2v8   0/1     Pending   0          0s
+rolling-5475fdc8dc-fx2v8   0/1     ContainerCreating   0          0s
+rolling-5475fdc8dc-fx2v8   0/1     ContainerCreating   0          1s
+rolling-5475fdc8dc-fx2v8   0/1     Running             0          2s
+rolling-5475fdc8dc-fx2v8   1/1     Running             0          6s
+rolling-5475fdc8dc-fx2v8   1/1     Running             0          6s
+rolling-54d8b44dfb-skgzh   1/1     Terminating         0          14s
+rolling-54d8b44dfb-skgzh   1/1     Terminating         0          14s
+rolling-5475fdc8dc-sfnv2   0/1     Pending             0          1s
+rolling-5475fdc8dc-sfnv2   0/1     Pending             0          1s
+rolling-5475fdc8dc-sfnv2   0/1     ContainerCreating   0          1s
+rolling-5475fdc8dc-sfnv2   0/1     ContainerCreating   0          2s
+rolling-5475fdc8dc-sfnv2   0/1     Running             0          2s
+rolling-5475fdc8dc-sfnv2   1/1     Running             0          6s
+rolling-5475fdc8dc-sfnv2   1/1     Running             0          6s
+rolling-54d8b44dfb-qr2xn   1/1     Terminating         0          20s
+rolling-54d8b44dfb-qr2xn   1/1     Terminating         0          21s
++ kubectl -n a09 apply -f strategies/blue.yaml -f strategies/green.yaml -f strategies/blue-green-service.yaml
+deployment.apps/blue created
+deployment.apps/green created
+service/blue-green created
++ for name in blue green
++ kubectl -n a09 rollout status deployment/blue --timeout=180s
+Waiting for deployment "blue" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "blue" rollout to finish: 1 of 2 updated replicas are available...
+deployment "blue" successfully rolled out
++ for name in blue green
++ kubectl -n a09 rollout status deployment/green --timeout=180s
+Waiting for deployment "green" rollout to finish: 1 of 2 updated replicas are available...
+deployment "green" successfully rolled out
++ kubectl -n a09 exec client -- wget -qO- http://blue-green
+blue
++ kubectl -n a09 patch svc blue-green -p '{"spec":{"selector":{"app":"green"}}}'
+service/blue-green patched
++ sleep 2
++ kubectl -n a09 exec client -- wget -qO- http://blue-green
+green
++ kubectl -n a09 apply -f strategies/stable.yaml -f strategies/canary.yaml -f strategies/canary-service.yaml
+deployment.apps/stable created
+deployment.apps/canary created
+service/canary created
++ for name in stable canary
++ kubectl -n a09 rollout status deployment/stable --timeout=180s
+Waiting for deployment "stable" rollout to finish: 0 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 1 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 2 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 3 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 4 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 5 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 6 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 7 of 9 updated replicas are available...
+Waiting for deployment "stable" rollout to finish: 8 of 9 updated replicas are available...
+deployment "stable" successfully rolled out
++ for name in stable canary
++ kubectl -n a09 rollout status deployment/canary --timeout=180s
+deployment "canary" successfully rolled out
++ kubectl -n a09 exec client -- sh -c 'for i in $(seq 1 100); do wget -qO- http://canary; done'
++ sort
++ uniq -c
++ tee evidence/canary-distribution.txt
+     14 canary
+     86 stable
++ grep -q stable evidence/canary-distribution.txt
++ grep -q canary evidence/canary-distribution.txt
++ kubectl -n a09 apply -f strategies/recreate-v1.yaml
+deployment.apps/recreate created
++ kubectl -n a09 rollout status deployment/recreate --timeout=180s
+Waiting for deployment "recreate" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "recreate" rollout to finish: 1 of 2 updated replicas are available...
+deployment "recreate" successfully rolled out
++ watcher=110916
++ kubectl -n a09 apply -f strategies/recreate-v2.yaml
++ timeout 25 kubectl -n a09 get pods -l app=recreate -w
+deployment.apps/recreate configured
++ kubectl -n a09 rollout status deployment/recreate --timeout=180s
+Waiting for deployment "recreate" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "recreate" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "recreate" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "recreate" rollout to finish: 0 out of 2 new replicas have been updated...
+Waiting for deployment "recreate" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "recreate" rollout to finish: 1 of 2 updated replicas are available...
+deployment "recreate" successfully rolled out
++ wait 110916
++ test 124 = 124
++ cat evidence/recreate-watch.txt
+NAME                        READY   STATUS    RESTARTS   AGE
+recreate-5f7ffc8998-46kg5   1/1     Running   0          7s
+recreate-5f7ffc8998-b78bl   1/1     Running   0          7s
+recreate-5f7ffc8998-b78bl   1/1     Terminating   0          7s
+recreate-5f7ffc8998-46kg5   1/1     Terminating   0          7s
+recreate-5f7ffc8998-46kg5   1/1     Terminating   0          7s
+recreate-5f7ffc8998-b78bl   1/1     Terminating   0          7s
++ kubectl -n a09 get deployments,rs,pods -o wide
+NAME                       READY   UP-TO-DATE   AVAILABLE   AGE    CONTAINERS   IMAGES         SELECTOR
+deployment.apps/blue       2/2     2            2           69s    web          busybox:1.36   app=blue
+deployment.apps/canary     1/1     1            1           57s    web          busybox:1.36   app=canary
+deployment.apps/green      2/2     2            2           69s    web          busybox:1.36   app=green
+deployment.apps/recreate   2/2     2            2           45s    web          busybox:1.36   app=recreate
+deployment.apps/rolling    2/2     2            2           102s   web          busybox:1.36   app=rolling
+deployment.apps/stable     9/9     9            9           57s    web          busybox:1.36   app=stable
+
+NAME                                  DESIRED   CURRENT   READY   AGE    CONTAINERS   IMAGES         SELECTOR
+replicaset.apps/blue-b9bbc7486        2         2         2       69s    web          busybox:1.36   app=blue,pod-template-hash=b9bbc7486
+replicaset.apps/canary-64bc9cd96d     1         1         1       57s    web          busybox:1.36   app=canary,pod-template-hash=64bc9cd96d
+replicaset.apps/green-55d66668b6      2         2         2       69s    web          busybox:1.36   app=green,pod-template-hash=55d66668b6
+replicaset.apps/recreate-5f7ffc8998   0         0         0       45s    web          busybox:1.36   app=recreate,pod-template-hash=5f7ffc8998
+replicaset.apps/recreate-f5b547bd9    2         2         2       7s     web          busybox:1.36   app=recreate,pod-template-hash=f5b547bd9
+replicaset.apps/rolling-5475fdc8dc    2         2         2       94s    web          busybox:1.36   app=rolling,pod-template-hash=5475fdc8dc
+replicaset.apps/rolling-54d8b44dfb    0         0         0       102s   web          busybox:1.36   app=rolling,pod-template-hash=54d8b44dfb
+replicaset.apps/stable-6986ff5b6      9         9         9       57s    web          busybox:1.36   app=stable,pod-template-hash=6986ff5b6
+
+NAME                           READY   STATUS    RESTARTS   AGE    IP            NODE            NOMINATED NODE   READINESS GATES
+pod/blue-b9bbc7486-jzbws       1/1     Running   0          69s    10.244.0.22   devops-course   <none>           <none>
+pod/blue-b9bbc7486-tgfrc       1/1     Running   0          69s    10.244.0.20   devops-course   <none>           <none>
+pod/canary-64bc9cd96d-wn9jk    1/1     Running   0          57s    10.244.0.32   devops-course   <none>           <none>
+pod/client                     1/1     Running   0          104s   10.244.0.15   devops-course   <none>           <none>
+pod/green-55d66668b6-6w52n     1/1     Running   0          69s    10.244.0.21   devops-course   <none>           <none>
+pod/green-55d66668b6-gk65r     1/1     Running   0          69s    10.244.0.23   devops-course   <none>           <none>
+pod/recreate-f5b547bd9-l2dnl   1/1     Running   0          7s     10.244.0.47   devops-course   <none>           <none>
+pod/recreate-f5b547bd9-m2rzx   1/1     Running   0          7s     10.244.0.48   devops-course   <none>           <none>
+pod/rolling-5475fdc8dc-fx2v8   1/1     Running   0          94s    10.244.0.18   devops-course   <none>           <none>
+pod/rolling-5475fdc8dc-sfnv2   1/1     Running   0          88s    10.244.0.19   devops-course   <none>           <none>
+pod/stable-6986ff5b6-4vszl     1/1     Running   0          57s    10.244.0.33   devops-course   <none>           <none>
+pod/stable-6986ff5b6-5fghb     1/1     Running   0          57s    10.244.0.27   devops-course   <none>           <none>
+pod/stable-6986ff5b6-8bv8x     1/1     Running   0          57s    10.244.0.30   devops-course   <none>           <none>
+pod/stable-6986ff5b6-8dqc5     1/1     Running   0          57s    10.244.0.28   devops-course   <none>           <none>
+pod/stable-6986ff5b6-crw6s     1/1     Running   0          57s    10.244.0.29   devops-course   <none>           <none>
+pod/stable-6986ff5b6-j7rfc     1/1     Running   0          57s    10.244.0.24   devops-course   <none>           <none>
+pod/stable-6986ff5b6-nkklq     1/1     Running   0          57s    10.244.0.26   devops-course   <none>           <none>
+pod/stable-6986ff5b6-qnr5b     1/1     Running   0          57s    10.244.0.31   devops-course   <none>           <none>
+pod/stable-6986ff5b6-rw8j9     1/1     Running   0          57s    10.244.0.25   devops-course   <none>           <none>

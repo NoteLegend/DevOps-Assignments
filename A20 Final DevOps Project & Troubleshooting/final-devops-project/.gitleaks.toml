@@ -1,0 +1,6 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated evidence reports are scanned separately; source is not excluded"
+paths = ['''(^|/)evidence/''']

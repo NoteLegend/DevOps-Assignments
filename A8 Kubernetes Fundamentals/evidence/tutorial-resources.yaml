@@ -1,0 +1,102 @@
+apiVersion: v1
+items:
+- apiVersion: apps/v1
+  kind: Deployment
+  metadata:
+    annotations:
+      deployment.kubernetes.io/revision: "3"
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"kubernetes-bootcamp"},"name":"kubernetes-bootcamp","namespace":"a08"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"kubernetes-bootcamp"}},"strategy":{},"template":{"metadata":{"labels":{"app":"kubernetes-bootcamp"}},"spec":{"containers":[{"image":"gcr.io/google-samples/kubernetes-bootcamp:v1","name":"kubernetes-bootcamp","resources":{}}]}}},"status":{}}
+    creationTimestamp: "2026-10-07T07:58:12Z"
+    generation: 5
+    labels:
+      app: kubernetes-bootcamp
+    name: kubernetes-bootcamp
+    namespace: a08
+    resourceVersion: "1276"
+    uid: 9489279f-d470-47f8-a107-2deb3796cbe9
+  spec:
+    progressDeadlineSeconds: 600
+    replicas: 4
+    revisionHistoryLimit: 10
+    selector:
+      matchLabels:
+        app: kubernetes-bootcamp
+    strategy:
+      rollingUpdate:
+        maxSurge: 25%
+        maxUnavailable: 25%
+      type: RollingUpdate
+    template:
+      metadata:
+        labels:
+          app: kubernetes-bootcamp
+      spec:
+        containers:
+        - image: gcr.io/google-samples/kubernetes-bootcamp:v1
+          imagePullPolicy: IfNotPresent
+          name: kubernetes-bootcamp
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+        dnsPolicy: ClusterFirst
+        restartPolicy: Always
+        schedulerName: default-scheduler
+        securityContext: {}
+        terminationGracePeriodSeconds: 30
+  status:
+    availableReplicas: 4
+    conditions:
+    - lastTransitionTime: "2026-10-07T08:09:32Z"
+      lastUpdateTime: "2026-10-07T08:09:32Z"
+      message: Deployment has minimum availability.
+      reason: MinimumReplicasAvailable
+      status: "True"
+      type: Available
+    - lastTransitionTime: "2026-10-07T07:58:12Z"
+      lastUpdateTime: "2026-10-07T08:09:41Z"
+      message: ReplicaSet "kubernetes-bootcamp-66d5c96cb" has successfully progressed.
+      reason: NewReplicaSetAvailable
+      status: "True"
+      type: Progressing
+    observedGeneration: 5
+    readyReplicas: 4
+    replicas: 4
+    terminatingReplicas: 8
+    updatedReplicas: 4
+- apiVersion: v1
+  kind: Service
+  metadata:
+    annotations:
+      kubectl.kubernetes.io/last-applied-configuration: |
+        {"apiVersion":"v1","kind":"Service","metadata":{"annotations":{},"labels":{"app":"kubernetes-bootcamp"},"name":"kubernetes-bootcamp","namespace":"a08"},"spec":{"ports":[{"port":8080,"protocol":"TCP","targetPort":8080}],"selector":{"app":"kubernetes-bootcamp"},"type":"NodePort"},"status":{"loadBalancer":{}}}
+    creationTimestamp: "2026-10-07T08:08:37Z"
+    labels:
+      app: kubernetes-bootcamp
+    name: kubernetes-bootcamp
+    namespace: a08
+    resourceVersion: "917"
+    uid: 35c1095a-502c-4e71-a686-30df2b205ea9
+  spec:
+    clusterIP: 10.97.46.15
+    clusterIPs:
+    - 10.97.46.15
+    externalTrafficPolicy: Cluster
+    internalTrafficPolicy: Cluster
+    ipFamilies:
+    - IPv4
+    ipFamilyPolicy: SingleStack
+    ports:
+    - nodePort: 32722
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+    selector:
+      app: kubernetes-bootcamp
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+kind: List
+metadata:
+  resourceVersion: ""

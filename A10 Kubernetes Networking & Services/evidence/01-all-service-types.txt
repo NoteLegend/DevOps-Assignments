@@ -1,0 +1,296 @@
+Executed 2026-10-07T13:45:29.527927+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-10-Session-11
+Script: verify-services.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl create namespace a10
+namespace/a10 created
++ kubectl -n a10 apply --dry-run=server -f manifests
+deployment.apps/web created (server dry run)
+service/clusterip created (server dry run)
+service/externalname created (server dry run)
+service/headless created (server dry run)
+service/loadbalancer created (server dry run)
+service/nodeport created (server dry run)
++ kubectl -n a10 apply -f manifests
+deployment.apps/web created
+service/clusterip created
+service/externalname created
+service/headless created
+service/loadbalancer created
+service/nodeport created
++ kubectl -n a10 rollout status deployment/web --timeout=180s
+Waiting for deployment "web" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "web" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web" successfully rolled out
++ kubectl -n a10 run client --image=busybox:1.36 --restart=Never --command -- sleep 1800
+pod/client created
++ kubectl -n a10 wait --for=condition=Ready pod/client --timeout=120s
+pod/client condition met
++ for name in clusterip nodeport loadbalancer externalname headless
++ kubectl -n a10 get svc clusterip -o wide
+NAME        TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+clusterip   ClusterIP   10.101.140.32   <none>        80/TCP    8s    app=web
++ kubectl -n a10 describe svc clusterip
+Name:                     clusterip
+Namespace:                a10
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=web
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.101.140.32
+IPs:                      10.101.140.32
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+Endpoints:                10.244.0.50:8080,10.244.0.49:8080
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a10 exec client -- nslookup clusterip.a10.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	clusterip.a10.svc.cluster.local
+Address: 10.101.140.32
+
+
++ port=80
++ [[ clusterip = headless ]]
++ kubectl -n a10 exec client -- wget -qO- http://clusterip:80
+services-working
++ for name in clusterip nodeport loadbalancer externalname headless
++ kubectl -n a10 get svc nodeport -o wide
+NAME       TYPE       CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+nodeport   NodePort   10.110.223.124   <none>        80:30080/TCP   10s   app=web
++ kubectl -n a10 describe svc nodeport
+Name:                     nodeport
+Namespace:                a10
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=web
+Type:                     NodePort
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.110.223.124
+IPs:                      10.110.223.124
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  30080/TCP
+Endpoints:                10.244.0.50:8080,10.244.0.49:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a10 exec client -- nslookup nodeport.a10.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+Name:	nodeport.a10.svc.cluster.local
+Address: 10.110.223.124
+
++ port=80
++ [[ nodeport = headless ]]
++ kubectl -n a10 exec client -- wget -qO- http://nodeport:80
+services-working
++ for name in clusterip nodeport loadbalancer externalname headless
++ kubectl -n a10 get svc loadbalancer -o wide
+NAME           TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE   SELECTOR
+loadbalancer   LoadBalancer   10.102.47.94   <pending>     80:32509/TCP   12s   app=web
++ kubectl -n a10 describe svc loadbalancer
+Name:                     loadbalancer
+Namespace:                a10
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=web
+Type:                     LoadBalancer
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.102.47.94
+IPs:                      10.102.47.94
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+NodePort:                 <unset>  32509/TCP
+Endpoints:                10.244.0.50:8080,10.244.0.49:8080
+Session Affinity:         None
+External Traffic Policy:  Cluster
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a10 exec client -- nslookup loadbalancer.a10.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+Name:	loadbalancer.a10.svc.cluster.local
+Address: 10.102.47.94
+
+
++ port=80
++ [[ loadbalancer = headless ]]
++ kubectl -n a10 exec client -- wget -qO- http://loadbalancer:80
+services-working
++ for name in clusterip nodeport loadbalancer externalname headless
++ kubectl -n a10 get svc externalname -o wide
+NAME           TYPE           CLUSTER-IP   EXTERNAL-IP                       PORT(S)   AGE   SELECTOR
+externalname   ExternalName   <none>       clusterip.a10.svc.cluster.local   <none>    13s   <none>
++ kubectl -n a10 describe svc externalname
+Name:              externalname
+Namespace:         a10
+Labels:            <none>
+Annotations:       <none>
+Selector:          <none>
+Type:              ExternalName
+IP Families:       <none>
+IP:                
+IPs:               <none>
+External Name:     clusterip.a10.svc.cluster.local
+Session Affinity:  None
+Events:            <none>
++ kubectl -n a10 exec client -- nslookup externalname.a10.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+externalname.a10.svc.cluster.local	canonical name = clusterip.a10.svc.cluster.local
+Name:	clusterip.a10.svc.cluster.local
+Address: 10.101.140.32
+
++ port=80
++ [[ externalname = headless ]]
++ kubectl -n a10 exec client -- wget -qO- http://externalname:80
+services-working
++ for name in clusterip nodeport loadbalancer externalname headless
++ kubectl -n a10 get svc headless -o wide
+NAME       TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+headless   ClusterIP   None         <none>        80/TCP    15s   app=web
++ kubectl -n a10 describe svc headless
+Name:                     headless
+Namespace:                a10
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=web
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       None
+IPs:                      None
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+Endpoints:                10.244.0.50:8080,10.244.0.49:8080
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a10 exec client -- nslookup headless.a10.svc.cluster.local
+Server:		10.96.0.10
+Address:	10.96.0.10:53
+
+
+Name:	headless.a10.svc.cluster.local
+Address: 10.244.0.50
+Name:	headless.a10.svc.cluster.local
+Address: 10.244.0.49
+
++ port=80
++ [[ headless = headless ]]
++ port=8080
++ kubectl -n a10 exec client -- wget -qO- http://headless:8080
+services-working
+++ minikube -p devops-course ip
++ node_ip=192.168.49.2
++ ../../.local-tools/vm.sh 'curl -fsS http://192.168.49.2:30080'
+services-working
++ ../../.local-tools/vm.sh 'nohup minikube -p devops-course tunnel --cleanup=true >/tmp/devops-tunnel.log 2>&1 </dev/null & echo $! >/tmp/devops-tunnel.pid'
++ for attempt in {1..30}
+++ kubectl -n a10 get svc loadbalancer -o 'jsonpath={.status.loadBalancer.ingress[0].ip}'
++ lb_ip=
++ [[ -n '' ]]
++ sleep 2
++ for attempt in {1..30}
+++ kubectl -n a10 get svc loadbalancer -o 'jsonpath={.status.loadBalancer.ingress[0].ip}'
++ lb_ip=
++ [[ -n '' ]]
++ sleep 2
++ for attempt in {1..30}
+++ kubectl -n a10 get svc loadbalancer -o 'jsonpath={.status.loadBalancer.ingress[0].ip}'
++ lb_ip=
++ [[ -n '' ]]
++ sleep 2
++ for attempt in {1..30}
+++ kubectl -n a10 get svc loadbalancer -o 'jsonpath={.status.loadBalancer.ingress[0].ip}'
++ lb_ip=10.102.47.94
++ [[ -n 10.102.47.94 ]]
++ break
++ test -n 10.102.47.94
++ ../../.local-tools/vm.sh 'curl -fsS http://10.102.47.94'
+services-working
++ kubectl -n a10 get svc
+NAME           TYPE           CLUSTER-IP       EXTERNAL-IP                       PORT(S)        AGE
+clusterip      ClusterIP      10.101.140.32    <none>                            80/TCP         24s
+externalname   ExternalName   <none>           clusterip.a10.svc.cluster.local   <none>         24s
+headless       ClusterIP      None             <none>                            80/TCP         24s
+loadbalancer   LoadBalancer   10.102.47.94     10.102.47.94                      80:32509/TCP   24s
+nodeport       NodePort       10.110.223.124   <none>                            80:30080/TCP   24s
++ kubectl -n a10 get endpointslices
+NAME                 ADDRESSTYPE   PORTS   ENDPOINTS                 AGE
+clusterip-295cc      IPv4          8080    10.244.0.50,10.244.0.49   25s
+headless-slkp7       IPv4          8080    10.244.0.50,10.244.0.49   25s
+loadbalancer-jzlnp   IPv4          8080    10.244.0.50,10.244.0.49   25s
+nodeport-rxxps       IPv4          8080    10.244.0.50,10.244.0.49   25s
++ kubectl -n kube-system get configmap coredns -o yaml
+apiVersion: v1
+data:
+  Corefile: |
+    .:53 {
+        log
+        errors
+        health {
+           lameduck 5s
+        }
+        ready
+        kubernetes cluster.local in-addr.arpa ip6.arpa {
+           pods insecure
+           fallthrough in-addr.arpa ip6.arpa
+           ttl 30
+        }
+        prometheus :9153
+        hosts {
+           192.168.49.1 host.minikube.internal
+           fallthrough
+        }
+        forward . /etc/resolv.conf {
+           max_concurrent 1000
+        }
+        cache 30 {
+           disable success cluster.local
+           disable denial cluster.local
+        }
+        loop
+        reload
+        loadbalance
+    }
+kind: ConfigMap
+metadata:
+  creationTimestamp: "2026-10-07T07:58:06Z"
+  name: coredns
+  namespace: kube-system
+  resourceVersion: "284"
+  uid: beac46d7-919c-4550-9ba4-56d3dc76e08b
++ kubectl -n kube-system logs -l k8s-app=kube-dns --tail=8
+[INFO] 10.244.0.51:45963 - 38642 "AAAA IN externalname.a10.svc.cluster.local. udp 52 false 512" NOERROR qr,aa,rd 145 0.000185665s
+[INFO] 10.244.0.51:45963 - 42181 "A IN externalname.a10.svc.cluster.local. udp 52 false 512" NOERROR qr,aa,rd 178 0.000371569s
+[INFO] 10.244.0.51:54470 - 53951 "AAAA IN externalname.a10.svc.cluster.local. udp 52 false 512" NOERROR qr,aa,rd 145 0.000209989s
+[INFO] 10.244.0.51:54470 - 52643 "A IN externalname.a10.svc.cluster.local. udp 52 false 512" NOERROR qr,aa,rd 178 0.000082229s
+[INFO] 10.244.0.51:45155 - 51173 "AAAA IN headless.a10.svc.cluster.local. udp 48 false 512" NOERROR qr,aa,rd 141 0.000192576s
+[INFO] 10.244.0.51:45155 - 19694 "A IN headless.a10.svc.cluster.local. udp 48 false 512" NOERROR qr,aa,rd 140 0.000401101s
+[INFO] 10.244.0.51:57411 - 11258 "AAAA IN headless.a10.svc.cluster.local. udp 48 false 512" NOERROR qr,aa,rd 141 0.000220655s
+[INFO] 10.244.0.51:57411 - 21190 "A IN headless.a10.svc.cluster.local. udp 48 false 512" NOERROR qr,aa,rd 140 0.000248404s
++ ../../.local-tools/vm.sh 'kill "$(cat /tmp/devops-tunnel.pid)"'
++ kubectl delete namespace a10
+namespace "a10" deleted

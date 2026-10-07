@@ -1,0 +1,225 @@
+Executed 2026-10-07T13:09:46.488063+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-01-Session-01-02
+Script: verify-ubuntu.sh
+Exit status: 0
+
++ cat /etc/os-release
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
++ adduser --version
+adduser version 3.137ubuntu1
+
+Adds a user or group to the system.
+
+For detailed copyright information, please refer to
+/usr/share/doc/adduser/copyright.
+
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at
+your option) any later version.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+General Public License, /usr/share/common-licenses/GPL, for more details.
++ useradd --help
++ sed -n 1,12p
+Usage: useradd [options] LOGIN
+       useradd -D
+       useradd -D [options]
+
+Options:
+      --badname                 do not check for bad names
+  -b, --base-dir BASE_DIR       base directory for the home directory of the
+                                new account
+      --btrfs-subvolume-home    use BTRFS subvolume for home directory
+  -c, --comment COMMENT         GECOS field of the new account
+  -d, --home-dir HOME_DIR       home directory of the new account
+  -D, --defaults                print or change default useradd configuration
++ id practicaltest
+id: ‘practicaltest’: no such user
++ sudo adduser --disabled-password --gecos 'DevOps assignment test user' practicaltest
+info: Adding user `practicaltest' ...
+info: Selecting UID/GID from range 1000 to 59999 ...
+info: Adding new group `practicaltest' (1002) ...
+info: Adding new user `practicaltest' (1002) with group `practicaltest (1002)' ...
+info: Creating home directory `/home/practicaltest' ...
+info: Copying files from `/etc/skel' ...
+info: Adding new user `practicaltest' to supplemental / extra groups `users' ...
+info: Adding user `practicaltest' to group `users' ...
++ id practicaltest
+uid=1002(practicaltest) gid=1002(practicaltest) groups=1002(practicaltest),100(users)
++ sudo test -d /home/practicaltest
++ getent passwd practicaltest
+practicaltest:x:1002:1002:DevOps assignment test user,,,:/home/practicaltest:/bin/bash
++ sudo userdel -r practicaltest
+userdel: practicaltest mail spool (/var/mail/practicaltest) not found
++ id practicaltest
+Test account removed after verification.
+id: ‘practicaltest’: no such user
++ echo 'Test account removed after verification.'
++ systemctl status docker --no-pager
+● docker.service - Docker Application Container Engine
+     Loaded: loaded (/usr/lib/systemd/system/docker.service; enabled; preset: enabled)
+     Active: active (running) since Wed 2026-10-07 07:38:57 UTC; 43s ago
+TriggeredBy: ● docker.socket
+       Docs: https://docs.docker.com
+   Main PID: 2004 (dockerd)
+      Tasks: 10
+     Memory: 26.3M (peak: 28.5M)
+        CPU: 475ms
+     CGroup: /system.slice/docker.service
+             └─2004 /usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
+
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.701290328Z" level=info msg="Restoring containers: start."
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.763146772Z" level=info msg="Deleting nftables IPv4 rules" error="exit status 1"
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.774894203Z" level=info msg="Deleting nftables IPv6 rules" error="exit status 1"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.396765304Z" level=info msg="Loading containers: done."
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.410833829Z" level=info msg="Docker daemon" commit="29.1.3-0ubuntu3~24.04.2" containerd-snapshotter=true storage-driver=overlayfs version=29.1.3
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.410967641Z" level=info msg="Initializing buildkit"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.609602735Z" level=info msg="Completed buildkit initialization"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.620339212Z" level=info msg="Daemon has completed initialization"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.620486795Z" level=info msg="API listen on /run/docker.sock"
+Oct 07 07:38:57 devops-local-vm systemd[1]: Started docker.service - Docker Application Container Engine.
++ journalctl -u docker -n 10 --no-pager
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.701290328Z" level=info msg="Restoring containers: start."
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.763146772Z" level=info msg="Deleting nftables IPv4 rules" error="exit status 1"
+Oct 07 07:38:56 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:56.774894203Z" level=info msg="Deleting nftables IPv6 rules" error="exit status 1"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.396765304Z" level=info msg="Loading containers: done."
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.410833829Z" level=info msg="Docker daemon" commit="29.1.3-0ubuntu3~24.04.2" containerd-snapshotter=true storage-driver=overlayfs version=29.1.3
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.410967641Z" level=info msg="Initializing buildkit"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.609602735Z" level=info msg="Completed buildkit initialization"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.620339212Z" level=info msg="Daemon has completed initialization"
+Oct 07 07:38:57 devops-local-vm dockerd[2004]: time="2026-10-07T07:38:57.620486795Z" level=info msg="API listen on /run/docker.sock"
+Oct 07 07:38:57 devops-local-vm systemd[1]: Started docker.service - Docker Application Container Engine.
++ mkdir -p /tmp/devops-cheatsheet
++ cd /tmp/devops-cheatsheet
++ printf 'INFO demo\nERROR sample\n'
++ less -F sample.log
+INFO demo
+ERROR sample
++ more sample.log
+::::::::::::::
+sample.log
+::::::::::::::
+INFO demo
+ERROR sample
++ sudo chown devops:devops sample.log
++ stat -c '%U:%G %a %n' sample.log
+devops:devops 664 sample.log
++ vmstat 1 2
+procs -----------memory---------- ---swap-- -----io---- -system-- -------cpu-------
+ r  b   swpd   free   buff  cache   si   so    bi    bo   in   cs us sy id wa st gu
+ 1  0      0 4367204  21828 1397268    0    0  3259 12244 3272    7  9  4 84  2  0  0
+ 0  0      0 4367484  21828 1397408    0    0     0     0  207  136  0  0 100  0  0  0
++ iostat -xz 1 2
+Linux 6.8.0-142-generic (devops-local-vm) 	10/07/26 	_x86_64_	(4 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           8.28    1.07    3.65    2.35    0.13   84.52
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+fd0              0.07      0.27     0.00   0.00   33.86     4.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.23
+loop0            0.11      0.14     0.00   0.00    0.09     1.27    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.00
+sr0              0.50      1.88     0.00   0.00    0.55     3.76    0.00      0.00     0.00   0.00    0.00     0.00    0.00      0.00     0.00   0.00    0.00     0.00    0.00    0.00    0.00   0.03
+vda            109.24   3225.13    26.87  19.74    0.58    29.52   31.83  12123.35    47.48  59.87    6.04   380.89    2.41   8385.08     0.00   0.00    0.09  3482.54    2.85   13.29    0.29   9.06
+
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           0.00    0.00    0.00    0.00    0.00  100.00
+
+Device            r/s     rkB/s   rrqm/s  %rrqm r_await rareq-sz     w/s     wkB/s   wrqm/s  %wrqm w_await wareq-sz     d/s     dkB/s   drqm/s  %drqm d_await dareq-sz     f/s f_await  aqu-sz  %util
+
+
++ sar -u 1 2
+Linux 6.8.0-142-generic (devops-local-vm) 	10/07/26 	_x86_64_	(4 CPU)
+
+07:39:42        CPU     %user     %nice   %system   %iowait    %steal     %idle
+07:39:43        all      0.00      0.00      0.00      0.00      0.00    100.00
+07:39:44        all      0.00      0.00      0.00      0.00      0.00    100.00
+Average:        all      0.00      0.00      0.00      0.00      0.00    100.00
++ nice -n 10 sleep 60
++ demo_pid=2737
++ renice -n 15 -p 2737
+2737 (process ID) old priority 0, new priority 15
++ kill 2737
++ wait 2737
++ true
++ rsync -av sample.log synced.log
+sending incremental file list
+sample.log
+
+sent 136 bytes  received 35 bytes  342.00 bytes/sec
+total size is 23  speedup is 0.13
++ cmp sample.log synced.log
++ file sample.log
+sample.log: ASCII text
++ lsof -i :22
++ true
++ strace -e openat cat sample.log
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_IDENTIFICATION", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MEASUREMENT", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TELEPHONE", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_ADDRESS", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NAME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NAME", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_PAPER", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_PAPER", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MESSAGES/SYS_LC_MESSAGES", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_MONETARY", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_COLLATE", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_TIME", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_TIME", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_NUMERIC", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+openat(AT_FDCWD, "sample.log", O_RDONLY) = 3
+INFO demo
+ERROR sample
++++ exited with 0 +++
++ ss -tulwn
+Netid State  Recv-Q Send-Q  Local Address:Port  Peer Address:PortProcess
+icmp6 UNCONN 0      0              *%ens3:58               *:*          
+udp   UNCONN 0      0          127.0.0.54:53         0.0.0.0:*          
+udp   UNCONN 0      0       127.0.0.53%lo:53         0.0.0.0:*          
+udp   UNCONN 0      0      10.0.2.15%ens3:68         0.0.0.0:*          
+tcp   LISTEN 0      4096          0.0.0.0:22         0.0.0.0:*          
+tcp   LISTEN 0      4096        127.0.0.1:46573      0.0.0.0:*          
+tcp   LISTEN 0      4096       127.0.0.54:53         0.0.0.0:*          
+tcp   LISTEN 0      4096    127.0.0.53%lo:53         0.0.0.0:*          
+tcp   LISTEN 0      4096             [::]:22            [::]:*          
++ sudo systemctl restart docker
++ systemctl is-active docker
+active
++ sudo apt-get check
+Reading package lists...
+Building dependency tree...
+Reading state information...
++ rm sample.log synced.log
+Docker version 29.1.3, build 29.1.3-0ubuntu3~24.04.2

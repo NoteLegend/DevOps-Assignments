@@ -1,0 +1,699 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+cd final-devops-project
+kubectl create namespace a20
+kubectl -n a20 create secret generic final-secret --from-file=value=/workspace/.local-tools/runtime/secret-good
+kubectl -n a20 apply --dry-run=server -f kubernetes
+kubectl -n a20 apply -f kubernetes
+kubectl -n a20 rollout status deployment/final-app --timeout=180s
+kubectl -n a20 exec deployment/final-app -- python -c "import urllib.request;print(urllib.request.urlopen('http://final-app/health').read().decode())"
+../../../.local-tools/vm.sh 'nohup kubectl -n a20 port-forward --address=0.0.0.0 svc/final-app 8091:80 >/tmp/devops-a20-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a20-forward.pid'
+curl --retry 15 --retry-all-errors --retry-delay 2 --max-time 10 -fsS http://127.0.0.1:8091/health
+/tmp/devops-tools-venv/bin/python ../../../.local-tools/evidence.py .. 02-final-application --url http://127.0.0.1:8091
+node_ip=$(minikube -p devops-course ip)
+../../../.local-tools/vm.sh "curl -fsS -H 'Host: final.local' http://$node_ip/health"
+kubectl -n a20 exec deployment/final-app -- python -c "import urllib.request; r=urllib.request.Request('http://final-app/storage',data=b'{\"marker\":\"actual-persistence-check\"}',headers={'Content-Type':'application/json'});print(urllib.request.urlopen(r).read().decode())"
+pod=$(kubectl -n a20 get pods -l app=final-app -o jsonpath='{.items[0].metadata.name}')
+kubectl -n a20 delete pod "$pod"
+kubectl -n a20 rollout status deployment/final-app --timeout=180s
+kubectl -n a20 exec deployment/final-app -- python -c "import urllib.request;print(urllib.request.urlopen('http://final-app/storage').read().decode())"
+# The old port-forward targets a removed Pod; restart it after replacement.
+../../../.local-tools/vm.sh 'kill "$(cat /tmp/devops-a20-forward.pid)" 2>/dev/null || true; nohup kubectl -n a20 port-forward --address=0.0.0.0 svc/final-app 8091:80 >/tmp/devops-a20-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a20-forward.pid'
+kubectl -n a20 run load-generator --image=busybox:1.36 --restart=Never --command -- sh -c 'for i in 1 2 3 4 5 6 7 8; do (while true; do wget -qO- http://final-app/load >/dev/null; done) & done; wait'
+for attempt in {1..30}; do
+ kubectl -n a20 get hpa
+ kubectl -n a20 top pods || true
+ replicas=$(kubectl -n a20 get deploy final-app -o jsonpath='{.spec.replicas}')
+ if ((replicas > 2)); then break; fi
+ sleep 10
+done
+test "$replicas" -gt 2
+kubectl -n a20 describe hpa final-app
+kubectl -n a20 delete pod load-generator
+# Fault 1: an invalid image causes ImagePullBackOff, diagnosed from events.
+kubectl -n a20 set image deployment/final-app app=devops-a20-final:does-not-exist
+sleep 20
+kubectl -n a20 get pods
+kubectl -n a20 describe pods -l app=final-app > ../evidence/before-image-fault.txt
+cat ../evidence/before-image-fault.txt
+kubectl -n a20 set image deployment/final-app app=devops-a20-final:local
+kubectl -n a20 rollout status deployment/final-app --timeout=180s
+# Fault 2: readiness targets an absent endpoint.
+kubectl -n a20 patch deployment final-app --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/missing"}]'
+sleep 15
+kubectl -n a20 get pods
+kubectl -n a20 describe pods -l app=final-app > ../evidence/before-readiness-fault.txt
+kubectl -n a20 logs deployment/final-app --tail=8
+kubectl -n a20 patch deployment final-app --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/health"}]'
+kubectl -n a20 rollout status deployment/final-app --timeout=180s
+# Fault 3: Service selector matches no Pods.
+kubectl -n a20 patch svc final-app -p '{"spec":{"selector":{"app":"wrong-app"}}}'
+sleep 2
+kubectl -n a20 describe svc final-app > ../evidence/before-service-fault.txt
+cat ../evidence/before-service-fault.txt
+if kubectl -n a20 exec deployment/final-app -- python -c "import urllib.request; urllib.request.urlopen('http://final-app/health',timeout=3)"; then exit 1; else echo 'Expected failure with empty Service endpoints'; fi
+kubectl -n a20 patch svc final-app -p '{"spec":{"selector":{"app":"final-app"}}}'
+sleep 3
+kubectl -n a20 exec deployment/final-app -- python -c "import urllib.request;print(urllib.request.urlopen('http://final-app/health').read().decode())"
+kubectl -n a20 get deploy,pods,svc,ingress,hpa,pvc
+kubectl -n a20 describe pods -l app=final-app > ../evidence/after-fault-repairs.txt
+
+```
+
+```text
+Executed 2026-10-07T14:32:18.025028+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-20-Session-21
+Script: kubernetes-troubleshooting.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ cd final-devops-project
++ kubectl create namespace a20
+namespace/a20 created
++ kubectl -n a20 create secret generic final-secret --from-file=value=/workspace/.local-tools/runtime/secret-good
+secret/final-secret created
++ kubectl -n a20 apply --dry-run=server -f kubernetes
+configmap/final-config created (server dry run)
+deployment.apps/final-app created (server dry run)
+horizontalpodautoscaler.autoscaling/final-app created (server dry run)
+ingress.networking.k8s.io/final-app created (server dry run)
+persistentvolumeclaim/final-data created (server dry run)
+service/final-app created (server dry run)
++ kubectl -n a20 apply -f kubernetes
+configmap/final-config created
+deployment.apps/final-app created
+horizontalpodautoscaler.autoscaling/final-app created
+ingress.networking.k8s.io/final-app created
+persistentvolumeclaim/final-data created
+service/final-app created
++ kubectl -n a20 rollout status deployment/final-app --timeout=180s
+Waiting for deployment "final-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "final-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "final-app" successfully rolled out
++ kubectl -n a20 exec deployment/final-app -- python -c 'import urllib.request;print(urllib.request.urlopen('\''http://final-app/health'\'').read().decode())'
+Defaulted container "app" out of: app, storage-permissions (init)
+{"secret_injected":true,"status":"healthy","version":"v1"}
+
++ ../../../.local-tools/vm.sh 'nohup kubectl -n a20 port-forward --address=0.0.0.0 svc/final-app 8091:80 >/tmp/devops-a20-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a20-forward.pid'
++ curl --retry 15 --retry-all-errors --retry-delay 2 --max-time 10 -fsS http://127.0.0.1:8091/health
+curl: (56) Recv failure: Connection reset by peer
+{"secret_injected":true,"status":"healthy","version":"v1"}
++ /tmp/devops-tools-venv/bin/python ../../../.local-tools/evidence.py .. 02-final-application --url http://127.0.0.1:8091
+++ minikube -p devops-course ip
++ node_ip=192.168.49.2
++ ../../../.local-tools/vm.sh 'curl -fsS -H '\''Host: final.local'\'' http://192.168.49.2/health'
+{"secret_injected":true,"status":"healthy","version":"v1"}
++ kubectl -n a20 exec deployment/final-app -- python -c 'import urllib.request; r=urllib.request.Request('\''http://final-app/storage'\'',data=b'\''{"marker":"actual-persistence-check"}'\'',headers={'\''Content-Type'\'':'\''application/json'\''});print(urllib.request.urlopen(r).read().decode())'
+Defaulted container "app" out of: app, storage-permissions (init)
+{"marker":"actual-persistence-check"}
+
+++ kubectl -n a20 get pods -l app=final-app -o 'jsonpath={.items[0].metadata.name}'
++ pod=final-app-878d6bc84-b6n4b
++ kubectl -n a20 delete pod final-app-878d6bc84-b6n4b
+pod "final-app-878d6bc84-b6n4b" deleted from a20 namespace
++ kubectl -n a20 rollout status deployment/final-app --timeout=180s
+deployment "final-app" successfully rolled out
++ kubectl -n a20 exec deployment/final-app -- python -c 'import urllib.request;print(urllib.request.urlopen('\''http://final-app/storage'\'').read().decode())'
+Defaulted container "app" out of: app, storage-permissions (init)
+{"marker":"actual-persistence-check"}
+
++ ../../../.local-tools/vm.sh 'kill "$(cat /tmp/devops-a20-forward.pid)" 2>/dev/null || true; nohup kubectl -n a20 port-forward --address=0.0.0.0 svc/final-app 8091:80 >/tmp/devops-a20-forward.log 2>&1 </dev/null & echo $! >/tmp/devops-a20-forward.pid'
++ kubectl -n a20 run load-generator --image=busybox:1.36 --restart=Never --command -- sh -c 'for i in 1 2 3 4 5 6 7 8; do (while true; do wget -qO- http://final-app/load >/dev/null; done) & done; wait'
+pod/load-generator created
++ for attempt in {1..30}
++ kubectl -n a20 get hpa
+NAME        REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+final-app   Deployment/final-app   cpu: <unknown>/50%   2         4         2          61s
++ kubectl -n a20 top pods
+NAME                        CPU(cores)   MEMORY(bytes)   
+final-app-878d6bc84-djd56   94m          22Mi            
+++ kubectl -n a20 get deploy final-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..30}
++ kubectl -n a20 get hpa
+NAME        REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+final-app   Deployment/final-app   cpu: <unknown>/50%   2         4         2          72s
++ kubectl -n a20 top pods
+NAME                        CPU(cores)   MEMORY(bytes)   
+final-app-878d6bc84-djd56   94m          22Mi            
+++ kubectl -n a20 get deploy final-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..30}
++ kubectl -n a20 get hpa
+NAME        REFERENCE              TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+final-app   Deployment/final-app   cpu: <unknown>/50%   2         4         2          83s
++ kubectl -n a20 top pods
+NAME                        CPU(cores)   MEMORY(bytes)   
+final-app-878d6bc84-djd56   61m          23Mi            
+final-app-878d6bc84-kg6p4   62m          22Mi            
+load-generator              86m          3Mi             
+++ kubectl -n a20 get deploy final-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..30}
++ kubectl -n a20 get hpa
+NAME        REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+final-app   Deployment/final-app   cpu: 122%/50%   2         4         2          94s
++ kubectl -n a20 top pods
+NAME                        CPU(cores)   MEMORY(bytes)   
+final-app-878d6bc84-djd56   61m          23Mi            
+final-app-878d6bc84-kg6p4   62m          22Mi            
+load-generator              86m          3Mi             
+++ kubectl -n a20 get deploy final-app -o 'jsonpath={.spec.replicas}'
++ replicas=3
++ (( replicas > 2 ))
++ break
++ test 3 -gt 2
++ kubectl -n a20 describe hpa final-app
+Name:                                                  final-app
+Namespace:                                             a20
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Wed, 07 Oct 2026 08:59:06 +0000
+Reference:                                             Deployment/final-app
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  122% (61m) / 50%
+Min replicas:                                          2
+Max replicas:                                          4
+Deployment pods:                                       2 current / 3 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    SucceededRescale    the HPA controller was able to update the target scale to 3
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                From                       Message
+  ----     ------                        ----               ----                       -------
+  Warning  FailedGetResourceMetric       80s                horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  80s                horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedGetResourceMetric       20s (x4 over 65s)  horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Warning  FailedComputeMetricsReplicas  20s (x4 over 65s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Normal   SuccessfulRescale             5s                 horizontal-pod-autoscaler  New size: 3; reason: cpu resource utilization (percentage of request) above target
++ kubectl -n a20 delete pod load-generator
+pod "load-generator" deleted from a20 namespace
++ kubectl -n a20 set image deployment/final-app app=devops-a20-final:does-not-exist
+deployment.apps/final-app image updated
++ sleep 20
++ kubectl -n a20 get pods
+NAME                         READY   STATUS         RESTARTS   AGE
+final-app-6994666846-v94jl   0/1     ErrImagePull   0          21s
+final-app-878d6bc84-djd56    1/1     Running        0          2m28s
+final-app-878d6bc84-kg6p4    1/1     Running        0          2m3s
+final-app-878d6bc84-skzgn    1/1     Running        0          58s
++ kubectl -n a20 describe pods -l app=final-app
++ cat ../evidence/before-image-fault.txt
+Name:             final-app-6994666846-v94jl
+Namespace:        a20
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 09:01:13 +0000
+Labels:           app=final-app
+                  pod-template-hash=6994666846
+Annotations:      <none>
+Status:           Pending
+IP:               10.244.0.118
+IPs:
+  IP:           10.244.0.118
+Controlled By:  ReplicaSet/final-app-6994666846
+Init Containers:
+  storage-permissions:
+    Container ID:  containerd://d1d9b3e1f206bdea30c9685977bc7fd1e9ea4d2668b1260ce93c7bd0b8d7fa3c
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      chown 10001:10001 /data
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 09:01:14 +0000
+      Finished:     Wed, 07 Oct 2026 09:01:14 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q2kfm (ro)
+Containers:
+  app:
+    Container ID:   
+    Image:          devops-a20-final:does-not-exist
+    Image ID:       
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ErrImagePull
+    Ready:          False
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   64Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/health delay=0s timeout=1s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment:
+      VERSION:      v1
+      APP_MESSAGE:  <set to the key 'APP_MESSAGE' of config map 'final-config'>  Optional: false
+      APP_SECRET:   <set to the key 'value' in secret 'final-secret'>            Optional: false
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-q2kfm (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  final-data
+    ReadOnly:   false
+  kube-api-access-q2kfm:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             final-app-878d6bc84-djd56
+Namespace:        a20
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:59:06 +0000
+Labels:           app=final-app
+                  pod-template-hash=878d6bc84
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.114
+IPs:
+  IP:           10.244.0.114
+Controlled By:  ReplicaSet/final-app-878d6bc84
+Init Containers:
+  storage-permissions:
+    Container ID:  containerd://1bba524c862bdacc1a3aef25d9c12d89dc4d34b10750f5b6689829895ddc09bb
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      chown 10001:10001 /data
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 08:59:07 +0000
+      Finished:     Wed, 07 Oct 2026 08:59:07 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lkbl7 (ro)
+Containers:
+  app:
+    Container ID:   containerd://75e132ed92fd76028fd9a02bb28b3473b498132d211cb7887b3af8ec1bca7ac7
+    Image:          devops-a20-final:local
+    Image ID:       sha256:617ea3855ec91d65ea8f64816abf0bee5eb061ae859702e2c105ee0dff310adf
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:59:08 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   64Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/health delay=0s timeout=1s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment:
+      VERSION:      v1
+      APP_MESSAGE:  <set to the key 'APP_MESSAGE' of config map 'final-config'>  Optional: false
+      APP_SECRET:   <set to the key 'value' in secret 'final-secret'>            Optional: false
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-lkbl7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  final-data
+    ReadOnly:   false
+  kube-api-access-lkbl7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             final-app-878d6bc84-kg6p4
+Namespace:        a20
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 08:59:32 +0000
+Labels:           app=final-app
+                  pod-template-hash=878d6bc84
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.115
+IPs:
+  IP:           10.244.0.115
+Controlled By:  ReplicaSet/final-app-878d6bc84
+Init Containers:
+  storage-permissions:
+    Container ID:  containerd://360b345c4a5f451d651295b490143b4b2b2ba02643efc11659d680712c4e9ba4
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      chown 10001:10001 /data
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 08:59:32 +0000
+      Finished:     Wed, 07 Oct 2026 08:59:32 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zhxz7 (ro)
+Containers:
+  app:
+    Container ID:   containerd://3525db3eaab64088c43cee38ec6d18db3687a27fba26e64864744858cfd427c7
+    Image:          devops-a20-final:local
+    Image ID:       sha256:617ea3855ec91d65ea8f64816abf0bee5eb061ae859702e2c105ee0dff310adf
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 08:59:33 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   64Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/health delay=0s timeout=1s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment:
+      VERSION:      v1
+      APP_MESSAGE:  <set to the key 'APP_MESSAGE' of config map 'final-config'>  Optional: false
+      APP_SECRET:   <set to the key 'value' in secret 'final-secret'>            Optional: false
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-zhxz7 (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  final-data
+    ReadOnly:   false
+  kube-api-access-zhxz7:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+
+
+Name:             final-app-878d6bc84-skzgn
+Namespace:        a20
+Priority:         0
+Service Account:  default
+Node:             devops-course/192.168.49.2
+Start Time:       Wed, 07 Oct 2026 09:00:36 +0000
+Labels:           app=final-app
+                  pod-template-hash=878d6bc84
+Annotations:      <none>
+Status:           Running
+IP:               10.244.0.117
+IPs:
+  IP:           10.244.0.117
+Controlled By:  ReplicaSet/final-app-878d6bc84
+Init Containers:
+  storage-permissions:
+    Container ID:  containerd://6886e4148a2a49d909d8d3df012f7666bcb543319ca2c146afd867bdd080b6a5
+    Image:         busybox:1.36
+    Image ID:      sha256:b116e155074440ffd9e449559433feb4cd2341eb3554b1da1c638c976e56451d
+    Port:          <none>
+    Host Port:     <none>
+    Command:
+      sh
+      -c
+      chown 10001:10001 /data
+    State:          Terminated
+      Reason:       Completed
+      Exit Code:    0
+      Started:      Wed, 07 Oct 2026 09:00:37 +0000
+      Finished:     Wed, 07 Oct 2026 09:00:37 +0000
+    Ready:          True
+    Restart Count:  0
+    Environment:    <none>
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-75jgz (ro)
+Containers:
+  app:
+    Container ID:   containerd://acb7f1747410053e88cc4d9729e934146c719219efd99b9ac99ea5d8403d7087
+    Image:          devops-a20-final:local
+    Image ID:       sha256:617ea3855ec91d65ea8f64816abf0bee5eb061ae859702e2c105ee0dff310adf
+    Port:           8080/TCP
+    Host Port:      0/TCP
+    State:          Running
+      Started:      Wed, 07 Oct 2026 09:00:38 +0000
+    Ready:          True
+    Restart Count:  0
+    Limits:
+      cpu:     200m
+      memory:  128Mi
+    Requests:
+      cpu:      50m
+      memory:   64Mi
+    Liveness:   http-get http://:8080/health delay=0s timeout=1s period=5s successThreshold=1 failureThreshold=3
+    Readiness:  http-get http://:8080/health delay=0s timeout=1s period=3s successThreshold=1 failureThreshold=3
+    Startup:    http-get http://:8080/health delay=0s timeout=1s period=2s successThreshold=1 failureThreshold=30
+    Environment:
+      VERSION:      v1
+      APP_MESSAGE:  <set to the key 'APP_MESSAGE' of config map 'final-config'>  Optional: false
+      APP_SECRET:   <set to the key 'value' in secret 'final-secret'>            Optional: false
+    Mounts:
+      /data from data (rw)
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-75jgz (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       True 
+  ContainersReady             True 
+  PodScheduled                True 
+Volumes:
+  data:
+    Type:       PersistentVolumeClaim (a reference to a PersistentVolumeClaim in the same namespace)
+    ClaimName:  final-data
+    ReadOnly:   false
+  kube-api-access-75jgz:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    Optional:                false
+    DownwardAPI:             true
+QoS Class:                   Burstable
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
++ kubectl -n a20 set image deployment/final-app app=devops-a20-final:local
+deployment.apps/final-app image updated
++ kubectl -n a20 rollout status deployment/final-app --timeout=180s
+deployment "final-app" successfully rolled out
++ kubectl -n a20 patch deployment final-app --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/missing"}]'
+deployment.apps/final-app patched
++ sleep 15
++ kubectl -n a20 get pods
+NAME                         READY   STATUS    RESTARTS   AGE
+final-app-777cfd666d-7gjvg   0/1     Running   0          13s
+final-app-777cfd666d-hnx9h   0/1     Running   0          15s
+final-app-878d6bc84-djd56    1/1     Running   0          2m44s
+final-app-878d6bc84-kg6p4    1/1     Running   0          2m19s
+final-app-878d6bc84-skzgn    1/1     Running   0          74s
++ kubectl -n a20 describe pods -l app=final-app
++ kubectl -n a20 logs deployment/final-app --tail=8
+Found 5 pods, using pod/final-app-878d6bc84-djd56
+Defaulted container "app" out of: app, storage-permissions (init)
+{"trace_id": "ee0828a60f7348b0981efefd44db941f", "path": "/health", "status": 200, "duration_ms": 0.312}
+10.244.0.1 - - [07/Oct/2026 09:01:43] "GET /health HTTP/1.1" 200 -
+{"trace_id": "8d93b540a3034953a95476df00c2c293", "path": "/health", "status": 200, "duration_ms": 0.229}
+10.244.0.1 - - [07/Oct/2026 09:01:46] "GET /health HTTP/1.1" 200 -
+{"trace_id": "4a3d95ba5e7c4cbfbfa1604de2bb8f56", "path": "/health", "status": 200, "duration_ms": 0.196}
+10.244.0.1 - - [07/Oct/2026 09:01:46] "GET /health HTTP/1.1" 200 -
+{"trace_id": "5bf20ff303f0446db86a5bec95e049d3", "path": "/health", "status": 200, "duration_ms": 0.174}
+10.244.0.1 - - [07/Oct/2026 09:01:49] "GET /health HTTP/1.1" 200 -
++ kubectl -n a20 patch deployment final-app --type=json -p '[{"op":"replace","path":"/spec/template/spec/containers/0/readinessProbe/httpGet/path","value":"/health"}]'
+deployment.apps/final-app patched
++ kubectl -n a20 rollout status deployment/final-app --timeout=180s
+Waiting for deployment "final-app" rollout to finish: 3 of 4 updated replicas are available...
+deployment "final-app" successfully rolled out
++ kubectl -n a20 patch svc final-app -p '{"spec":{"selector":{"app":"wrong-app"}}}'
+service/final-app patched
++ sleep 2
++ kubectl -n a20 describe svc final-app
++ cat ../evidence/before-service-fault.txt
+Name:                     final-app
+Namespace:                a20
+Labels:                   <none>
+Annotations:              <none>
+Selector:                 app=wrong-app
+Type:                     ClusterIP
+IP Family Policy:         SingleStack
+IP Families:              IPv4
+IP:                       10.101.40.108
+IPs:                      10.101.40.108
+Port:                     <unset>  80/TCP
+TargetPort:               8080/TCP
+Endpoints:                
+Session Affinity:         None
+Internal Traffic Policy:  Cluster
+Events:                   <none>
++ kubectl -n a20 exec deployment/final-app -- python -c 'import urllib.request; urllib.request.urlopen('\''http://final-app/health'\'',timeout=3)'
+Defaulted container "app" out of: app, storage-permissions (init)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/urllib/request.py", line 1357, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/usr/local/lib/python3.12/http/client.py", line 1386, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/usr/local/lib/python3.12/http/client.py", line 1432, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/usr/local/lib/python3.12/http/client.py", line 1381, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/usr/local/lib/python3.12/http/client.py", line 1141, in _send_output
+    self.send(msg)
+  File "/usr/local/lib/python3.12/http/client.py", line 1085, in send
+    self.connect()
+  File "/usr/local/lib/python3.12/http/client.py", line 1051, in connect
+    self.sock = self._create_connection(
+                ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/socket.py", line 865, in create_connection
+    raise exceptions[0]
+  File "/usr/local/lib/python3.12/socket.py", line 850, in create_connection
+    sock.connect(sa)
+ConnectionRefusedError: [Errno 111] Connection refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/local/lib/python3.12/urllib/request.py", line 215, in urlopen
+    return opener.open(url, data, timeout)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/urllib/request.py", line 515, in open
+    response = self._open(req, data)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/urllib/request.py", line 532, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/urllib/request.py", line 492, in _call_chain
+    result = func(*args)
+             ^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/urllib/request.py", line 1386, in http_open
+    return self.do_open(http.client.HTTPConnection, req)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/urllib/request.py", line 1360, in do_open
+    raise URLError(err)
+urllib.error.URLError: <urlopen error [Errno 111] Connection refused>
+command terminated with exit code 1
++ echo 'Expected failure with empty Service endpoints'
+Expected failure with empty Service endpoints
++ kubectl -n a20 patch svc final-app -p '{"spec":{"selector":{"app":"final-app"}}}'
+service/final-app patched
++ sleep 3
++ kubectl -n a20 exec deployment/final-app -- python -c 'import urllib.request;print(urllib.request.urlopen('\''http://final-app/health'\'').read().decode())'
+Defaulted container "app" out of: app, storage-permissions (init)
+{"secret_injected":true,"status":"healthy","version":"v1"}
+
++ kubectl -n a20 get deploy,pods,svc,ingress,hpa,pvc
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+deployment.apps/final-app   4/4     4            4           3m11s
+
+NAME                             READY   STATUS        RESTARTS   AGE
+pod/final-app-777cfd666d-7gjvg   0/1     Terminating   0          40s
+pod/final-app-777cfd666d-hnx9h   0/1     Terminating   0          42s
+pod/final-app-878d6bc84-5hzfx    1/1     Running       0          25s
+pod/final-app-878d6bc84-djd56    1/1     Running       0          3m11s
+pod/final-app-878d6bc84-kg6p4    1/1     Running       0          2m46s
+pod/final-app-878d6bc84-skzgn    1/1     Running       0          101s
+
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE
+service/final-app   ClusterIP   10.101.40.108   <none>        80/TCP    3m11s
+
+NAME                                  CLASS   HOSTS         ADDRESS        PORTS   AGE
+ingress.networking.k8s.io/final-app   nginx   final.local   192.168.49.2   80      3m11s
+
+NAME                                            REFERENCE              TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/final-app   Deployment/final-app   cpu: 331%/50%   2         4         4          3m11s
+
+NAME                               STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   VOLUMEATTRIBUTESCLASS   AGE
+persistentvolumeclaim/final-data   Bound    pvc-586625da-2479-46d6-a4e6-271aa89279e8   500Mi      RWO            standard       <unset>                 3m11s
++ kubectl -n a20 describe pods -l app=final-app
+
+```

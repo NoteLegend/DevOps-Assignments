@@ -1,0 +1,14 @@
+services:
+
+  frontend:
+    image: nginx
+    ports:
+      - "8081:80"
+
+  backend:
+    image: nginx
+
+  database:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Use the runtime env file}

@@ -1,0 +1,257 @@
+[
+  {
+    "number": 1,
+    "session": "01-02",
+    "topic": "Linux Homework Tasks and Shell Scripting Homework Task",
+    "folder": "Assignment-01-Session-01-02",
+    "pages": [
+      1,
+      2
+    ],
+    "status": "COMPLETE",
+    "notes": "Local Linux and shell tasks verified; GitHub publication deferred."
+  },
+  {
+    "number": 2,
+    "session": "03",
+    "topic": "Networking Homework Tasks",
+    "folder": "Assignment-02-Session-03",
+    "pages": [
+      3
+    ],
+    "status": "COMPLETE",
+    "notes": "Networking commands and packet capture verified in local VM."
+  },
+  {
+    "number": 3,
+    "session": "04",
+    "topic": "Git Homework Tasks",
+    "folder": "Assignment-03-Session-04",
+    "pages": [
+      4
+    ],
+    "status": "COMPLETE",
+    "notes": "Git commit comparison and cherry-pick verified locally; publication deferred."
+  },
+  {
+    "number": 4,
+    "session": "05",
+    "topic": "Docker Hello World Applications",
+    "folder": "Assignment-04-Session-05",
+    "pages": [
+      5,
+      6
+    ],
+    "status": "COMPLETE",
+    "notes": "Six images built, containers and browser pages verified; removed after evidence."
+  },
+  {
+    "number": 5,
+    "session": "06",
+    "topic": "Docker Multi-Stage Build",
+    "folder": "Assignment-05-Session-06",
+    "pages": [
+      7,
+      8
+    ],
+    "status": "COMPLETE",
+    "notes": "Multi-stage and three runtimes verified; identity placeholders and publication pending."
+  },
+  {
+    "number": 6,
+    "session": "07",
+    "topic": "Docker Networking & Volume",
+    "folder": "Assignment-06-Session-07",
+    "pages": [
+      9,
+      10
+    ],
+    "status": "COMPLETE",
+    "notes": "Network isolation, VM host port 80, live bind edit and overlay research complete."
+  },
+  {
+    "number": 7,
+    "session": "08",
+    "topic": "Docker Networking & Volume: remaining session exercises",
+    "folder": "Assignment-07-Session-08",
+    "pages": [
+      10
+    ],
+    "status": "COMPLETE",
+    "notes": "All three Compose examples verified; backend startup race diagnosed and fixed."
+  },
+  {
+    "number": 8,
+    "session": "09",
+    "topic": "Kubernetes Fundamentals",
+    "folder": "Assignment-08-Session-09",
+    "pages": [
+      11,
+      12
+    ],
+    "status": "COMPLETE",
+    "notes": "Local VM tutorial verified; GitHub publication owner-deferred."
+  },
+  {
+    "number": 9,
+    "session": "10",
+    "topic": "Kubernetes Pods, ReplicaSets & Deployments",
+    "folder": "Assignment-09-Session-10",
+    "pages": [
+      13,
+      14,
+      15
+    ],
+    "status": "COMPLETE",
+    "notes": "All strategies and 12 lifecycle cases executed locally."
+  },
+  {
+    "number": 10,
+    "session": "11",
+    "topic": "Kubernetes Networking & Services",
+    "folder": "Assignment-10-Session-11",
+    "pages": [
+      16,
+      17,
+      18,
+      19
+    ],
+    "status": "COMPLETE",
+    "notes": "Five Service types, HTTP and DNS verified locally."
+  },
+  {
+    "number": 11,
+    "session": "12",
+    "topic": "Kubernetes Ingress, ConfigMaps & Secrets",
+    "folder": "Assignment-11-Session-12",
+    "pages": [
+      20,
+      21,
+      22
+    ],
+    "status": "COMPLETE",
+    "notes": "ConfigMap, hidden Secret, Ingress and before/after encoding checks verified."
+  },
+  {
+    "number": 12,
+    "session": "13",
+    "topic": "Kubernetes Storage, HPA & Probes",
+    "folder": "Assignment-12-Session-13",
+    "pages": [
+      23,
+      24,
+      25
+    ],
+    "status": "COMPLETE",
+    "notes": "Volume persistence, real HPA scale-up/default scale-down, probes and mini project verified."
+  },
+  {
+    "number": 13,
+    "session": "14",
+    "topic": "Kubernetes Troubleshooting",
+    "folder": "Assignment-13-Session-14",
+    "pages": [
+      26,
+      27,
+      28
+    ],
+    "status": "COMPLETE",
+    "notes": "Actual Pod/Service/DNS/port failures diagnosed and repaired; before/after evidence retained."
+  },
+  {
+    "number": 14,
+    "session": "15",
+    "topic": "Helm",
+    "folder": "Assignment-14-Session-15",
+    "pages": [
+      29,
+      30,
+      31,
+      32
+    ],
+    "status": "COMPLETE",
+    "notes": "All required Helm commands, upgrades, rollback and cleanup verified locally."
+  },
+  {
+    "number": 15,
+    "session": "16",
+    "topic": "CI/CD & GitHub Actions",
+    "folder": "Assignment-15-Session-16",
+    "pages": [
+      33,
+      34
+    ],
+    "status": "BLOCKED",
+    "notes": "Local tests/build/Docker/actionlint passed; actual GitHub CI/CD and registry publication require owner approval."
+  },
+  {
+    "number": 16,
+    "session": "17",
+    "topic": "Complete CI/CD & DevSecOps",
+    "folder": "Assignment-16-Session-17",
+    "pages": [
+      35,
+      36,
+      37
+    ],
+    "status": "BLOCKED",
+    "notes": "All local scans, strict image gate and deployment passed; hosted CI/registry push remain approval-dependent."
+  },
+  {
+    "number": 17,
+    "session": "18",
+    "topic": "Terraform & Infrastructure as Code",
+    "folder": "Assignment-17-Session-18",
+    "pages": [
+      38,
+      39,
+      40,
+      41,
+      42,
+      43
+    ],
+    "status": "BLOCKED",
+    "notes": "Local Terraform validation and five AWS research folders complete; real S3 workflow forbidden pending approval."
+  },
+  {
+    "number": 18,
+    "session": "19",
+    "topic": "Cloud & Terraform in Action",
+    "folder": "Assignment-18-Session-19",
+    "pages": [
+      44,
+      45,
+      46
+    ],
+    "status": "BLOCKED",
+    "notes": "Terraform init/fmt/check/validate passed; AWS plan/provisioning/output/destroy await owner approval."
+  },
+  {
+    "number": 19,
+    "session": "20",
+    "topic": "Monitoring, Observability & GitOps",
+    "folder": "Assignment-19-Session-20",
+    "pages": [
+      47,
+      48
+    ],
+    "status": "COMPLETE",
+    "notes": "Live metrics, real alert/recovery and local Git drift correction/version promotion verified."
+  },
+  {
+    "number": 20,
+    "session": "21",
+    "topic": "Final DevOps Project & Troubleshooting",
+    "folder": "Assignment-20-Session-21",
+    "pages": [
+      49,
+      50,
+      51,
+      52,
+      53,
+      54
+    ],
+    "status": "BLOCKED",
+    "notes": "All local components, tests/scans, Kubernetes/Helm, monitoring/GitOps and Terraform validation passed; hosted CI/registry/cloud execution remains approval-dependent."
+  }
+]

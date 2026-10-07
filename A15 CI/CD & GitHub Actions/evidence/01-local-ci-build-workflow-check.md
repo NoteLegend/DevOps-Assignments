@@ -1,0 +1,168 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+cp app/calculator.py ../../.local-tools/runtime/a15-calculator-original.py
+trap 'cp ../../.local-tools/runtime/a15-calculator-original.py app/calculator.py' EXIT
+sed -i 's/return a + b$/return a + b + 1/' app/calculator.py
+if ../../.local-tools/security-venv/bin/pytest -v; then exit 1; else echo 'Intentional add regression failed tests as expected; build is gated'; fi
+cp ../../.local-tools/runtime/a15-calculator-original.py app/calculator.py
+trap - EXIT
+../../.local-tools/security-venv/bin/pytest -v
+printf '10 + 5\nq\n' | ../../.local-tools/security-venv/bin/python app/calculator.py
+bash build.sh
+python -m compileall -q app tests
+actionlint -shellcheck= .github/workflows/*.yml
+if find . -type f \( -name '.env' -o -name '*.pem' -o -name '*.key' \) | grep .; then exit 1; fi
+docker build -t devops-a15-calculator:local .
+printf '10 + 5\nq\n' | docker run --rm -i devops-a15-calculator:local
+
+```
+
+```text
+Executed 2026-10-07T14:11:05.968350+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-15-Session-16
+Script: verify.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ cp app/calculator.py ../../.local-tools/runtime/a15-calculator-original.py
++ trap 'cp ../../.local-tools/runtime/a15-calculator-original.py app/calculator.py' EXIT
++ sed -i 's/return a + b$/return a + b + 1/' app/calculator.py
++ ../../.local-tools/security-venv/bin/pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /home/rushixd/Wurk/Scaler/DevOps/.local-tools/security-venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-15-Session-16
+plugins: platformdirs-4.12.3
+collecting ... collected 5 items
+
+tests/test_calculator.py::test_add FAILED                                [ 20%]
+tests/test_calculator.py::test_subtract PASSED                           [ 40%]
+tests/test_calculator.py::test_multiply PASSED                           [ 60%]
+tests/test_calculator.py::test_divide PASSED                             [ 80%]
+tests/test_calculator.py::test_divide_by_zero PASSED                     [100%]
+
+=================================== FAILURES ===================================
+___________________________________ test_add ___________________________________
+
+    def test_add():
+>       assert add(10, 5) == 15
+E       assert 16 == 15
+E        +  where 16 = add(10, 5)
+
+tests/test_calculator.py:10: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_calculator.py::test_add - assert 16 == 15
+========================= 1 failed, 4 passed in 0.06s ==========================
++ echo 'Intentional add regression failed tests as expected; build is gated'
+Intentional add regression failed tests as expected; build is gated
++ cp ../../.local-tools/runtime/a15-calculator-original.py app/calculator.py
++ trap - EXIT
++ ../../.local-tools/security-venv/bin/pytest -v
+============================= test session starts ==============================
+platform linux -- Python 3.14.7, pytest-9.1.1, pluggy-1.6.0 -- /home/rushixd/Wurk/Scaler/DevOps/.local-tools/security-venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-15-Session-16
+plugins: platformdirs-4.12.3
+collecting ... collected 5 items
+
+tests/test_calculator.py::test_add PASSED                                [ 20%]
+tests/test_calculator.py::test_subtract PASSED                           [ 40%]
+tests/test_calculator.py::test_multiply PASSED                           [ 60%]
+tests/test_calculator.py::test_divide PASSED                             [ 80%]
+tests/test_calculator.py::test_divide_by_zero PASSED                     [100%]
+
+============================== 5 passed in 0.03s ===============================
++ printf '10 + 5\nq\n'
++ ../../.local-tools/security-venv/bin/python app/calculator.py
+<frozen site>:101: RuntimeWarning: Unexpected value in sys.prefix, expected /home/rushixd/Wurk/Scaler/DevOps/.local-tools/security-venv, got /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-15-Session-16/../../.local-tools/security-venv
+<frozen site>:101: RuntimeWarning: Unexpected value in sys.exec_prefix, expected /home/rushixd/Wurk/Scaler/DevOps/.local-tools/security-venv, got /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-15-Session-16/../../.local-tools/security-venv
+Calculator Application
+----------------------
+Available operations: +, -, *, /
+Type 'q' or 'quit' to exit.
+
+Enter calculation (e.g., 10 + 5): Result: 15.0
+
+Enter calculation (e.g., 10 + 5): Goodbye!
++ bash build.sh
+=================================
+Starting Application Build
+=================================
+
+Build files:
+total 8
+drwxr-xr-x 1 rushixd rushixd   54 Oct  7 14:10 .
+drwxr-xr-x 1 rushixd rushixd  220 Oct  7 14:10 ..
+-rw-r--r-- 1 rushixd rushixd   98 Oct  7 14:10 build-info.txt
+-rw-r--r-- 1 rushixd rushixd 1488 Oct  7 14:10 calculator.py
+
+Build completed successfully.
++ python -m compileall -q app tests
++ actionlint -shellcheck= .github/workflows/cd.yml .github/workflows/ci.yml
++ find . -type f '(' -name .env -o -name '*.pem' -o -name '*.key' ')'
++ grep .
++ docker build -t devops-a15-calculator:local .
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile:
+#1 transferring dockerfile: 134B 0.0s done
+#1 DONE 0.3s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-slim
+#2 DONE 1.8s
+
+#3 [internal] load .dockerignore
+#3 transferring context:
+#3 transferring context: 2B 0.0s done
+#3 DONE 0.3s
+
+#4 [internal] load build context
+#4 transferring context: 4.39kB 0.0s done
+#4 DONE 0.4s
+
+#5 [1/3] FROM docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f
+#5 resolve docker.io/library/python:3.12-slim@sha256:05cda9777409a9c3ffddd94a4c476b79f0769a0b4857f0c7ed9226b6800b0d6f 0.2s done
+#5 DONE 0.3s
+
+#6 [2/3] WORKDIR /app
+#6 CACHED
+
+#7 [3/3] COPY app ./app
+#7 DONE 0.4s
+
+#8 exporting to image
+#8 exporting layers
+#8 exporting layers 0.7s done
+#8 exporting manifest sha256:903568a8e3c15eb8ce0fed1b3a251c1685fe770c35a2eab85be8a38a98305b8c 0.1s done
+#8 exporting config sha256:b584a3ed964ff141377d24beb0271112f384d7b18bb4cf9c0374dd15d117ab10
+#8 exporting config sha256:b584a3ed964ff141377d24beb0271112f384d7b18bb4cf9c0374dd15d117ab10 0.1s done
+#8 exporting attestation manifest sha256:1445c95c7f7dd714704425bce617f33e5e631d0d1b6a211a59d38c8de83449ca
+#8 exporting attestation manifest sha256:1445c95c7f7dd714704425bce617f33e5e631d0d1b6a211a59d38c8de83449ca 0.3s done
+#8 exporting manifest list sha256:6355ae7f3a530bcdcb508df29c004fdd59b695e97f9684ac392292b7c501dd0d
+#8 exporting manifest list sha256:6355ae7f3a530bcdcb508df29c004fdd59b695e97f9684ac392292b7c501dd0d 0.1s done
+#8 naming to docker.io/library/devops-a15-calculator:local 0.0s done
+#8 unpacking to docker.io/library/devops-a15-calculator:local
+#8 unpacking to docker.io/library/devops-a15-calculator:local 0.2s done
+#8 DONE 1.7s
++ printf '10 + 5\nq\n'
++ docker run --rm -i devops-a15-calculator:local
+Calculator Application
+----------------------
+Available operations: +, -, *, /
+Type 'q' or 'quit' to exit.
+
+Enter calculation (e.g., 10 + 5): Result: 15.0
+
+Enter calculation (e.g., 10 + 5): Goodbye!
+
+```

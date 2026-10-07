@@ -1,0 +1,731 @@
+# Executed commands and captured output
+
+```bash
+#!/usr/bin/env bash
+set -euxo pipefail
+source ../../.local-tools/env.sh
+kubectl apply -f mini-project/namespace.yaml
+kubectl apply -f mini-project
+kubectl -n production-webapp rollout status deployment/web-app --timeout=180s
+kubectl -n production-webapp exec deployment/web-app -- sh -c 'echo "Student: <YOUR NAME>" >/data/student.txt'
+pod=$(kubectl -n production-webapp get pods -l app=web-app -o jsonpath='{.items[0].metadata.name}')
+kubectl -n production-webapp delete pod "$pod"
+kubectl -n production-webapp rollout status deployment/web-app --timeout=180s
+kubectl -n production-webapp exec deployment/web-app -- cat /data/student.txt
+kubectl -n production-webapp run load-generator --image=busybox:1.36 --restart=Never --command -- sh -c 'for i in 1 2 3 4 5 6 7 8 9 10 11 12; do (while true; do wget -qO- http://web-service >/dev/null; done) & done; wait'
+for attempt in {1..40}; do
+ kubectl -n production-webapp get hpa,pods
+ replicas=$(kubectl -n production-webapp get deploy web-app -o jsonpath='{.spec.replicas}')
+ if ((replicas > 2)); then break; fi
+ sleep 10
+done
+test "$replicas" -gt 2
+kubectl -n production-webapp delete pod load-generator --grace-period=1
+for attempt in {1..55}; do
+ kubectl -n production-webapp get hpa,pods
+ replicas=$(kubectl -n production-webapp get deploy web-app -o jsonpath='{.spec.replicas}')
+ if [[ "$replicas" = 2 ]]; then break; fi
+ sleep 10
+done
+test "$replicas" = 2
+kubectl -n production-webapp describe hpa web-app-hpa
+kubectl delete namespace production-webapp
+
+```
+
+```text
+Executed 2026-10-07T14:06:32.338570+05:30
+Working directory: /home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-12-Session-13
+Script: verify-complete-scaling-cycle.sh
+Exit status: 0
+
++ source ../../.local-tools/env.sh
+++ _devops_trace=0
+++ case $- in
+++ _devops_trace=1
+++ set +x
+++ unset _devops_trace
++ kubectl apply -f mini-project/namespace.yaml
+namespace/production-webapp unchanged
++ kubectl apply -f mini-project
+deployment.apps/web-app created
+pod/liveness-demo unchanged
+pod/readiness-demo unchanged
+pod/startup-demo unchanged
+horizontalpodautoscaler.autoscaling/web-app-hpa created
+namespace/production-webapp unchanged
+persistentvolumeclaim/web-data unchanged
+service/web-service unchanged
++ kubectl -n production-webapp rollout status deployment/web-app --timeout=180s
+Waiting for deployment "web-app" rollout to finish: 0 of 2 updated replicas are available...
+Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web-app" successfully rolled out
++ kubectl -n production-webapp exec deployment/web-app -- sh -c 'echo "Student: <YOUR NAME>" >/data/student.txt'
+++ kubectl -n production-webapp get pods -l app=web-app -o 'jsonpath={.items[0].metadata.name}'
++ pod=web-app-97976c695-c2dt5
++ kubectl -n production-webapp delete pod web-app-97976c695-c2dt5
+pod "web-app-97976c695-c2dt5" deleted from production-webapp namespace
++ kubectl -n production-webapp rollout status deployment/web-app --timeout=180s
+Waiting for deployment "web-app" rollout to finish: 1 of 2 updated replicas are available...
+deployment "web-app" successfully rolled out
++ kubectl -n production-webapp exec deployment/web-app -- cat /data/student.txt
+Student: <YOUR NAME>
++ kubectl -n production-webapp run load-generator --image=busybox:1.36 --restart=Never --command -- sh -c 'for i in 1 2 3 4 5 6 7 8 9 10 11 12; do (while true; do wget -qO- http://web-service >/dev/null; done) & done; wait'
+pod/load-generator created
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          20s
+
+NAME                          READY   STATUS              RESTARTS   AGE
+pod/load-generator            0/1     ContainerCreating   0          1s
+pod/web-app-97976c695-blxfm   1/1     Running             0          10s
+pod/web-app-97976c695-gdnlh   1/1     Running             0          20s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          31s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          12s
+pod/web-app-97976c695-blxfm   1/1     Running   0          21s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          31s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          42s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          23s
+pod/web-app-97976c695-blxfm   1/1     Running   0          32s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          42s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          52s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          33s
+pod/web-app-97976c695-blxfm   1/1     Running   0          42s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          52s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          63s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          44s
+pod/web-app-97976c695-blxfm   1/1     Running   0          53s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          63s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          74s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          55s
+pod/web-app-97976c695-blxfm   1/1     Running   0          64s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          74s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          86s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          67s
+pod/web-app-97976c695-blxfm   1/1     Running   0          76s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          86s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          97s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          78s
+pod/web-app-97976c695-blxfm   1/1     Running   0          87s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          97s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          107s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          88s
+pod/web-app-97976c695-blxfm   1/1     Running   0          97s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          107s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS              MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: <unknown>/50%   2         5         2          119s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          100s
+pod/web-app-97976c695-blxfm   1/1     Running   0          109s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          119s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ (( replicas > 2 ))
++ sleep 10
++ for attempt in {1..40}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         2          2m10s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/load-generator            1/1     Running   0          111s
+pod/web-app-97976c695-8gz8m   0/1     Running   0          9s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m
+pod/web-app-97976c695-f5gfr   0/1     Running   0          9s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m10s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ (( replicas > 2 ))
++ break
++ test 4 -gt 2
++ kubectl -n production-webapp delete pod load-generator --grace-period=1
+pod "load-generator" deleted from production-webapp namespace
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         2          2m13s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          12s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m3s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          12s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m13s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=4
++ [[ 4 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         4          2m24s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          23s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m14s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          23s
+pod/web-app-97976c695-g9nv5   0/1     Running   0          8s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m24s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         5          2m35s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          34s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m25s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          34s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          19s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m35s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         5          2m46s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          45s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m36s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          45s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          30s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m46s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS         MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 110%/50%   2         5         5          2m57s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          56s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m47s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          56s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          41s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          2m57s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 31%/50%   2         5         5          3m8s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          67s
+pod/web-app-97976c695-blxfm   1/1     Running   0          2m58s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          67s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          52s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          3m8s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 31%/50%   2         5         5          3m18s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          77s
+pod/web-app-97976c695-blxfm   1/1     Running   0          3m8s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          77s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          62s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          3m18s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 31%/50%   2         5         5          3m29s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          88s
+pod/web-app-97976c695-blxfm   1/1     Running   0          3m19s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          88s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          73s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          3m29s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 31%/50%   2         5         5          3m40s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          99s
+pod/web-app-97976c695-blxfm   1/1     Running   0          3m30s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          99s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          84s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          3m40s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS        MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 31%/50%   2         5         5          3m51s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          110s
+pod/web-app-97976c695-blxfm   1/1     Running   0          3m41s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          110s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          95s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          3m51s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m2s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m1s
+pod/web-app-97976c695-blxfm   1/1     Running   0          3m52s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m1s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          106s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m2s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m12s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m11s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m2s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m11s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          116s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m12s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m23s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m22s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m13s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m22s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          2m7s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m23s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m34s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m33s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m24s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m33s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          2m18s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m34s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m45s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m44s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m35s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m44s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          2m29s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m45s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          4m55s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          2m54s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m45s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          2m54s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          2m39s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          4m55s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          5m6s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m5s
+pod/web-app-97976c695-blxfm   1/1     Running   0          4m56s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m5s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          2m50s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          5m6s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          5m17s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m16s
+pod/web-app-97976c695-blxfm   1/1     Running   0          5m7s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m16s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m1s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          5m17s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          5m27s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m26s
+pod/web-app-97976c695-blxfm   1/1     Running   0          5m17s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m26s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m11s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          5m27s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          5m39s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m38s
+pod/web-app-97976c695-blxfm   1/1     Running   0          5m29s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m38s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m23s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          5m39s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          5m50s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m49s
+pod/web-app-97976c695-blxfm   1/1     Running   0          5m40s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m49s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m34s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          5m50s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          3m59s
+pod/web-app-97976c695-blxfm   1/1     Running   0          5m50s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          3m59s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m44s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m11s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          4m10s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m1s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          4m10s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          3m55s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m11s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m22s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          4m21s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m12s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          4m21s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          4m6s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m22s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m33s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          4m32s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m23s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          4m32s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          4m17s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m33s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m44s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          4m43s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m34s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          4m43s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          4m28s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m44s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          6m55s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          4m54s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m45s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          4m54s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          4m39s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          6m55s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          7m5s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          5m4s
+pod/web-app-97976c695-blxfm   1/1     Running   0          6m55s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          5m4s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          4m49s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          7m5s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          7m16s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          5m15s
+pod/web-app-97976c695-blxfm   1/1     Running   0          7m6s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          5m15s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          5m
+pod/web-app-97976c695-gdnlh   1/1     Running   0          7m16s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          7m27s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          5m26s
+pod/web-app-97976c695-blxfm   1/1     Running   0          7m17s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          5m26s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          5m11s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          7m27s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          7m38s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          5m37s
+pod/web-app-97976c695-blxfm   1/1     Running   0          7m28s
+pod/web-app-97976c695-f5gfr   1/1     Running   0          5m37s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          5m22s
+pod/web-app-97976c695-gdnlh   1/1     Running   0          7m38s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=5
++ [[ 5 = 2 ]]
++ sleep 10
++ for attempt in {1..55}
++ kubectl -n production-webapp get hpa,pods
+NAME                                              REFERENCE            TARGETS       MINPODS   MAXPODS   REPLICAS   AGE
+horizontalpodautoscaler.autoscaling/web-app-hpa   Deployment/web-app   cpu: 1%/50%   2         5         5          7m49s
+
+NAME                          READY   STATUS    RESTARTS   AGE
+pod/web-app-97976c695-8gz8m   1/1     Running   0          5m48s
+pod/web-app-97976c695-g9nv5   1/1     Running   0          5m33s
+++ kubectl -n production-webapp get deploy web-app -o 'jsonpath={.spec.replicas}'
++ replicas=2
++ [[ 2 = 2 ]]
++ break
++ test 2 = 2
++ kubectl -n production-webapp describe hpa web-app-hpa
+Name:                                                  web-app-hpa
+Namespace:                                             production-webapp
+Labels:                                                <none>
+Annotations:                                           <none>
+CreationTimestamp:                                     Wed, 07 Oct 2026 08:28:25 +0000
+Reference:                                             Deployment/web-app
+Metrics:                                               ( current / target )
+  resource cpu on pods  (as a percentage of request):  1% (1m) / 50%
+Min replicas:                                          2
+Max replicas:                                          5
+Deployment pods:                                       5 current / 2 desired
+Conditions:
+  Type            Status  Reason              Message
+  ----            ------  ------              -------
+  AbleToScale     True    SucceededRescale    the HPA controller was able to update the target scale to 2
+  ScalingActive   True    ValidMetricFound    the HPA was able to successfully calculate a replica count from cpu resource utilization (percentage of request)
+  ScalingLimited  False   DesiredWithinRange  the desired count is within the acceptable range
+Events:
+  Type     Reason                        Age                   From                       Message
+  ----     ------                        ----                  ----                       -------
+  Warning  FailedGetResourceMetric       7m4s (x3 over 7m35s)  horizontal-pod-autoscaler  failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedComputeMetricsReplicas  7m4s (x3 over 7m35s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: unable to get metrics for resource cpu: no metrics returned from resource metrics API
+  Warning  FailedGetResourceMetric       6m4s (x4 over 6m49s)  horizontal-pod-autoscaler  failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Warning  FailedComputeMetricsReplicas  6m4s (x4 over 6m49s)  horizontal-pod-autoscaler  invalid metrics (1 invalid out of 1), first error is: failed to get cpu resource metric value: failed to get cpu utilization: did not receive metrics for targeted pods (pods might be unready)
+  Normal   SuccessfulRescale             5m49s                 horizontal-pod-autoscaler  New size: 4; reason: cpu resource utilization (percentage of request) above target
+  Normal   SuccessfulRescale             5m34s                 horizontal-pod-autoscaler  New size: 5; reason:
+  Normal   SuccessfulRescale             4s                    horizontal-pod-autoscaler  New size: 2; reason: All metrics below target
++ kubectl delete namespace production-webapp
+namespace "production-webapp" deleted
+
+```
