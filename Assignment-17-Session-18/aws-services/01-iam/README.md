@@ -1,17 +1,33 @@
-# IAM — governance
+# IAM: Identity, Permissions & Governance
 
-[Portfolio](../../../README.md) · [Assignment 17](../../README.md)
+Access needs to identify the caller and limit the actions that caller can perform.
 
-## Concepts and use cases
+[Assignment](../../README.md) · [Service research](../../README.md#aws-services-research)
 
-IAM controls authentication and authorization for AWS resources. Users are identities; groups aggregate user permissions. Roles provide assumable identities with temporary credentials. JSON policies grant or deny actions on resources, optionally with conditions. Effective permissions combine applicable policies; an explicit deny overrides an allow.
+## How it fits
 
-Least privilege means granting only required actions on specific resources. Prefer federation and temporary role credentials, protect privileged access with MFA, avoid daily root usage and review unused access. Use roles for EC2 applications accessing S3, groups for a team's permissions and policies to restrict environment-specific access.
+```mermaid
+flowchart LR
+  ID["User or assumed role"] --> POLICY["Applicable policies"]
+  POLICY --> ACTION["Requested action and resource"]
+  ACTION --> DECISION["Authorization decision"]
+```
 
-This is research only; no users, roles, policies or credentials were created or used.
+## Concepts and design choices
 
-Source: [AWS IAM guide](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html).
+| Concept | Purpose |
+| --- | --- |
+| User | Identity for a person or workload; may have assigned permissions |
+| Group | Collection of IAM users sharing permission policies |
+| Role | Assumable identity used with temporary credentials |
+| Policy | JSON rules describing allowed/denied actions, resources and conditions |
+| Permissions | Effective access after applicable policy evaluation |
+| Least privilege | Limit actions and resources to what the task requires |
 
-## Assignment scope
+An explicit deny overrides an applicable allow. Prefer temporary credentials and federation, use MFA for privileged access, avoid daily root-account use and review unused access. Typical patterns include application roles for S3 access and scoped policies for separate environments.
 
-This is the PDF-required research document. It does not claim that a corresponding AWS service was provisioned. The actual S3 lifecycle gap is tracked in the assignment README.
+## Connection to the practical work
+
+This research document does not provision IAM users, roles or policies. The real S3 exercise used temporary browser-authorized CLI credentials.
+
+[Official service documentation](https://docs.aws.amazon.com/IAM/latest/UserGuide/introduction.html)

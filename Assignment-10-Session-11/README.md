@@ -1,51 +1,63 @@
-# 10 · Kubernetes Networking & Services
+# Assignment 10 — Kubernetes Services & DNS
 
-**Session 11** · **Local practical work verified**
+Five Service types compared through real DNS resolution, endpoint inspection and HTTP access.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Deploy all five Service types, verify DNS and HTTP access, and document workload-controller comparisons, FQDNs and CoreDNS.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 16, 17, 18, 19 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 1 · actual screenshots: 1 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Pod addresses change as workloads are replaced. Clients need stable discovery, and different access requirements call for different Service behavior.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Applied and checked ClusterIP, NodePort, LoadBalancer, ExternalName and headless examples.
+2. Resolved Service names from a client Pod and verified actual HTTP behavior, using a local Minikube tunnel for LoadBalancer.
+3. Documented FQDN/CoreDNS behavior and compared workload controllers with traffic-routing objects.
+
+## How it works
+
+```mermaid
+flowchart TB
+  CLIENT["Client Pod"] --> DNS["CoreDNS lookup"]
+  DNS --> VIP["ClusterIP / NodePort / local LoadBalancer"]
+  VIP --> ENDPOINTS["Ready endpoints"]
+  ENDPOINTS --> PODS["Application Pods"]
+  DNS --> HEADLESS["Headless: endpoint addresses"]
+  HEADLESS --> PODS
+  DNS --> ALIAS["ExternalName: DNS CNAME"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class PODS verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Five Service types | [manifests/](manifests/) | ClusterIP, NodePort, local-tunnel LoadBalancer, ExternalName and Headless all deployed and checked. |
 | Object comparisons | [README.md](README.md) | Deployment/ReplicaSet, Deployment/DaemonSet/StatefulSet, and ReplicaSet/Service. |
 | FQDN document | [fqdn/README.md](fqdn/README.md) | Namespace-qualified Service names and Pod-to-Service examples. |
 | CoreDNS document | [coredns/README.md](coredns/README.md) | Configuration, discovery, query resolution and troubleshooting. |
 
-## Commands and verification
+**Tools:** kubectl, Kubernetes Services/EndpointSlices, CoreDNS and Minikube tunnel.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
-kubectl get services
-kubectl get endpointslices
+kubectl -n a10 apply --dry-run=server -f manifests
+kubectl -n a10 apply -f manifests
+kubectl -n a10 get svc
+kubectl -n a10 get endpointslices
 kubectl -n kube-system get configmap coredns -o yaml
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 Server-side dry-run accepted the manifests and real DNS/HTTP checks succeeded for all five types. The LoadBalancer result used a local Minikube tunnel rather than a cloud load balancer.
 
-## Troubleshooting and observations
-
-Headless DNS resolves endpoint addresses, so clients must use the listening Pod port. ExternalName provides a CNAME rather than proxy endpoints.
-
-## Submission status
-
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
 
 ## Required object comparisons
 
@@ -69,17 +81,20 @@ ReplicaSet keeps the selected replica count; a Service supplies discovery and a 
 
 Documentation sources: [Deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/), [DaemonSet](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/), [StatefulSet](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/), [Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 
-## Execution evidence
+## Troubleshooting & decisions
+
+Headless DNS resolves endpoint addresses, so clients must use the listening Pod port. ExternalName provides a CNAME rather than proxy endpoints.
+
+## Evidence
 
 - [01 all service types](evidence/01-all-service-types.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (1 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 all service types](screenshots/01-all-service-types.png)
 
-</details>
+## Key takeaways
+
+A Service is a stable access/discovery abstraction; it does not maintain replica count. Headless DNS returns endpoint addresses, so the client must use the application listening port.

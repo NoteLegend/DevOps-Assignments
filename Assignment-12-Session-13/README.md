@@ -1,48 +1,62 @@
-# 12 · Kubernetes Storage, HPA & Probes
+# Assignment 12 — Kubernetes Storage, Autoscaling & Probes
 
-**Session 13** · **Local practical work verified**
+Persistent data, health probes and a measured autoscaling cycle verified in a local Kubernetes project.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Compare Kubernetes volume lifetimes, measure CPU-driven autoscaling and complete the persistent web mini project with all three probe types.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 23, 24, 25 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 5 · actual screenshots: 6 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Data should survive the right failures, healthy workloads should receive traffic, and replica counts should adapt to measured demand. These are separate lifecycle concerns.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Compared emptyDir, hostPath, static PV/PVC and dynamically provisioned storage by writing data and replacing Pods.
+2. Configured startup, readiness and liveness probes in the persistent mini project.
+3. Generated real CPU load, observed HPA scale-up and the default stabilization window, then verified recovery to two replicas and retained data.
+
+## How it works
+
+```mermaid
+flowchart TB
+  LOAD["Application load"] --> CPU["Measured CPU"]
+  CPU --> HPA["HPA decides replica count"]
+  HPA --> PODS["Application Pods"]
+  PROBES["Startup / readiness / liveness"] --> PODS
+  PODS --> CLAIM["PersistentVolumeClaim"]
+  CLAIM --> DISK["PersistentVolume"]
+  NEW["Replacement Pod"] --> CLAIM
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class DISK verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Required volume documentation | [01-kubernetes-volumes/README.md](01-kubernetes-volumes/README.md) | emptyDir, hostPath, PV, PVC, StorageClass and dynamic provisioning. |
 | HPA exercise and load generator | [hpa/hpa.yml](hpa/hpa.yml) | Actual CPU load, get hpa/pods, top pods and describe hpa. |
 | Persistent mini project | [mini-project/](mini-project/) | PVC-backed content survives Pod replacement; startup/readiness/liveness probes inspected. |
 | Default recovery behavior | [evidence/07-complete-default-scaling-cycle-retry.md](evidence/07-complete-default-scaling-cycle-retry.md) | Observed scale-up and return to two replicas using default stabilization. |
 
-## Commands and verification
+**Tools:** Kubernetes volumes/PV/PVC/StorageClass, Metrics Server, HPA, probes and kubectl.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
-kubectl get hpa
-kubectl get pods
-kubectl top pods
-kubectl describe hpa
+kubectl -n a12 get hpa,pods
+kubectl -n a12 describe hpa hpa-demo
+kubectl -n a12 get pods -o wide
+kubectl -n production-webapp rollout status deployment/web-app --timeout=180s
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 Volume lifetime/persistence checks succeeded. Real load caused scaling, and the repeated mini-project cycle recorded the default scale-down stabilization and return to two replicas.
 
-## Troubleshooting and observations
-
-A single-node ReadWriteOnce demonstration does not establish multi-node storage portability. Historical persistence evidence includes `Student: <YOUR NAME>`; it is a recorded test marker, not a claimed identity. The actual student details are in the portfolio identity file.
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
 
 ## Probe responsibilities
 
@@ -54,11 +68,11 @@ A single-node ReadWriteOnce demonstration does not establish multi-node storage 
 
 The successful final cycle records all three configurations plus a stored marker surviving Pod replacement. Failed early downscale/namespace attempts remain linked separately from that successful cycle.
 
-## Submission status
+## Troubleshooting & decisions
 
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
+The persistence test used a historical placeholder marker stored on the volume. The important observation is that it survived Pod replacement. The single-node storage setup does not establish multi-node portability.
 
-## Execution evidence
+## Evidence
 
 - [01 volume lifetimes](evidence/01-volume-lifetimes.md) — successful execution
 - [02 hpa probes persistence](evidence/02-hpa-probes-persistence.md) — successful execution
@@ -70,12 +84,12 @@ The successful final cycle records all three configurations plus a stored marker
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (6 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 volume lifetimes](screenshots/01-volume-lifetimes.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![02 hpa probes persistence](screenshots/02-hpa-probes-persistence.png)
 
@@ -88,3 +102,7 @@ Actual application pages and explicitly labelled views of captured command outpu
 ![08 probe examples and owned cleanup](screenshots/08-probe-examples-and-owned-cleanup.png)
 
 </details>
+
+## Key takeaways
+
+Persistence, traffic eligibility and autoscaling must each be tested. A single-node ReadWriteOnce exercise does not establish multi-node storage portability.

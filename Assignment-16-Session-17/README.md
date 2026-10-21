@@ -1,32 +1,60 @@
-# 16 · Complete CI/CD & DevSecOps
+# Assignment 16 — Security-Gated CI/CD & Kubernetes Delivery
 
-**Session 17** · **Complete · full hosted security-gated delivery verified**
+A complete build-to-deployment pipeline that blocks delivery until source, dependency, secret and image gates pass.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Build a security-gated application pipeline with real local tests, four scanner categories, Docker execution and Kubernetes deployment.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 35, 36, 37 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful local/hosted records: 6 · actual screenshots: 8 |
-| Execution environment | Original Ubuntu VM; new GitHub-hosted Ubuntu runner and isolated kind cluster |
-| Review | 21 October 2026; historical output is retained unchanged |
+A pipeline should stop unsafe source, vulnerable dependencies, exposed secrets and vulnerable images before publication. Deployment must use the same image that passed the gates.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Compiled and unit-tested the application before running SAST, SCA and secret scanning.
+2. Built the Docker image and rejected HIGH/CRITICAL findings, including unfixed findings, before GHCR publication.
+3. Loaded the verified image into an isolated runner-local kind cluster, checked two Ready replicas and HTTP health, then deleted the cluster.
+
+## How it works
+
+```mermaid
+flowchart TB
+  subgraph CI["Build and source gates"]
+    direction LR
+    BUILD["Build"] --> TEST["Unit tests"]
+    TEST --> SAST["SAST"] --> SCA["SCA"] --> SECRET["Secrets"]
+  end
+  subgraph DELIVERY["Image delivery"]
+    direction LR
+    IMAGE["Docker build"] --> TRIVY["Trivy gate"] --> PUSH["GHCR push"]
+  end
+  subgraph DEPLOY["Deployment verification"]
+    direction LR
+    KIND["Local kind"] --> HEALTH["2 Ready + HTTP health"] --> CLEAN["Cluster cleanup"]
+  end
+  CI --> DELIVERY --> DEPLOY
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class CLEAN verified;
+  style CI fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+  style DELIVERY fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+  style DEPLOY fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Application build and tests | [application/](application/) | Three application tests and compile validation. |
 | SAST / SCA / secret scanning | [security/](security/) | Bandit, pip-audit and Gitleaks with actual retained reports. |
 | Container scanning and gate | [security/gate.sh](security/gate.sh) | Trivy rejects all HIGH/CRITICAL findings, including unfixed findings. |
 | Kubernetes and artifact integrity | [kubernetes/](kubernetes/) | Real local two-replica deployment; saved/loaded scanned image IDs are identical. |
-| Hosted pipeline preparation | [.github/workflows/](.github/workflows/) | Repository-root manual workflow executed successfully; all security, publication and Kubernetes verification stages passed. |
+| Hosted delivery | [.github/workflows/](.github/workflows/) | Repository-root manual workflow executed successfully; all security, publication and Kubernetes verification stages passed. |
 
-## Commands and verification
+**Tools:** Python/pytest, Bandit, pip-audit, Gitleaks, Docker, Trivy, GHCR, kind and kubectl.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
 python -m pytest -v
@@ -35,15 +63,13 @@ pip-audit -r requirements.txt
 docker build -t devops-a16-app:local .
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
+## Verification & results
 
-## Observed result
+[The complete hosted run](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376) passed tests, all four scanner categories, the delivery gates, GHCR publication and Kubernetes HTTP verification. Both replicas were Ready, the built/published image IDs matched, and the temporary kind cluster was deleted.
+
+### Earlier local security results
 
 Recorded final local scans: Bandit 0, dependency advisories 0, source-secret findings 0 and image HIGH/CRITICAL 0. Seven lower-severity image entries remain in the full dated report. The initial Debian scan and repair are retained.
-
-## Troubleshooting and observations
-
-The initial image had 44 HIGH/CRITICAL findings. Changing the runtime and rerunning the strict gate produced the recorded clean high-severity result; no unfixed-finding bypass is claimed.
 
 ## Security stages and retained reports
 
@@ -56,18 +82,9 @@ The initial image had 44 HIGH/CRITICAL findings. Changing the runtime and rerunn
 
 Generated image metadata initially matched two public signing-key fingerprints during secret scanning. Those redacted false positives were retained; generated evidence is separated from the source scan rather than being presented as an actual leaked runtime credential.
 
-## Hosted execution — 21 October 2026
+## Hosted delivery
 
-```mermaid
-flowchart LR
-  A[Compile / build] --> B[Unit tests] --> C[Bandit SAST]
-  C --> D[pip-audit SCA] --> E[Gitleaks secrets]
-  E --> F[Docker build] --> G[Trivy HIGH / CRITICAL gate]
-  G --> H[GHCR push] --> I[Runner-local Kubernetes]
-  I --> J[2 Ready replicas / HTTP health] --> K[Cluster cleanup]
-```
-
-The successful run used commit `ab2fbb4e5b4a59f12e99ae39df26cbafb571726f` and published `ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f`. Bandit, pip-audit, Gitleaks and the strict image gate passed. The built and published Docker image IDs are identical in the [downloaded evidence](evidence/hosted-devsecops/); this is the same image loaded into kind and used by the verified Deployment.
+The successful run used commit `ab2fbb4` and published its SHA-tagged image in `ghcr.io/notelegend/devops-assignments-devsecops`. Bandit, pip-audit, Gitleaks and the strict image gate passed. The built and published Docker image IDs are identical in the [downloaded evidence](evidence/hosted-devsecops/); this is the same image loaded into kind and used by the verified Deployment.
 
 ```bash
 gh workflow run assignment-16-devsecops.yml --repo NoteLegend/DevOps-Assignments
@@ -78,11 +95,13 @@ gh run download 39584880376 --repo NoteLegend/DevOps-Assignments \
 
 The first hosted attempt passed scans and image publication but failed when `kubectl set image` also encountered a Service in a combined manifest. Deployment and Service were separated, the local image patch was checked, and the complete rerun passed. The [original failure record](evidence/hosted-devsecops/initial-deployment-failure.json) is retained; it is not labelled successful. No AWS or remote Kubernetes cluster was used.
 
-## Submission status
+[Successful complete pipeline](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376) · [Downloaded verification artifacts](evidence/hosted-devsecops/)
 
-**COMPLETE.** [Run 39584880376](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376) passed the complete ordered flow for this application. Its SHA-tagged image was pushed to GHCR, loaded into the runner’s isolated kind cluster and verified with two Ready replicas plus a real `/health` response. The assignment-owned cluster was deleted at the end of the run.
+## Troubleshooting & decisions
 
-## Execution evidence
+The initial image had 44 HIGH/CRITICAL findings. Changing the runtime and rerunning the strict gate produced the recorded clean high-severity result; no unfixed-finding bypass is claimed.
+
+## Evidence
 
 - [01 local devsecops pipeline](evidence/01-local-devsecops-pipeline.md) — successful execution
 - [02 smaller runtime security verification](evidence/02-smaller-runtime-security-verification.md) — retained earlier attempt / diagnosis; use the successful retry for completion
@@ -96,10 +115,12 @@ The first hosted attempt passed scans and image publication but failed when `kub
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
+Actual application pages and recorded command-output views from the practical execution.
+
+![Successful hosted build, security gates, GHCR and Kubernetes verification](screenshots/07-hosted-devsecops.png)
 
 <details>
-<summary>Open the screenshot gallery (8 images)</summary>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![01 local devsecops pipeline](screenshots/01-local-devsecops-pipeline.png)
 
@@ -115,6 +136,8 @@ Actual application pages and explicitly labelled views of captured command outpu
 
 ![06 shared image artifact identity](screenshots/06-shared-image-artifact-identity.png)
 
-![Successful hosted build, security gates, GHCR and Kubernetes verification](screenshots/07-hosted-devsecops.png)
-
 </details>
+
+## Key takeaways
+
+A scan must gate delivery, not merely run alongside it. Recording built/published image identity connects the security result to the application that Kubernetes actually executes.

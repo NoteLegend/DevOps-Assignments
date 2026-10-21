@@ -1,70 +1,85 @@
-# 07 · Docker Networking & Volume: remaining session exercises
+# Assignment 07 — Docker Compose & Service Readiness
 
-**Session 08** · **Local practical work verified**
+Three Compose examples, including a database-backed application and a verified startup-order repair.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Complete the remaining Docker networking/volume exercises using the three Compose examples in the instructor’s referenced Session 8 resources.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 10 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 2 · actual screenshots: 3 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+A multi-container application needs consistent configuration and correct startup ordering. A running backend container may still be unready when Nginx starts routing traffic.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Validated and ran the basic, compose-app and full-stack course examples as separate Compose projects.
+2. Verified frontend/API responses, database discovery and a real MySQL create/insert/select sequence.
+3. Diagnosed the startup race, added readiness ordering and reran the failing example successfully.
+
+## How it works
+
+```mermaid
+flowchart LR
+  C["Compose project"] --> DB["MySQL becomes healthy"]
+  DB --> API["Backend becomes ready"]
+  API --> WEB["Nginx frontend"]
+  USER["HTTP client"] --> WEB
+  WEB --> API
+  API --> DB
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class WEB verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Basic Compose example | [basic/](basic/) | Build/start, HTTP verification and cleanup. |
 | Application Compose example | [compose-app/](compose-app/) | Run and inspect the required services. |
 | Full-stack exercise | [demo/](demo/) | Frontend/backend/MySQL verification including real database creation, insertion and selection. |
 | Startup troubleshooting | [fix-startup.sh](fix-startup.sh) | Capture the Nginx/backend startup race and fix readiness ordering. |
 
-## Commands and verification
+**Tools:** Docker Compose, Nginx, Python backend, MySQL and health checks.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+The verification script iterates over the three examples. `$project`, `$compose_file` and `$runtime_env` are the actual script variables for the selected project, manifest and private runtime values.
 
 ```bash
-docker compose config --quiet
-docker compose up --build -d
-docker compose ps
+docker compose --env-file "$runtime_env" -p "$project" -f "$compose_file" config -q
+docker compose --env-file "$runtime_env" -p "$project" -f "$compose_file" up -d --build
+docker compose --env-file "$runtime_env" -p "$project" -f "$compose_file" ps
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 All three examples were exercised. The initial backend startup race and successful health/dependency correction are preserved as actual troubleshooting evidence.
 
-## Troubleshooting and observations
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
+
+## Troubleshooting & decisions
 
 A container starting is different from its application being ready. Health checks and dependency conditions address startup ordering.
 
-## Submission status
-
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
-
-**Mapping note:** PDF page 10 requests the remaining networking/volume session exercises; the referenced course repository supplies the Session 8 Compose examples. The PDF prints no separate Session 8 title.
-
-## Execution evidence
+## Evidence
 
 - [01 compose exercises](evidence/01-compose-exercises.md) — successful execution
 - [03 startup diagnosis and fix](evidence/03-startup-diagnosis-and-fix.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (3 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 compose exercises](screenshots/01-compose-exercises.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![02 three tier app](screenshots/02-three-tier-app.png)
 
 ![03 startup diagnosis and fix](screenshots/03-startup-diagnosis-and-fix.png)
 
 </details>
+
+## Key takeaways
+
+Startup ordering needs application readiness, not just process existence. Compose project names keep example resources separate during validation and cleanup.

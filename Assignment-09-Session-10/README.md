@@ -1,47 +1,63 @@
-# 09 · Kubernetes Pods, ReplicaSets & Deployments
+# Assignment 09 — Kubernetes Releases & Pod Lifecycle
 
-**Session 10** · **Local practical work verified**
+Four release strategies and twelve lifecycle cases, observed through Pods, events and actual responses.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Implement all four requested deployment strategies and demonstrate every supplied Pod lifecycle example.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 13, 14, 15 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 2 · actual screenshots: 14 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Release strategies determine how a new version reaches users, while Pod conditions reveal why a workload is or is not serving traffic. These must be observed independently.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Executed rolling, blue-green, canary and recreate releases, watching Pod replacement and Service selection.
+2. Sampled stable/canary responses instead of assuming an exact traffic split.
+3. Applied all twelve lifecycle examples and recorded status, events, readiness, restarts and termination behavior.
+
+## How it works
+
+```mermaid
+flowchart TB
+  RELEASE["Application release"] --> R["Rolling: replace gradually"]
+  RELEASE --> BG["Blue-green: switch selector"]
+  RELEASE --> C["Canary: serve both versions"]
+  RELEASE --> X["Recreate: stop then replace"]
+  R & BG & C & X --> O["Observe Pods and real responses"]
+  O --> P["Phase"]
+  O --> S["Container state / restarts"]
+  O --> Q["Readiness"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class O verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Rolling update | [strategies/](strategies/) | Observe old/new replica changes during an application update. |
 | Blue-green and canary | [strategies/](strategies/) | Switch active Service selection; sample traffic across stable/canary Pods. |
 | Recreate | [strategies/](strategies/) | Observe old Pods terminating before replacement Pods start. |
 | All twelve lifecycle examples | [pod-lifecycle/](pod-lifecycle/) | Apply each YAML, record status/details, explain the observation and embed screenshots. |
 
-## Commands and verification
+**Tools:** kubectl, Deployments, Services, ReplicaSets and twelve Pod manifests.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
-kubectl get pods -o wide
-kubectl describe pod <pod-name>
-kubectl rollout status deployment/<deployment-name>
+kubectl -n a09 apply -f strategies/rolling-v1.yaml
+kubectl -n a09 apply -f strategies/rolling-v2.yaml
+kubectl -n a09 rollout status deployment/rolling --timeout=180s
+kubectl -n a09 get deployments,rs,pods -o wide
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 All four strategies and all twelve lifecycle cases were executed. The canary sample recorded 14 canary and 86 stable responses out of 100 requests; this is a measured sample, not an exact traffic guarantee.
 
-## Troubleshooting and observations
-
-Service selection determines which replicas receive traffic; rollout settings determine replacement behavior. Pod phase and container waiting/restart conditions describe different aspects of lifecycle.
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
 
 ## Observed lifecycle cases
 
@@ -62,23 +78,23 @@ Service selection determines which replicas receive traffic; rollout settings de
 
 Pod phase, container waiting/restart state and readiness are separate signals. The screenshot gallery below includes the individual cases.
 
-## Submission status
+## Troubleshooting & decisions
 
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
+Service selection determines which replicas receive traffic; rollout settings determine replacement behavior. Pod phase and container waiting/restart conditions describe different aspects of lifecycle.
 
-## Execution evidence
+## Evidence
 
 - [01 deployment strategies](evidence/01-deployment-strategies.md) — successful execution
 - [02 all pod lifecycle cases](evidence/02-all-pod-lifecycle-cases.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (14 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 deployment strategies](screenshots/01-deployment-strategies.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![02 all pod lifecycle cases](screenshots/02-all-pod-lifecycle-cases.png)
 
@@ -107,3 +123,7 @@ Actual application pages and explicitly labelled views of captured command outpu
 ![lifecycle termination details](screenshots/lifecycle-termination-details.png)
 
 </details>
+
+## Key takeaways
+
+Pod phase, container waiting state and readiness answer different questions. Service selectors govern traffic membership; Deployment strategy governs replacement behavior.

@@ -1,31 +1,49 @@
-# 15 · CI/CD & GitHub Actions
+# Assignment 15 — Calculator CI/CD with GitHub Actions
 
-**Session 16** · **Complete · hosted CI and CD verified**
+A tested calculator delivered through separate, successful CI and CD workflows.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Prepare and locally verify the PDF’s referenced calculator CI/CD demonstration, with separate continuous-integration and delivery workflows.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 33, 34 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful local/hosted records: 3 · actual screenshots: 3 |
-| Execution environment | Original local host / Ubuntu VM; new GitHub-hosted Ubuntu runners |
-| Review | 21 October 2026; historical output is retained unchanged |
+A calculator change needs automatic regression checks, a reproducible build and a verified image delivery step. CI and CD should have distinct, observable responsibilities.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Tested all four operations and divide-by-zero handling, then demonstrated that an intentional arithmetic defect fails the regression gate.
+2. Used separate hosted CI jobs for tests/security checks and a dependent artifact/image build.
+3. Ran hosted CD to retest the release, execute the built container and publish that verified revision to GHCR.
+
+## How it works
+
+```mermaid
+flowchart TB
+  SOURCE["Calculator source"] --> TEST["CI: five unit tests"]
+  SOURCE --> CHECK["CI: file / secret check"]
+  TEST & CHECK --> BUILD["CI: build and container verification"]
+  BUILD --> ARTIFACT["Retained build artifact"]
+  SOURCE --> CDTEST["CD: retest release"]
+  CDTEST --> IMAGE["Build and run image"]
+  IMAGE --> GHCR["Publish SHA-tagged image to GHCR"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class GHCR verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Referenced calculator application | [app/](app/) | Five unit tests, interactive calculator output and a timestamped build artifact. |
 | Docker packaging | [Dockerfile](Dockerfile) | Image built and calculator executed in a container. |
 | CI and CD definitions | [.github/workflows/](.github/workflows/) | Executable standalone definitions and root entry points; both CI and CD completed on GitHub. |
 | Regression gate | [evidence/01-local-ci-build-workflow-check.md](evidence/01-local-ci-build-workflow-check.md) | Intentional arithmetic defect fails a test; restoring the implementation restores five passes. |
 
-## Commands and verification
+**Tools:** Python, pytest, Docker, GitHub Actions, build artifacts and GHCR.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
 pytest -v
@@ -33,15 +51,18 @@ bash build.sh
 docker build -t devops-a15-calculator:local .
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
+### Hosted execution
 
-## Observed result
+```bash
+gh workflow run assignment-15-ci.yml --repo NoteLegend/DevOps-Assignments
+gh workflow run assignment-15-cd.yml --repo NoteLegend/DevOps-Assignments
+gh run view 39584561631 --repo NoteLegend/DevOps-Assignments --log
+gh run view 39584567670 --repo NoteLegend/DevOps-Assignments --log
+```
 
-Local verification and real hosted CI/CD passed. [CI run 39584561631](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584561631) passed tests, security-check and build jobs; [CD run 39584567670](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584567670) retested the release, built and executed its image, and published it to GHCR. Both runs used source `0dd742d482d3b16761274ebd1f30cc822f10ccb7`. The container returned `Result: 15.0` for `10 + 5` before publication.
+## Verification & results
 
-## Troubleshooting and observations
-
-CI verifies and retains build artifacts; CD delivers a verified revision. A YAML file and a local test log are not substitutes for a real GitHub Actions result.
+Local verification and real hosted CI/CD passed. [CI run 39584561631](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584561631) passed tests, security-check and build jobs; [CD run 39584567670](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584567670) retested the release, built and executed its image, and published it to GHCR. Both runs used source revision `0dd742d`; the full SHA is retained in the run records. The container returned `Result: 15.0` for `10 + 5` before publication.
 
 ## Pipeline concepts used
 
@@ -56,22 +77,13 @@ CI verifies and retains build artifacts; CD delivers a verified revision. A YAML
 | Secrets | The runner-provided, masked `GITHUB_TOKEN` authenticates to GHCR; no personal registry secret is committed |
 | Artifact | `calculator-build` retains the output of the build script |
 
-The CI run produced the `calculator-build` artifact. CD published `ghcr.io/notelegend/devops-assignments-calculator:0dd742d482d3b16761274ebd1f30cc822f10ccb7`. Complete run/step records and logs are retained below. The [actual CI build artifact](evidence/hosted-ci-artifact/) and [CD container/push output](evidence/hosted-cd-artifact/) were downloaded before their short hosted retention period expired. Delivery uses the existing repository and GitHub Packages; no AWS resource or remote Kubernetes cluster is involved.
+The CI run produced the `calculator-build` artifact. CD published the commit-tagged calculator image in `ghcr.io/notelegend/devops-assignments-calculator`. Complete run/step records and logs are retained below. The [actual CI build artifact](evidence/hosted-ci-artifact/) and [CD container/push output](evidence/hosted-cd-artifact/) were downloaded before their short hosted retention period expired. Delivery uses the existing repository and GitHub Packages; no AWS resource or remote Kubernetes cluster is involved.
 
-## Submission status
+## Troubleshooting & decisions
 
-**COMPLETE.** The calculator source, Dockerfile, CI/CD definitions, build artifact, successful hosted run output and real GitHub screenshots satisfy the PDF deliverables.
+CI verifies and retains build artifacts; CD delivers a verified revision. A YAML file and a local test log are not substitutes for a real GitHub Actions result.
 
-## Hosted commands executed
-
-```bash
-gh workflow run assignment-15-ci.yml --repo NoteLegend/DevOps-Assignments
-gh workflow run assignment-15-cd.yml --repo NoteLegend/DevOps-Assignments
-gh run view 39584561631 --repo NoteLegend/DevOps-Assignments --log
-gh run view 39584567670 --repo NoteLegend/DevOps-Assignments --log
-```
-
-## Execution evidence
+## Evidence
 
 - [01 local ci build workflow check](evidence/01-local-ci-build-workflow-check.md) — successful execution
 
@@ -80,15 +92,19 @@ gh run view 39584567670 --repo NoteLegend/DevOps-Assignments --log
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
+Actual application pages and recorded command-output views from the practical execution.
+
+![Successful calculator CD and image publication](screenshots/03-hosted-calculator-cd.png)
 
 <details>
-<summary>Open the screenshot gallery (3 images)</summary>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![01 local ci build workflow check](screenshots/01-local-ci-build-workflow-check.png)
 
 ![Successful calculator CI on GitHub](screenshots/02-hosted-calculator-ci.png)
 
-![Successful calculator CD and image publication](screenshots/03-hosted-calculator-cd.png)
-
 </details>
+
+## Key takeaways
+
+CI establishes that a revision passes its checks; CD delivers the verified artifact. The workflow connects those claims to actual runner logs and a published image.

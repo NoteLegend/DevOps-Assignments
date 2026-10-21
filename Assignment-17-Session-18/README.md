@@ -1,36 +1,63 @@
-# Assignment 17 — Terraform & Infrastructure as Code
+# Assignment 17 — Terraform S3 Lifecycle & AWS Foundations
 
-**Session 18 · COMPLETE · Real AWS lifecycle verified and cleaned up**
+A real private S3 bucket created, inspected and removed with Terraform, alongside AWS service research.
 
-[Portfolio](../README.md) · [Exact PDF requirements](REQUIREMENTS.md) · [Terraform project](terraform-s3-demo/) · [Lifecycle result](evidence/aws-lifecycle-summary.json)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-## Objective
+## The problem
 
-Create a real private AWS S3 bucket with Terraform, verify its properties and outputs, then remove it. Document the five required AWS service families.
+Infrastructure code must demonstrate actual resource creation and cleanup, not just valid syntax. The exercise pairs a real S3 lifecycle with the required AWS service research.
 
-## Tasks performed
+## Approach
 
-| Required work | Actual result |
+1. Defined the bucket and public-access block, locked the provider and validated the exact nonsecret inputs.
+2. Reviewed the saved plan, applied it after approval, and inspected real bucket protection, encryption, state and outputs.
+3. Destroyed the resources and checked bucket absence and empty state; documented IAM, EC2, S3, VPC and database concepts separately.
+
+## How it works
+
+```mermaid
+flowchart TB
+  subgraph CREATE["Provision"]
+    direction LR
+    CODE["Configuration"] --> PLAN["Review saved plan"] --> APPLY["Create private bucket"]
+  end
+  subgraph CLOSE["Verify and close"]
+    direction LR
+    INSPECT["Inspect AWS / state"] --> DESTROY["Destroy"] --> ABSENT["Absent; state empty"]
+  end
+  CREATE --> CLOSE
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class ABSENT verified;
+  style CREATE fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+  style CLOSE fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+```
+
+## Implementation
+
+| Component | What was implemented and checked |
 | --- | --- |
 | Terraform project | Required files exist in [terraform-s3-demo/](terraform-s3-demo/); provider lock retained. |
 | Initialization and validation | Actual init, fmt, fmt -check and validate succeeded. |
-| Plan and apply | 2 resources created in account `835582727900`, region `us-east-1` after explicit approval. |
+| Plan and apply | 2 resources created in `us-east-1` after explicit approval. |
 | State and outputs | Actual `show`, `output -json` and `state list` captured; state itself stays private. |
 | AWS verification | Bucket existence, public-access blocking and default encryption checked using AWS CLI. |
 | Destroy and absence checks | All 2 managed resources destroyed; Terraform state is empty and the bucket is absent. |
 | AWS services research | Separate required READMEs cover IAM, EC2, S3, VPC and DynamoDB/RDS. |
 
-## Tools used
+**Tools:** Terraform 1.16.5, AWS provider 6.67.0, AWS CLI 2.37.9 and temporary browser-authorized credentials.
 
-Terraform 1.16.5 · AWS provider 6.67.0 · AWS CLI 2.37.9 · host Bash/Python. Browser-based AWS CLI sign-in supplied temporary credentials; no access key or token is stored in this project.
-
-## Implementation
+### Resource layout
 
 ```mermaid
 flowchart LR
   T[Terraform / AWS provider] --> S[Private S3 bucket]
   S --> B[Public Access Block]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
 ```
+
+### Project files
 
 | File | Responsibility |
 | --- | --- |
@@ -42,11 +69,9 @@ flowchart LR
 | terraform.tfvars.example | Input template for an independently approved rerun |
 | .terraform.lock.hcl | AWS provider 6.67.0 dependency lock |
 
-The provider restricts execution to the approved account. Terraform's local backend was initialized to a private runtime path outside both repositories; saved plans, state and plugin data were excluded from submission.
+## Commands used
 
-## Commands executed
-
-The following are the executed Terraform operations, with the private runtime directory abbreviated as `$PRIVATE_RUNTIME`. The linked command records retain the exact paths and output.
+The private runtime directory is abbreviated below as `$PRIVATE_RUNTIME`; the evidence retains the exact executed paths.
 
 ```bash
 terraform init -reconfigure -backend-config="path=$PRIVATE_RUNTIME/terraform.tfstate"
@@ -62,7 +87,9 @@ terraform destroy -auto-approve -state="$PRIVATE_RUNTIME/terraform.tfstate"
 terraform state list -state="$PRIVATE_RUNTIME/terraform.tfstate"
 ```
 
-## Verification
+## Verification & results
+
+The real AWS lifecycle completed on **21 October 2026** in **67.3 seconds**. Terraform created and destroyed **2 resources**; the final managed state is empty. The bucket was verified private and encrypted before deletion.
 
 | Check | Genuine command output |
 | --- | --- |
@@ -73,18 +100,7 @@ terraform state list -state="$PRIVATE_RUNTIME/terraform.tfstate"
 | Bucket protection | [Exists](evidence/aws-bucket-exists.txt) · [private access](evidence/aws-bucket-private.txt) · [encryption](evidence/aws-bucket-encryption.txt) |
 | Teardown | [Destroy](evidence/aws-destroy.txt) · [empty state](evidence/aws-state-empty.txt) · [bucket absence](evidence/aws-bucket-removed.txt) |
 
-## Output / results
-
-```json
-{
-  "bucket_arn": "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj",
-  "bucket_name": "devops-course-a17-835582727900-20261021-rj"
-}
-```
-
-The full lifecycle ran from **2026-10-21T10:43:04.800271+00:00** to **2026-10-21T10:44:12.103235+00:00**, taking **67.3 seconds**. **Destroy succeeded; zero managed state objects remain.** The identifiers above are historical evidence, not running resources.
-
-After deletion, the bucket existence check intentionally returns a nonzero not-found response. That expected absence, together with successful destroy and empty state, verifies cleanup; it is not an unhandled assignment failure.
+The lifecycle includes a successful destroy and subsequent expected not-found checks. Resource IDs remain in the evidence; the cloud resources are no longer running.
 
 ## AWS services research
 
@@ -96,26 +112,35 @@ After deletion, the bucket existence check intentionally returns a nonzero not-f
 
 These are research deliverables; unrelated IAM/database resources were not provisioned.
 
+## Troubleshooting & decisions
+
+Browser approval had to finish the AWS CLI callback before the temporary profile became available. Terraform plans/state stayed outside the submission. The reviewed lifecycle used existing Free-plan credits and did not upgrade the account.
+
+## Evidence
+
+- [Complete lifecycle result](evidence/aws-lifecycle-summary.json) — created resources, outputs, command statuses and verified cleanup.
+- [Actual Terraform plan](evidence/aws-plan.txt), [apply](evidence/aws-apply.txt) and [destroy](evidence/aws-destroy.txt).
+- [State inspection](evidence/aws-show.txt) and [computed outputs](evidence/aws-output.txt).
+
 ## Screenshots
 
-The following are real browser captures of the saved command-output files. They preserve actual AWS/Terraform results and are not mock terminal screens or fabricated console dashboards.
+Browser captures of the recorded AWS/Terraform output; the corresponding text logs are linked above.
+
+![03 actual terraform apply](screenshots/03-actual-terraform-apply.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![01 local terraform validation](screenshots/01-local-terraform-validation.png)
 
 ![02 actual aws plan](screenshots/02-actual-aws-plan.png)
 
-![03 actual terraform apply](screenshots/03-actual-terraform-apply.png)
-
 ![04 actual bucket protection](screenshots/04-actual-bucket-protection.png)
 
 ![05 actual terraform destroy](screenshots/05-actual-terraform-destroy.png)
 
-## Troubleshooting / observations
+</details>
 
-CLI authorization had to complete the browser approval callback before the temporary profile became available. The account/Free-plan check, reviewed resource plan and explicit lifecycle approval preceded apply. Local schema validation alone was not treated as evidence of AWS provisioning.
+## Key takeaways
 
-The account retained its Free plan; there was no account upgrade. Usage consumes existing credits and settled billing can lag. Saved plans/state and all runtime credentials remain outside Git.
-
-## Lessons learned
-
-References between resources establish Terraform dependencies. Outputs provide actual created IDs, while state maps those IDs to resource addresses. Plan review, resource inspection and verified teardown are distinct steps; successful syntax validation does not replace them.
+Validation checks configuration; apply creates real infrastructure. State/outputs and independent AWS checks make the lifecycle observable, while verified destroy closes it.

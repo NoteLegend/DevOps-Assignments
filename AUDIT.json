@@ -1,5 +1,5 @@
 {
-  "reviewed_at": "2026-10-21T16:27:03.334482+05:30",
+  "reviewed_at": "2026-10-21T16:50:03.774853+05:30",
   "mode": "static-source-and-retained-evidence-review",
   "assignment_folders": 20,
   "session_mapping_correct": true,
@@ -8,7 +8,7 @@
   "locally_complete": 19,
   "assignments_with_required_gaps": [],
   "checks": {
-    "markdown_links": 538,
+    "markdown_links": 540,
     "png_images": 92,
     "yaml_files": 80,
     "python_files": 14,

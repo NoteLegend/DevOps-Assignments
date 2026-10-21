@@ -1,17 +1,38 @@
-# VPC — networking
+# VPC: Addressing, Routing & Isolation
 
-[Portfolio](../../../README.md) · [Assignment 17](../../README.md)
+Cloud workloads need defined address ranges, routes and traffic controls so that reachability matches the application design.
 
-## Concepts and use cases
+[Assignment](../../README.md) · [Service research](../../README.md#aws-services-research)
 
-A VPC is an isolated virtual network with a CIDR address range. Subnets partition that range within Availability Zones. Route tables determine destinations and next hops. An Internet Gateway connects an eligible public subnet to the internet. A NAT Gateway supports outbound internet connections from private subnets without direct public addressing.
+## How it fits
 
-Security Groups are stateful resource-level filters; Network ACLs are stateless subnet-level filters. A public subnet has an Internet Gateway route; a private subnet lacks that direct route. Having a public route alone does not assign public IPs.
+```mermaid
+flowchart TB
+  VPC["VPC CIDR"] --> SUBNET["Availability Zone subnet"]
+  SUBNET --> ROUTE["Route table"]
+  ROUTE --> IGW["Internet Gateway route: public subnet"]
+  ROUTE --> PRIVATE["No direct IGW route: private subnet"]
+  NACL["Network ACL"] --> SUBNET
+  SG["Security Group"] --> WORK["Workload"]
+  SUBNET --> WORK
+```
 
-The example uses a private subnet without Internet/NAT Gateway and no public EC2 IP. No networking resources were created.
+## Concepts and design choices
 
-Source: [AWS VPC guide](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html).
+| Concept | Responsibility |
+| --- | --- |
+| VPC / CIDR | Isolated virtual network and its address range |
+| Subnet | An Availability Zone segment of the address range |
+| Route table | Destination and next-hop selection |
+| Internet Gateway | Internet routing for eligible public resources |
+| NAT Gateway | Outbound IPv4 access for private-subnet resources without direct public addressing |
+| Security Group | Stateful resource-level filtering |
+| Network ACL | Stateless subnet-level filtering |
 
-## Assignment scope
+A public subnet has a route to an Internet Gateway; a private subnet lacks that direct route. A route alone does not assign a public IP. NAT is an optional design choice, not a requirement for every private subnet.
 
-This is the PDF-required research document. It does not claim that a corresponding AWS service was provisioned. The actual S3 lifecycle gap is tracked in the assignment README.
+## Connection to the practical work
+
+The [executed Assignment 18](../../../Assignment-18-Session-19/README.md) used a private subnet without Internet/NAT Gateway and an EC2 instance without a public IP. Its VPC and dependent resources were removed after verification.
+
+[Official service documentation](https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html)

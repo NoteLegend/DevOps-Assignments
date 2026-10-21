@@ -1,17 +1,34 @@
-# EC2 — compute
+# EC2: Compute, Images & Instance Lifecycle
 
-[Portfolio](../../../README.md) · [Assignment 17](../../README.md)
+A virtual machine needs a repeatable operating-system image, suitable compute capacity, storage and controlled network access.
 
-## Concepts and use cases
+[Assignment](../../README.md) · [Service research](../../README.md#aws-services-research)
 
-EC2 provides configurable virtual servers. An AMI supplies the operating-system/software image. Instance types choose CPU, memory and network capacity. Key pairs allow supported SSH authentication: AWS keeps the public key; the owner protects the private key. Security Groups filter instance traffic. EBS provides persistent block storage.
+## How it fits
 
-Private IPs support VPC communication. Public IPs require appropriate addressing and routes for internet access. Instances move through pending, running, stopping/stopped and shutting-down/terminated states. Stopping preserves attached EBS according to configuration; termination can delete configured volumes. EC2 supports application servers, batch jobs and development environments.
+```mermaid
+flowchart LR
+  AMI["AMI"] --> INSTANCE["EC2 instance type"]
+  NET["Subnet + Security Group"] --> INSTANCE
+  INSTANCE --> EBS["EBS storage"]
+  INSTANCE --> LIFE["Run / stop / terminate"]
+```
 
-The prepared Terraform EC2 resource has no public IP or inbound rule. No EC2 instance was created.
+## Concepts and design choices
 
-Source: [AWS EC2 concepts](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html).
+| Concept | Role |
+| --- | --- |
+| AMI | Operating-system and software image used at launch |
+| Instance type | CPU, memory and network capacity |
+| Key pair | Public/private key material for supported SSH access |
+| Security Group | Stateful instance-level traffic filtering |
+| EBS | Persistent block storage attached to an instance |
+| Private / public IP | VPC communication versus eligible internet addressing |
 
-## Assignment scope
+Instances progress through pending/running and stopping/stopped or shutting-down/terminated states. Stopping preserves EBS according to configuration; termination removes volumes configured for deletion. Common use cases include application servers, batch processing and development environments.
 
-This is the PDF-required research document. It does not claim that a corresponding AWS service was provisioned. The actual S3 lifecycle gap is tracked in the assignment README.
+## Connection to the practical work
+
+[Assignment 18](../../../Assignment-18-Session-19/README.md) actually created and removed a private EC2 instance. It passed both status checks, had no public IP or inbound rule, and used an encrypted root disk. Those results are distinct from this research deliverable.
+
+[Official service documentation](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html)

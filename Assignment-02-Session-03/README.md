@@ -1,59 +1,81 @@
-# 02 · Networking Homework Tasks
+# Assignment 02 — Networking & Connectivity Diagnosis
 
-**Session 03** · **Local practical work verified**
+A layered investigation of interfaces, routing, DNS, TCP and HTTP, backed by real command output and packet capture.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Practice the instructor’s networking diagnostics and explain what each command can establish about connectivity.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 3 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 1 · actual screenshots: 1 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+A failed request can come from addressing, routing, name resolution, a closed port or the application itself. One successful network command cannot establish that the whole path works.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Inspected interfaces, routes, neighbors and listening sockets before testing external connectivity.
+2. Checked ICMP, DNS, TCP and HTTPS independently, keeping timeouts and traceroute hops bounded.
+3. Generated a DNS lookup while capturing packets, then connected the output to the command explanations.
+
+## How it works
+
+```mermaid
+flowchart TB
+  A["Interface and route"] --> B["Destination reachability"]
+  B --> C["DNS resolution"]
+  C --> D["TCP port"]
+  D --> E["HTTPS response"]
+  F["ip / arp"] -.-> A
+  G["ping / traceroute"] -.-> B
+  H["dig / nslookup / tcpdump"] -.-> C
+  I["ss / netstat / telnet"] -.-> D
+  J["curl"] -.-> E
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class E verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Referenced networking commands | [practice-networking.sh](practice-networking.sh) | Ten command families plus socket/interface inspection and a bounded DNS packet capture. |
 | Outputs and understanding | [networking.md](networking.md) | Actual command output and short explanations, including the limits of ICMP, DNS, TCP and HTTP observations. |
 
-## Commands and verification
+**Tools:** iproute2, ping, traceroute, net-tools, telnet, nslookup, dig, curl and tcpdump.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
-bash practice-networking.sh
+ip addr
+ip route
+ss -tuln
+ping -c 3 127.0.0.1
+traceroute -m 6 -w 1 google.com
+nslookup google.com
+dig google.com
+curl -sSI --max-time 20 https://www.google.com
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 Loopback/external ping, DNS resolution, HTTPS HTTP 200 and generated DNS packet capture are recorded. Traceroute was deliberately bounded to six hops; it is not presented as reaching the remote destination.
 
-## Troubleshooting and observations
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
+
+## Troubleshooting & decisions
 
 A working DNS lookup, reachable TCP port and successful HTTP response prove different parts of the network path. The VM used systemd-networkd for its service-log example.
 
-## Submission status
-
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
-
-## Execution evidence
+## Evidence
 
 - [01 networking](evidence/01-networking.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (1 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 networking](screenshots/01-networking.png)
 
-</details>
+## Key takeaways
+
+Read each result at the layer it tests. A bounded traceroute is diagnostic output, while an HTTP 200 demonstrates an actual application response.

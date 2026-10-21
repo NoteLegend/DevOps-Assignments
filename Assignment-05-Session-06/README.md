@@ -1,64 +1,90 @@
-# 05 · Docker Multi-Stage Build
+# Assignment 05 — Docker Multi-Stage Build
 
-**Session 06** · **Local practical work verified**
+A Node.js multi-stage image serving the required greeting on port 8080, with additional runtime examples.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Run the referenced multi-stage build, verify its exact greeting on port 8080, and deploy three additional application runtimes.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 7, 8 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 1 · actual screenshots: 2 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Build dependencies and runtime dependencies have different purposes. The container must serve the required greeting on port 8080 while keeping the production stage focused on execution.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Installed dependencies in a named Node.js builder stage.
+2. Created a production stage with production-only dependencies and copied the server from the builder.
+3. Built and ran the multi-stage application, verified the exact greeting on port 8080, and repeated container execution for Node.js, Python and Java examples.
+
+## How it works
+
+```mermaid
+flowchart TB
+  subgraph BUILD["Builder stage"]
+    direction LR
+    A["Source + package lock"] --> B["npm ci"]
+  end
+  subgraph PROD["Production stage"]
+    direction LR
+    C["Copy package files + server"] --> D["npm ci --omit=dev"]
+    D --> E["Node server: port 8080"]
+  end
+  BUILD --> PROD
+  PROD --> F["Verify required greeting"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class F verified;
+  style BUILD fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+  style PROD fill:#f8fafc,stroke:#cbd5e1,color:#334155;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Multi-stage build | [multi-stage-app/Dockerfile](multi-stage-app/Dockerfile) | Build and run the image; confirm Hello World from Docker multi-stage build. |
 | Port and container evidence | [evidence/01-build-and-run.md](evidence/01-build-and-run.md) | HTTP verification and docker ps show the application on published port 8080. |
-| Three application types | [nodejs-app/](nodejs-app/) | Node.js, Python and Java images were built and run. |
-| Student documentation | [../IDENTITY.md](../IDENTITY.md) | Rushi Jadhav · enrollment 10144, supplied in the workspace identity file. |
+| Three application types | [Node.js](nodejs-app/), [Python](python-app/) and [Java](java-app/) | Node.js, Python and Java images were built and run. |
 
-## Commands and verification
+**Tools:** Docker multi-stage builds, Node.js/npm, Python and Java.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
 docker build -t devops-a05-multistage:local multi-stage-app
+docker run -d --name devops-a05-multistage --label devops.assignment=05 \
+  -p 8080:8080 devops-a05-multistage:local
+curl -fsS http://127.0.0.1:8080
 docker ps --filter label=devops.assignment=05
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
+## Verification & results
 
-## Observed result
+The required literal greeting was returned on port 8080. The three additional application types also served their expected responses.
 
-The required literal greeting was returned on port 8080. The three additional application types also served their expected responses. Student: **Rushi Jadhav**. Enrollment: **10144**.
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
 
-## Troubleshooting and observations
+## Troubleshooting & decisions
 
 A multi-stage Dockerfile separates build tooling from the runtime. Verify the actual exposed service and port rather than inferring success from the image alone.
 
-## Submission status
-
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
-
-## Execution evidence
+## Evidence
 
 - [01 build and run](evidence/01-build-and-run.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (2 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 build and run](screenshots/01-build-and-run.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![02 multistage page](screenshots/02-multistage-page.png)
 
 </details>
+
+## Key takeaways
+
+A stage boundary makes the build/runtime separation explicit. This Dockerfile still uses a Node.js runtime image; no unmeasured image-size reduction is claimed.

@@ -1,50 +1,62 @@
-# 13 · Kubernetes Troubleshooting
+# Assignment 13 — Kubernetes Troubleshooting
 
-**Session 14** · **Local practical work verified**
+Deliberate failures traced from symptoms to root causes, corrected and verified with before/after evidence.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Diagnose and repair actual Kubernetes failures using status, events, logs, exec, object explanations and metrics.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 26, 27, 28 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 1 · actual screenshots: 13 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Similar symptoms can have unrelated causes: image retrieval, application crashes, scheduling constraints, missing configuration or incorrect Service/DNS/port selection.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Introduced the required faults in an isolated namespace and captured the failing state.
+2. Used object conditions, events, previous logs, in-container commands and endpoint checks to identify each root cause.
+3. Applied targeted corrections and verified Ready Pods and working DNS/HTTP responses before cleanup.
+
+## How it works
+
+```mermaid
+flowchart TB
+  SYMPTOM["Observe symptom"] --> RESOURCE["Inspect resource and events"]
+  RESOURCE --> LOGS["Check logs / endpoints / DNS"]
+  LOGS --> CAUSE["Identify root cause"]
+  CAUSE --> FIX["Apply targeted correction"]
+  FIX --> VERIFY["Verify readiness and HTTP"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class VERIFY verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | All requested diagnostic commands | [verify.sh](verify.sh) | get, describe, logs, exec, events, explain, top and wide output. |
 | Container and scheduling failures | [cases/](cases/) | CrashLoopBackOff, ErrImagePull/ImagePullBackOff, Pending, ContainerCreating and configuration errors. |
 | Service / DNS / Pod addressing | [evidence/01-troubleshooting-before-and-after.md](evidence/01-troubleshooting-before-and-after.md) | Wrong selector, wrong DNS name and unopened client port repaired and tested. |
 | Course mini project | [mini-project/](mini-project/) | Problem, investigation, cause, correction and successful verification documented. |
 
-## Commands and verification
+**Tools:** kubectl get/describe/logs/exec/events/explain/top, EndpointSlices and HTTP/DNS checks.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
-kubectl get pods -o wide
-kubectl describe pod <pod-name>
-kubectl logs <pod-name> --previous
-kubectl events
-kubectl explain pod.spec
-kubectl top pods
+kubectl -n a13 get pods -o wide
+kubectl -n a13 events
+kubectl -n a13 logs crashloop --previous
+kubectl -n a13 exec deployment/troubleshooting-app -- sh -c 'curl -fsS localhost'
+kubectl explain pod.spec.containers
+kubectl -n a13 top pods
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 All repaired Pods became Ready; corrected Services had usable endpoints, and DNS/HTTP checks succeeded. Before/after descriptions and screenshots are retained per failure.
 
-## Troubleshooting and observations
-
-Treat DNS failure, selector mismatch and wrong destination port as separate causes. Pod networking in this exercise concerns application addressing; it does not assert a CNI outage.
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
 
 ## Diagnosed causes and fixes
 
@@ -73,22 +85,22 @@ The broken Pod displayed ErrImagePull and then ImagePullBackOff. Events reported
 
 `get` summarizes current object state; `describe` adds details, conditions and events. Logs expose application output; exec runs diagnostics inside the container. CrashLoopBackOff is increasing delay between repeated container failures. ImagePullBackOff is retry delay after image retrieval failure. Pending can indicate scheduling constraints or insufficient resources. A Service can lack ready endpoints when labels do not match, Pods are unready or target configuration is wrong. Selectors choose Pod labels. Kubernetes DNS resolves Service and supported Pod names so clients do not depend on changing Pod IPs.
 
-## Submission status
+## Troubleshooting & decisions
 
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
+Treat DNS failure, selector mismatch and wrong destination port as separate causes. Pod networking in this exercise concerns application addressing; it does not assert a CNI outage.
 
-## Execution evidence
+## Evidence
 
 - [01 troubleshooting before and after](evidence/01-troubleshooting-before-and-after.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (13 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 troubleshooting before and after](screenshots/01-troubleshooting-before-and-after.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![after config error](screenshots/after-config-error.png)
 
@@ -115,3 +127,7 @@ Actual application pages and explicitly labelled views of captured command outpu
 ![before project broken pod](screenshots/before-project-broken-pod.png)
 
 </details>
+
+## Key takeaways
+
+Fix the cause shown by the resource/log evidence. DNS resolution, matching Service selectors and the correct listening port need independent checks.

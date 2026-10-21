@@ -1,19 +1,40 @@
-# DynamoDB and RDS — databases
+# DynamoDB & RDS: Choosing a Data Model
 
-[Portfolio](../../../README.md) · [Assignment 17](../../README.md)
+Access patterns and relational requirements determine whether a key-oriented NoSQL model or a relational database is appropriate.
 
-## Concepts and use cases
+[Assignment](../../README.md) · [Service research](../../README.md#aws-services-research)
 
-DynamoDB is a managed NoSQL database. Tables contain items consisting of attributes. A partition key selects data placement and lookup; an optional sort key orders related items sharing a partition key. Typical uses include application key-value state, shopping carts and event metadata.
+## How it fits
 
-Source: [DynamoDB introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html).
+```mermaid
+flowchart LR
+  NEED["Application data requirements"] --> KEY["Key-based access patterns"]
+  NEED --> REL["Relations and SQL queries"]
+  KEY --> DDB["DynamoDB tables / items"]
+  REL --> RDS["RDS database instance"]
+```
 
-RDS manages relational database instances. Supported engines include PostgreSQL, MySQL, MariaDB, Oracle, SQL Server and Db2; Aurora provides compatible managed relational engines. VPC placement, Security Groups, credentials and encryption control access. Automated backups and snapshots support recovery. Multi-AZ configurations improve availability; read replicas serve supported read-scaling workloads and are distinct from standby failover configurations. Typical uses include transactional applications and relational reporting.
+## Concepts and design choices
 
-Source: [RDS guide](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html).
+| Aspect | DynamoDB | RDS |
+| --- | --- | --- |
+| Model | Managed NoSQL tables containing items and attributes | Managed relational database instances |
+| Data access | Partition key; optional sort key for related items | SQL supported by the selected engine |
+| Typical use | Key-value application state, carts, event metadata | Transactions and relational reporting |
+| Design focus | Model keys around the required access patterns | Design tables, relationships and queries |
 
-This assignment documents both services; it creates neither database resources nor credentials.
+## DynamoDB concepts
 
-## Assignment scope
+An item contains attributes. The partition key identifies a partition-key value; an optional sort key distinguishes and orders items that share it. Key selection is central to efficient application access.
 
-This is the PDF-required research document. It does not claim that a corresponding AWS service was provisioned. The actual S3 lifecycle gap is tracked in the assignment README.
+## RDS concepts
+
+RDS supports relational engines such as PostgreSQL and MySQL. VPC placement, Security Groups, authentication and encryption control access. Automated backups and snapshots support recovery. Multi-AZ configurations provide availability options; supported read-replica configurations address read scaling and are distinct from standby failover configurations.
+
+## Connection to the practical work
+
+This is the required database research document. No DynamoDB table or RDS instance was needed or provisioned for the S3 lifecycle.
+
+[Official service documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Welcome.html)
+
+[Official DynamoDB introduction](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Introduction.html)

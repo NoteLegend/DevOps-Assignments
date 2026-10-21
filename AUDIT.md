@@ -14,10 +14,11 @@ The authoritative 54-page Homework PDF was reread and mapped to exactly 20 folde
 | --- | --- |
 | Folder/session map | Exactly 20 canonical folders; correct combined Assignment 01 |
 | Required files and documentation | Present; link-only capstone is an explicit owner-directed delivery exception |
-| Markdown links | 538 local links checked; zero broken targets or linked-but-ignored files |
+| Markdown links | 540 local links checked; zero broken targets or linked-but-ignored files |
 | Screenshots | 92 valid PNGs; assignment screenshots embedded with relative paths |
 | Source/configuration syntax | 80 YAML, 14 Python and 39 Bash files checked |
 | Root workflows | Three executable entry points; actionlint passed |
+| README visualization review | 32 Mermaid diagrams parsed and rendered with Mermaid 11.12.0; representative desktop layouts inspected |
 | Calculator CI / CD | Real successful runs [39584561631](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584561631) / [39584567670](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584567670); artifacts and GHCR push retained |
 | Full DevSecOps delivery | Real successful run [39584880376](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376); tests, four scanner categories, strict gate, GHCR and two Ready Kubernetes replicas/HTTP health |
 | Scanned artifact identity | Built and published image IDs match; same image loaded into the runner-local kind cluster |

@@ -1,22 +1,36 @@
-# 04 · Docker Hello World Applications
+# Assignment 04 — Six Containerized Hello World Applications
 
-**Session 05** · **Local practical work verified**
+Six working web applications packaged, started and verified with Docker.
 
-[Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
+[Portfolio](../README.md) · [Requirements](REQUIREMENTS.md) · [Execution evidence](evidence/)
 
-> Build and run six independent Hello World web applications, each with the exact application directory requested by the PDF.
+## The problem
 
-| Assignment record | Details |
-| --- | --- |
-| PDF source | DevOps Homework.pdf · pages 5, 6 |
-| Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 1 · actual screenshots: 7 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
-| Review | 21 October 2026; historical output is retained unchanged |
+Applications built with different runtimes need their own packaging and startup configuration. A successful Docker build must also produce a reachable application.
 
-## Requirement coverage
+## Approach
 
-| PDF requirement | Implementation / document | Demonstrated behavior |
+1. Created the six required application directories, each with its own source and Dockerfile.
+2. Built and ran Node.js, Python, Java, Apache, React and Nginx examples.
+3. Checked published HTTP responses and real browser pages, then removed the assignment containers after capture.
+
+## How it works
+
+```mermaid
+flowchart TB
+  D["Application source + Dockerfiles"] --> APP["Node.js / Python / Java"]
+  D --> WEB["Apache / React / Nginx"]
+  APP --> HTTP["Published ports: real HTTP checks"]
+  WEB --> HTTP
+  HTTP --> B["Verify rendered browser pages"]
+  classDef default fill:#eff6ff,stroke:#3b82f6,color:#172554;
+  classDef verified fill:#ecfdf5,stroke:#059669,color:#064e3b;
+  class B verified;
+```
+
+## Implementation
+
+| Component | Implementation | Behavior verified |
 | --- | --- | --- |
 | Node.js | [nodejs-app/Dockerfile](nodejs-app/Dockerfile) | Build the image and verify its HTTP page. |
 | Python | [python-app/Dockerfile](python-app/Dockerfile) | Build the image and verify its HTTP page. |
@@ -25,41 +39,39 @@
 | React | [React-app/Dockerfile](React-app/Dockerfile) | Build the frontend and verify rendered Hello World in a browser. |
 | Nginx | [nginx-app/Dockerfile](nginx-app/Dockerfile) | Serve and verify the page with Nginx. |
 
-## Commands and verification
+**Tools:** Docker, Node.js, Python, Java, Apache HTTP Server, React and Nginx.
 
-Key commands are shown below. The evidence records contain the complete executed scripts, exact resource names, output and exit status.
+## Commands used
+
+These are representative recorded commands. Complete scripts and output are linked in the evidence section.
 
 ```bash
 docker build -t devops-a04-nodejs-app:local nodejs-app
 # The complete six-application build/run sequence is in build-run.sh.
 ```
 
-[Reproduction and tooling](../REPRODUCING.md) explains the original VM adapters, native-tool use and portable Git bundles. Full executed scripts and stdout/stderr are linked below.
-
-## Observed result
+## Verification & results
 
 All six images built and all six applications were checked through real HTTP/browser access. Seven screenshots include the command evidence and actual pages. Assignment-owned containers were removed after capture.
 
-## Troubleshooting and observations
+The linked records identify the original local execution environment. Privileged Docker/Minikube exercises used the prepared Ubuntu VM; application endpoints shown in that evidence are historical.
+
+## Troubleshooting & decisions
 
 A successful image build does not prove a web application works: verify the process, published port, HTTP response and rendered page.
 
-## Submission status
-
-**COMPLETE.** The required practical work is documented and verified by the retained evidence. Publish the revised files and supply the final repository URL to submit.
-
-## Execution evidence
+## Evidence
 
 - [01 build and run](evidence/01-build-and-run.md) — successful execution
 
 ## Screenshots
 
-Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
-
-<details>
-<summary>Open the screenshot gallery (7 images)</summary>
+Actual application pages and recorded command-output views from the practical execution.
 
 ![01 build and run](screenshots/01-build-and-run.png)
+
+<details>
+<summary>More screenshots: implementation, diagnostics and verification</summary>
 
 ![02 Apache app](screenshots/02-Apache-app.png)
 
@@ -74,3 +86,7 @@ Actual application pages and explicitly labelled views of captured command outpu
 ![02 python app](screenshots/02-python-app.png)
 
 </details>
+
+## Key takeaways
+
+Image creation, process startup, port publication and browser behavior are separate checks. Testing all four catches packaging errors that a build alone misses.
