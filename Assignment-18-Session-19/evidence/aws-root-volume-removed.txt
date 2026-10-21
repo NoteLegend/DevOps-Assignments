@@ -1,0 +1,9 @@
+Captured UTC: 2026-10-21T10:53:59.694482+00:00
+Command: aws ec2 describe-volumes --volume-ids vol-05988be6a7754b044 --profile devops-course-review --region us-east-1 --output json --no-cli-pager
+
+
+aws: [ERROR]: An error occurred (InvalidVolume.NotFound) when calling the DescribeVolumes operation: The volume 'vol-05988be6a7754b044' does not exist.
+
+Exit status: 254
+
+Expected result: the assignment-owned EBS root volume no longer exists.

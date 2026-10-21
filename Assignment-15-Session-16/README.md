@@ -56,7 +56,7 @@ CI verifies and retains build artifacts; CD delivers a verified revision. A YAML
 | Secrets | The runner-provided, masked `GITHUB_TOKEN` authenticates to GHCR; no personal registry secret is committed |
 | Artifact | `calculator-build` retains the output of the build script |
 
-The CI run produced the `calculator-build` artifact. CD published `ghcr.io/notelegend/devops-assignments-calculator:0dd742d482d3b16761274ebd1f30cc822f10ccb7`. Complete run/step records and logs are retained below. Delivery uses the existing repository and GitHub Packages; no AWS resource or remote Kubernetes cluster is involved.
+The CI run produced the `calculator-build` artifact. CD published `ghcr.io/notelegend/devops-assignments-calculator:0dd742d482d3b16761274ebd1f30cc822f10ccb7`. Complete run/step records and logs are retained below. The [actual CI build artifact](evidence/hosted-ci-artifact/) and [CD container/push output](evidence/hosted-cd-artifact/) were downloaded before their short hosted retention period expired. Delivery uses the existing repository and GitHub Packages; no AWS resource or remote Kubernetes cluster is involved.
 
 ## Submission status
 

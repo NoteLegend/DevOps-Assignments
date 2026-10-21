@@ -1,0 +1,21 @@
+The push refers to repository [ghcr.io/notelegend/devops-assignments-devsecops]
+9492f3b756b2: Preparing
+71daecc80b02: Preparing
+ca545f53ac2c: Preparing
+b500c03aa365: Preparing
+4d211c3f1c45: Preparing
+7e9021171c27: Preparing
+41366f7f4879: Preparing
+74d97c428c51: Preparing
+41366f7f4879: Waiting
+7e9021171c27: Waiting
+74d97c428c51: Waiting
+4d211c3f1c45: Layer already exists
+7e9021171c27: Layer already exists
+41366f7f4879: Layer already exists
+74d97c428c51: Layer already exists
+ca545f53ac2c: Pushed
+b500c03aa365: Pushed
+9492f3b756b2: Pushed
+71daecc80b02: Pushed
+ab2fbb4e5b4a59f12e99ae39df26cbafb571726f: digest: sha256:fc3a7bea54be24c4077070acdac2da190e5fabc35d8485a0deaa8435c6e0c99c size: 1988

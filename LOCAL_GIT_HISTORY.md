@@ -33,30 +33,8 @@ b742bd6 Declare initial local Kubernetes workload
 
 Local Git metadata preserved outside the submission at `/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/git-metadata/assignment19-gitops`.
 
-## assignment20-source
+## Final project reference
 
-Original working folder: `Assignment-20-Session-21/final-devops-project`. Branches: `main`. No remote was configured.
+Assignment 20 now links the existing [devOps-TaskBoard repository](https://github.com/NoteLegend/devOps-TaskBoard), as requested. The earlier isolated Flask prototype and its verified bundles are preserved outside the submission at `.local-tools/runtime/archived-flask-prototype-2026-10-21/`; the original portfolio Git history also retains those files. They are not presented as the submitted capstone.
 
-[Verified portable history bundle](Assignment-20-Session-21/application-source.bundle)
-
-```text
-25c495d Document verified local implementation and pending external stages
-88848c9 Add final DevOps application and local deployment configuration
-```
-
-Local Git metadata preserved outside the submission at `/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/git-metadata/assignment20-source`.
-
-## assignment20-gitops
-
-Original working folder: `Assignment-20-Session-21/final-devops-project/gitops/desired`. Branches: `main`. No remote was configured.
-
-[Verified portable history bundle](Assignment-20-Session-21/final-devops-project/gitops/history.bundle)
-
-```text
-0de532f Promote final app to v2 through desired Git state
-7e665ca Declare verified final application in local Git
-```
-
-Local Git metadata preserved outside the submission at `/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/git-metadata/assignment20-gitops`.
-
-To inspect a bundle later, use `git clone <bundle-path> <new-local-directory>`. That command is a suggested inspection step, not an additional executed clone. To rerun a GitOps controller, restore its Git history first; its current working YAML records the final v2 desired state. Machine-specific verification scripts require the original workspace adapters.
+Use `git clone <bundle-path> <new-local-directory>` to inspect an archived exercise bundle without altering this portfolio.

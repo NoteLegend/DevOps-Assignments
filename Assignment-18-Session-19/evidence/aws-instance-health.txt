@@ -1,0 +1,49 @@
+Captured UTC: 2026-10-21T10:47:57.040332+00:00
+Command: aws ec2 describe-instance-status --instance-ids i-0bac42df43fc2f9ea --region us-east-1 --output json --no-cli-pager
+
+{
+    "InstanceStatuses": [
+        {
+            "AvailabilityZone": "us-east-1c",
+            "AvailabilityZoneId": "use1-az4",
+            "Operator": {
+                "Managed": false,
+                "HiddenByDefault": false
+            },
+            "InstanceId": "i-0bac42df43fc2f9ea",
+            "InstanceState": {
+                "Code": 16,
+                "Name": "running"
+            },
+            "InstanceStatus": {
+                "Details": [
+                    {
+                        "Name": "reachability",
+                        "Status": "passed"
+                    }
+                ],
+                "Status": "ok"
+            },
+            "SystemStatus": {
+                "Details": [
+                    {
+                        "Name": "reachability",
+                        "Status": "passed"
+                    }
+                ],
+                "Status": "ok"
+            },
+            "AttachedEbsStatus": {
+                "Details": [
+                    {
+                        "Name": "reachability",
+                        "Status": "passed"
+                    }
+                ],
+                "Status": "ok"
+            }
+        }
+    ]
+}
+
+Exit status: 0

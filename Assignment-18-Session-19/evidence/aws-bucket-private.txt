@@ -1,0 +1,13 @@
+Captured UTC: 2026-10-21T10:45:07.926696+00:00
+Command: aws s3api get-public-access-block --bucket devops-course-a18-835582727900-20261021-rj --region us-east-1 --output json --no-cli-pager
+
+{
+    "PublicAccessBlockConfiguration": {
+        "BlockPublicAcls": true,
+        "IgnorePublicAcls": true,
+        "BlockPublicPolicy": true,
+        "RestrictPublicBuckets": true
+    }
+}
+
+Exit status: 0

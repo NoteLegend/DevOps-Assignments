@@ -1,0 +1,289 @@
+Captured UTC: 2026-10-21T10:49:04.147137+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19/terraform-project destroy -auto-approve -no-color -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-18/terraform.tfstate
+
+
+Warning: Deprecated flag: -state
+
+Use the "path" attribute within the "local" backend to specify a file for
+state storage
+aws_vpc.course: Refreshing state... [id=vpc-074903895f584b29c]
+aws_s3_bucket.course: Refreshing state... [id=devops-course-a18-835582727900-20261021-rj]
+aws_security_group.course: Refreshing state... [id=sg-0605861d9487c9933]
+aws_subnet.course: Refreshing state... [id=subnet-0fe3b7a10bb4bc994]
+aws_instance.course: Refreshing state... [id=i-0bac42df43fc2f9ea]
+aws_s3_bucket_public_access_block.course: Refreshing state... [id=devops-course-a18-835582727900-20261021-rj]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_instance.course will be destroyed
+  - resource "aws_instance" "course" {
+      - ami                                  = "ami-0567589d25e06853e" -> null
+      - arn                                  = "arn:aws:ec2:us-east-1:835582727900:instance/i-0bac42df43fc2f9ea" -> null
+      - associate_public_ip_address          = false -> null
+      - availability_zone                    = "us-east-1c" -> null
+      - disable_api_stop                     = false -> null
+      - disable_api_termination              = false -> null
+      - ebs_optimized                        = false -> null
+      - force_destroy                        = false -> null
+      - get_password_data                    = false -> null
+      - hibernation                          = false -> null
+      - id                                   = "i-0bac42df43fc2f9ea" -> null
+      - instance_initiated_shutdown_behavior = "stop" -> null
+      - instance_state                       = "running" -> null
+      - instance_type                        = "t3.micro" -> null
+      - ipv6_address_count                   = 0 -> null
+      - ipv6_addresses                       = [] -> null
+      - monitoring                           = false -> null
+      - placement_partition_number           = 0 -> null
+      - primary_network_interface_id         = "eni-009c9a06b94863125" -> null
+      - private_dns                          = "ip-10-20-1-119.ec2.internal" -> null
+      - private_ip                           = "10.20.1.119" -> null
+      - region                               = "us-east-1" -> null
+      - secondary_private_ips                = [] -> null
+      - security_groups                      = [] -> null
+      - source_dest_check                    = true -> null
+      - subnet_id                            = "subnet-0fe3b7a10bb4bc994" -> null
+      - tags                                 = {
+          - "Name" = "devops-course"
+        } -> null
+      - tags_all                             = {
+          - "Assignment" = "18"
+          - "ManagedBy"  = "Terraform"
+          - "Name"       = "devops-course"
+          - "Project"    = "DevOpsAssignments"
+        } -> null
+      - tenancy                              = "default" -> null
+      - user_data_replace_on_change          = false -> null
+      - vpc_security_group_ids               = [
+          - "sg-0605861d9487c9933",
+        ] -> null
+        # (11 unchanged attributes hidden)
+
+      - capacity_reservation_specification {
+          - capacity_reservation_preference = "open" -> null
+        }
+
+      - cpu_options {
+          - core_count            = 1 -> null
+          - threads_per_core      = 2 -> null
+            # (2 unchanged attributes hidden)
+        }
+
+      - credit_specification {
+          - cpu_credits = "standard" -> null
+        }
+
+      - enclave_options {
+          - enabled = false -> null
+        }
+
+      - maintenance_options {
+          - auto_recovery = "default" -> null
+        }
+
+      - metadata_options {
+          - http_endpoint               = "enabled" -> null
+          - http_protocol_ipv6          = "disabled" -> null
+          - http_put_response_hop_limit = 2 -> null
+          - http_tokens                 = "required" -> null
+          - instance_metadata_tags      = "disabled" -> null
+        }
+
+      - primary_network_interface {
+          - delete_on_termination = true -> null
+          - network_interface_id  = "eni-009c9a06b94863125" -> null
+        }
+
+      - private_dns_name_options {
+          - enable_resource_name_dns_a_record    = false -> null
+          - enable_resource_name_dns_aaaa_record = false -> null
+          - hostname_type                        = "ip-name" -> null
+        }
+
+      - root_block_device {
+          - delete_on_termination = true -> null
+          - device_name           = "/dev/xvda" -> null
+          - encrypted             = true -> null
+          - iops                  = 3000 -> null
+          - kms_key_id            = "arn:aws:kms:us-east-1:835582727900:key/28d96331-d1d7-4304-9ac9-59dd3ee46a62" -> null
+          - tags                  = {} -> null
+          - tags_all              = {
+              - "Assignment" = "18"
+              - "ManagedBy"  = "Terraform"
+              - "Project"    = "DevOpsAssignments"
+            } -> null
+          - throughput            = 125 -> null
+          - volume_id             = "vol-05988be6a7754b044" -> null
+          - volume_size           = 8 -> null
+          - volume_type           = "gp3" -> null
+        }
+    }
+
+  # aws_s3_bucket.course will be destroyed
+  - resource "aws_s3_bucket" "course" {
+      - arn                         = "arn:aws:s3:::devops-course-a18-835582727900-20261021-rj" -> null
+      - bucket                      = "devops-course-a18-835582727900-20261021-rj" -> null
+      - bucket_domain_name          = "devops-course-a18-835582727900-20261021-rj.s3.amazonaws.com" -> null
+      - bucket_namespace            = "global" -> null
+      - bucket_region               = "us-east-1" -> null
+      - bucket_regional_domain_name = "devops-course-a18-835582727900-20261021-rj.s3.us-east-1.amazonaws.com" -> null
+      - force_destroy               = false -> null
+      - hosted_zone_id              = "Z3AQBSTGFYJSTF" -> null
+      - id                          = "devops-course-a18-835582727900-20261021-rj" -> null
+      - object_lock_enabled         = false -> null
+      - region                      = "us-east-1" -> null
+      - request_payer               = "BucketOwner" -> null
+      - tags                        = {} -> null
+      - tags_all                    = {
+          - "Assignment" = "18"
+          - "ManagedBy"  = "Terraform"
+          - "Project"    = "DevOpsAssignments"
+        } -> null
+        # (3 unchanged attributes hidden)
+
+      - grant {
+          - id          = "9edae480a30fc80876563ea518b9baec04820e4509892b058d1253d6c5f2c4e1" -> null
+          - permissions = [
+              - "FULL_CONTROL",
+            ] -> null
+          - type        = "CanonicalUser" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - server_side_encryption_configuration {
+          - rule {
+              - bucket_key_enabled = false -> null
+
+              - apply_server_side_encryption_by_default {
+                  - sse_algorithm     = "AES256" -> null
+                    # (1 unchanged attribute hidden)
+                }
+            }
+        }
+
+      - versioning {
+          - enabled    = false -> null
+          - mfa_delete = false -> null
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.course will be destroyed
+  - resource "aws_s3_bucket_public_access_block" "course" {
+      - block_public_acls       = true -> null
+      - block_public_policy     = true -> null
+      - bucket                  = "devops-course-a18-835582727900-20261021-rj" -> null
+      - id                      = "devops-course-a18-835582727900-20261021-rj" -> null
+      - ignore_public_acls      = true -> null
+      - region                  = "us-east-1" -> null
+      - restrict_public_buckets = true -> null
+    }
+
+  # aws_security_group.course will be destroyed
+  - resource "aws_security_group" "course" {
+      - arn                    = "arn:aws:ec2:us-east-1:835582727900:security-group/sg-0605861d9487c9933" -> null
+      - description            = "Private course EC2 instance; no public ingress." -> null
+      - egress                 = [] -> null
+      - id                     = "sg-0605861d9487c9933" -> null
+      - ingress                = [] -> null
+      - name                   = "devops-course-05152371802b66b592918139ca" -> null
+      - name_prefix            = "devops-course-" -> null
+      - owner_id               = "835582727900" -> null
+      - region                 = "us-east-1" -> null
+      - revoke_rules_on_delete = false -> null
+      - tags                   = {} -> null
+      - tags_all               = {
+          - "Assignment" = "18"
+          - "ManagedBy"  = "Terraform"
+          - "Project"    = "DevOpsAssignments"
+        } -> null
+      - vpc_id                 = "vpc-074903895f584b29c" -> null
+    }
+
+  # aws_subnet.course will be destroyed
+  - resource "aws_subnet" "course" {
+      - arn                                            = "arn:aws:ec2:us-east-1:835582727900:subnet/subnet-0fe3b7a10bb4bc994" -> null
+      - assign_ipv6_address_on_creation                = false -> null
+      - availability_zone                              = "us-east-1c" -> null
+      - availability_zone_id                           = "use1-az4" -> null
+      - cidr_block                                     = "10.20.1.0/24" -> null
+      - enable_dns64                                   = false -> null
+      - enable_lni_at_device_index                     = 0 -> null
+      - enable_resource_name_dns_a_record_on_launch    = false -> null
+      - enable_resource_name_dns_aaaa_record_on_launch = false -> null
+      - id                                             = "subnet-0fe3b7a10bb4bc994" -> null
+      - ipv6_native                                    = false -> null
+      - map_customer_owned_ip_on_launch                = false -> null
+      - map_public_ip_on_launch                        = false -> null
+      - owner_id                                       = "835582727900" -> null
+      - private_dns_hostname_type_on_launch            = "ip-name" -> null
+      - region                                         = "us-east-1" -> null
+      - tags                                           = {} -> null
+      - tags_all                                       = {
+          - "Assignment" = "18"
+          - "ManagedBy"  = "Terraform"
+          - "Project"    = "DevOpsAssignments"
+        } -> null
+      - vpc_id                                         = "vpc-074903895f584b29c" -> null
+        # (4 unchanged attributes hidden)
+    }
+
+  # aws_vpc.course will be destroyed
+  - resource "aws_vpc" "course" {
+      - arn                                  = "arn:aws:ec2:us-east-1:835582727900:vpc/vpc-074903895f584b29c" -> null
+      - assign_generated_ipv6_cidr_block     = false -> null
+      - cidr_block                           = "10.20.0.0/16" -> null
+      - default_network_acl_id               = "acl-0c1ad8a28112d43cd" -> null
+      - default_route_table_id               = "rtb-0252690e7aa6cb4e0" -> null
+      - default_security_group_id            = "sg-0f8c1779ffb5e5947" -> null
+      - dhcp_options_id                      = "dopt-0eff959635cc11dc2" -> null
+      - enable_dns_hostnames                 = true -> null
+      - enable_dns_support                   = true -> null
+      - enable_network_address_usage_metrics = false -> null
+      - id                                   = "vpc-074903895f584b29c" -> null
+      - instance_tenancy                     = "default" -> null
+      - ipv6_netmask_length                  = 0 -> null
+      - main_route_table_id                  = "rtb-0252690e7aa6cb4e0" -> null
+      - owner_id                             = "835582727900" -> null
+      - region                               = "us-east-1" -> null
+      - tags                                 = {
+          - "Name" = "devops-course"
+        } -> null
+      - tags_all                             = {
+          - "Assignment" = "18"
+          - "ManagedBy"  = "Terraform"
+          - "Name"       = "devops-course"
+          - "Project"    = "DevOpsAssignments"
+        } -> null
+        # (4 unchanged attributes hidden)
+    }
+
+Plan: 0 to add, 0 to change, 6 to destroy.
+
+Changes to Outputs:
+  - bucket_name = "devops-course-a18-835582727900-20261021-rj" -> null
+  - instance_id = "i-0bac42df43fc2f9ea" -> null
+  - subnet_id   = "subnet-0fe3b7a10bb4bc994" -> null
+  - vpc_id      = "vpc-074903895f584b29c" -> null
+aws_s3_bucket_public_access_block.course: Destroying... [id=devops-course-a18-835582727900-20261021-rj]
+aws_instance.course: Destroying... [id=i-0bac42df43fc2f9ea]
+aws_s3_bucket_public_access_block.course: Destruction complete after 2s
+aws_s3_bucket.course: Destroying... [id=devops-course-a18-835582727900-20261021-rj]
+aws_s3_bucket.course: Destruction complete after 0s
+aws_instance.course: Still destroying... [id=i-0bac42df43fc2f9ea, 00m10s elapsed]
+aws_instance.course: Still destroying... [id=i-0bac42df43fc2f9ea, 00m20s elapsed]
+aws_instance.course: Still destroying... [id=i-0bac42df43fc2f9ea, 00m30s elapsed]
+aws_instance.course: Destruction complete after 32s
+aws_security_group.course: Destroying... [id=sg-0605861d9487c9933]
+aws_subnet.course: Destroying... [id=subnet-0fe3b7a10bb4bc994]
+aws_subnet.course: Destruction complete after 2s
+aws_security_group.course: Destruction complete after 3s
+aws_vpc.course: Destroying... [id=vpc-074903895f584b29c]
+aws_vpc.course: Destruction complete after 1s
+
+Destroy complete! Resources: 6 destroyed.
+
+Exit status: 0

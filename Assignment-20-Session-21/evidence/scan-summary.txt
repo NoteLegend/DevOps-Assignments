@@ -1,1 +1,0 @@
-Bandit: 0 findings. pip-audit: 0 dependency advisories. Gitleaks: 0 findings. Trivy full report: 7 vulnerability entries, including 0 HIGH/CRITICAL and 0 fixable HIGH/CRITICAL entries.

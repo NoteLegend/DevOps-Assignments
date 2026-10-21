@@ -1,0 +1,12 @@
+{
+  "source": "AWS Price List API",
+  "region": "us-east-1",
+  "prices": [
+    {
+      "description": "$0.0104 per On Demand Linux t3.micro Instance Hour",
+      "unit": "Hrs",
+      "price_usd": "0.0104000000"
+    }
+  ],
+  "estimate": "t3.micro compute: $0.0104/hour; 30 minutes = $0.0052, plus encrypted 8 GiB gp3 storage and API request charges; verified Free account credits cover usage. No paid-plan upgrade authorized."
+}

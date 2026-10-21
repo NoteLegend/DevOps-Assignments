@@ -1,6 +1,6 @@
 # 16 · Complete CI/CD & DevSecOps
 
-**Session 17** · **Local work verified · required stages pending**
+**Session 17** · **Complete · full hosted security-gated delivery verified**
 
 [Portfolio](../README.md) · [Exact requirements](REQUIREMENTS.md) · [Submission readiness](../SUBMISSION_READINESS.md)
 
@@ -10,8 +10,8 @@
 | --- | --- |
 | PDF source | DevOps Homework.pdf · pages 35, 36, 37 |
 | Student | Rushi Jadhav · 10144 |
-| Evidence | Successful transcripts: 5 · actual screenshots: 7 |
-| Execution environment | Original local host / Ubuntu VM as identified in the transcripts |
+| Evidence | Successful local/hosted records: 6 · actual screenshots: 8 |
+| Execution environment | Original Ubuntu VM; new GitHub-hosted Ubuntu runner and isolated kind cluster |
 | Review | 21 October 2026; historical output is retained unchanged |
 
 ## Requirement coverage
@@ -22,7 +22,7 @@
 | SAST / SCA / secret scanning | [security/](security/) | Bandit, pip-audit and Gitleaks with actual retained reports. |
 | Container scanning and gate | [security/gate.sh](security/gate.sh) | Trivy rejects all HIGH/CRITICAL findings, including unfixed findings. |
 | Kubernetes and artifact integrity | [kubernetes/](kubernetes/) | Real local two-replica deployment; saved/loaded scanned image IDs are identical. |
-| Hosted pipeline preparation | [.github/workflows/](.github/workflows/) | Repository-root manual workflow prepared; hosted execution still pending. |
+| Hosted pipeline preparation | [.github/workflows/](.github/workflows/) | Repository-root manual workflow executed successfully; all security, publication and Kubernetes verification stages passed. |
 
 ## Commands and verification
 
@@ -56,9 +56,31 @@ The initial image had 44 HIGH/CRITICAL findings. Changing the runtime and rerunn
 
 Generated image metadata initially matched two public signing-key fingerprints during secret scanning. Those redacted false positives were retained; generated evidence is separated from the source scan rather than being presented as an actual leaked runtime credential.
 
+## Hosted execution — 21 October 2026
+
+```mermaid
+flowchart LR
+  A[Compile / build] --> B[Unit tests] --> C[Bandit SAST]
+  C --> D[pip-audit SCA] --> E[Gitleaks secrets]
+  E --> F[Docker build] --> G[Trivy HIGH / CRITICAL gate]
+  G --> H[GHCR push] --> I[Runner-local Kubernetes]
+  I --> J[2 Ready replicas / HTTP health] --> K[Cluster cleanup]
+```
+
+The successful run used commit `ab2fbb4e5b4a59f12e99ae39df26cbafb571726f` and published `ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f`. Bandit, pip-audit, Gitleaks and the strict image gate passed. The built and published Docker image IDs are identical in the [downloaded evidence](evidence/hosted-devsecops/); this is the same image loaded into kind and used by the verified Deployment.
+
+```bash
+gh workflow run assignment-16-devsecops.yml --repo NoteLegend/DevOps-Assignments
+gh run view 39584880376 --repo NoteLegend/DevOps-Assignments --log
+gh run download 39584880376 --repo NoteLegend/DevOps-Assignments \
+  --name devsecops-execution-evidence --dir evidence/hosted-devsecops
+```
+
+The first hosted attempt passed scans and image publication but failed when `kubectl set image` also encountered a Service in a combined manifest. Deployment and Service were separated, the local image patch was checked, and the complete rerun passed. The [original failure record](evidence/hosted-devsecops/initial-deployment-failure.json) is retained; it is not labelled successful. No AWS or remote Kubernetes cluster was used.
+
 ## Submission status
 
-**BLOCKED.** Execute the assignment’s complete hosted pipeline, publish its scanned image and verify delivery to an approved Kubernetes target. Keep real successful pipeline/registry/deployment evidence; TaskBoard’s image-only Trivy stage does not cover all four required scanner stages.
+**COMPLETE.** [Run 39584880376](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376) passed the complete ordered flow for this application. Its SHA-tagged image was pushed to GHCR, loaded into the runner’s isolated kind cluster and verified with two Ready replicas plus a real `/health` response. The assignment-owned cluster was deleted at the end of the run.
 
 ## Execution evidence
 
@@ -69,12 +91,15 @@ Generated image metadata initially matched two public signing-key fingerprints d
 - [05 actual alpine runtime page](evidence/05-actual-alpine-runtime-page.md) — successful execution
 - [06 shared image artifact identity](evidence/06-shared-image-artifact-identity.md) — successful execution
 
+- [Successful hosted DevSecOps pipeline](evidence/07-hosted-devsecops.md) — complete real log and run/step record
+- [Downloaded scanner, image identity, Kubernetes and HTTP results](evidence/hosted-devsecops/)
+
 ## Screenshots
 
 Actual application pages and explicitly labelled views of captured command output. Full text records preserve output omitted from an image.
 
 <details>
-<summary>Open the screenshot gallery (7 images)</summary>
+<summary>Open the screenshot gallery (8 images)</summary>
 
 ![01 local devsecops pipeline](screenshots/01-local-devsecops-pipeline.png)
 
@@ -89,5 +114,7 @@ Actual application pages and explicitly labelled views of captured command outpu
 ![06 actual application page](screenshots/06-actual-application-page.png)
 
 ![06 shared image artifact identity](screenshots/06-shared-image-artifact-identity.png)
+
+![Successful hosted build, security gates, GHCR and Kubernetes verification](screenshots/07-hosted-devsecops.png)
 
 </details>

@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: final-config
-data:
-  APP_MESSAGE: Final DevOps local application

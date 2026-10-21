@@ -1,0 +1,15 @@
+The push refers to repository [ghcr.io/notelegend/devops-assignments-calculator]
+421d90f0cddf: Preparing
+c039570bf01c: Preparing
+93881a54803b: Preparing
+500ecb68a701: Preparing
+33d3a9468385: Preparing
+a70f6272827f: Preparing
+a70f6272827f: Waiting
+93881a54803b: Pushed
+33d3a9468385: Pushed
+421d90f0cddf: Pushed
+c039570bf01c: Pushed
+500ecb68a701: Pushed
+a70f6272827f: Pushed
+0dd742d482d3b16761274ebd1f30cc822f10ccb7: digest: sha256:60a70c992b476150e2263f16b7e22b8a1bf8bb2605a72437509f2de7a78390f2 size: 1572

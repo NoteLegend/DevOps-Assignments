@@ -1,0 +1,14 @@
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo init -reconfigure -backend-config=path=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate -no-color
+
+Initializing the backend...
+
+Successfully configured the backend "local"! Terraform will automatically
+use this backend unless the backend configuration changes.
+
+Initializing provider plugins...
+- Reusing previous version of hashicorp/aws from the dependency lock file
+- Using previously-installed hashicorp/aws v6.67.0
+
+Terraform has been successfully initialized!
+
+Exit status: 0

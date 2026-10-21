@@ -1,0 +1,27 @@
+Captured UTC: 2026-10-21T10:44:59.620244+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19/terraform-project output -json -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-18/terraform.tfstate
+
+{
+  "bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "devops-course-a18-835582727900-20261021-rj"
+  },
+  "instance_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "i-0bac42df43fc2f9ea"
+  },
+  "subnet_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "subnet-0fe3b7a10bb4bc994"
+  },
+  "vpc_id": {
+    "sensitive": false,
+    "type": "string",
+    "value": "vpc-074903895f584b29c"
+  }
+}
+
+Exit status: 0

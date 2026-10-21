@@ -1,0 +1,55 @@
+Captured UTC: 2026-10-21T10:48:06.643399+00:00
+Command: aws ec2 describe-volumes --filters Name=attachment.instance-id,Values=i-0bac42df43fc2f9ea --region us-east-1 --output json --no-cli-pager
+
+{
+    "Volumes": [
+        {
+            "AvailabilityZoneId": "use1-az4",
+            "Iops": 3000,
+            "Tags": [
+                {
+                    "Key": "Assignment",
+                    "Value": "18"
+                },
+                {
+                    "Key": "ManagedBy",
+                    "Value": "Terraform"
+                },
+                {
+                    "Key": "Project",
+                    "Value": "DevOpsAssignments"
+                }
+            ],
+            "VolumeType": "gp3",
+            "MultiAttachEnabled": false,
+            "Throughput": 125,
+            "Operator": {
+                "Managed": false,
+                "HiddenByDefault": false
+            },
+            "VolumeArn": "arn:aws:ec2:us-east-1:835582727900:volume/vol-05988be6a7754b044",
+            "OwnerId": "835582727900",
+            "VolumeId": "vol-05988be6a7754b044",
+            "Size": 8,
+            "SnapshotId": "snap-0b000e1afc2d5a7b5",
+            "AvailabilityZone": "us-east-1c",
+            "State": "in-use",
+            "CreateTime": "2026-10-21T10:44:38.840000+00:00",
+            "Attachments": [
+                {
+                    "DeleteOnTermination": true,
+                    "EbsCardIndex": 0,
+                    "VolumeId": "vol-05988be6a7754b044",
+                    "InstanceId": "i-0bac42df43fc2f9ea",
+                    "Device": "/dev/xvda",
+                    "State": "attached",
+                    "AttachTime": "2026-10-21T10:44:38+00:00"
+                }
+            ],
+            "Encrypted": true,
+            "KmsKeyId": "arn:aws:kms:us-east-1:835582727900:key/28d96331-d1d7-4304-9ac9-59dd3ee46a62"
+        }
+    ]
+}
+
+Exit status: 0

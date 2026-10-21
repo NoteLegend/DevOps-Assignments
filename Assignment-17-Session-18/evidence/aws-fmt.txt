@@ -1,0 +1,4 @@
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo fmt -no-color
+
+
+Exit status: 0

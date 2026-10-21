@@ -1,2 +1,2 @@
-aws_region  = "ap-south-1"
-bucket_name = "replace-with-your-globally-unique-name"
+aws_region  = "us-east-1"
+bucket_name = "devops-course-a17-835582727900-20261021-rj"

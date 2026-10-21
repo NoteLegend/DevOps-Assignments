@@ -1,0 +1,7 @@
+Captured UTC: 2026-10-21T10:43:30.238617+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo state list -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate
+
+aws_s3_bucket.assignment
+aws_s3_bucket_public_access_block.assignment
+
+Exit status: 0

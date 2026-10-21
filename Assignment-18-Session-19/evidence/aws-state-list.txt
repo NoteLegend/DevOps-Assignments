@@ -1,0 +1,11 @@
+Captured UTC: 2026-10-21T10:45:01.570208+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19/terraform-project state list -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-18/terraform.tfstate
+
+aws_instance.course
+aws_s3_bucket.course
+aws_s3_bucket_public_access_block.course
+aws_security_group.course
+aws_subnet.course
+aws_vpc.course
+
+Exit status: 0

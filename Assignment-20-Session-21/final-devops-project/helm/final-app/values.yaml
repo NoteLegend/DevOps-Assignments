@@ -1,4 +1,0 @@
-image: devops-a20-final:local
-version: v1
-message: Final DevOps Helm application
-host: final-helm.local

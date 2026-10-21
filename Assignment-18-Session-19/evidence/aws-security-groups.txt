@@ -1,0 +1,68 @@
+Captured UTC: 2026-10-21T10:48:04.276502+00:00
+Command: aws ec2 describe-security-groups --filters Name=vpc-id,Values=vpc-074903895f584b29c --region us-east-1 --output json --no-cli-pager
+
+{
+    "SecurityGroups": [
+        {
+            "GroupId": "sg-0605861d9487c9933",
+            "IpPermissionsEgress": [],
+            "Tags": [
+                {
+                    "Key": "Assignment",
+                    "Value": "18"
+                },
+                {
+                    "Key": "ManagedBy",
+                    "Value": "Terraform"
+                },
+                {
+                    "Key": "Project",
+                    "Value": "DevOpsAssignments"
+                }
+            ],
+            "VpcId": "vpc-074903895f584b29c",
+            "SecurityGroupArn": "arn:aws:ec2:us-east-1:835582727900:security-group/sg-0605861d9487c9933",
+            "OwnerId": "835582727900",
+            "GroupName": "devops-course-05152371802b66b592918139ca",
+            "Description": "Private course EC2 instance; no public ingress.",
+            "IpPermissions": []
+        },
+        {
+            "GroupId": "sg-0f8c1779ffb5e5947",
+            "IpPermissionsEgress": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [],
+                    "IpRanges": [
+                        {
+                            "CidrIp": "0.0.0.0/0"
+                        }
+                    ],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ],
+            "VpcId": "vpc-074903895f584b29c",
+            "SecurityGroupArn": "arn:aws:ec2:us-east-1:835582727900:security-group/sg-0f8c1779ffb5e5947",
+            "OwnerId": "835582727900",
+            "GroupName": "default",
+            "Description": "default VPC security group",
+            "IpPermissions": [
+                {
+                    "IpProtocol": "-1",
+                    "UserIdGroupPairs": [
+                        {
+                            "UserId": "835582727900",
+                            "GroupId": "sg-0f8c1779ffb5e5947"
+                        }
+                    ],
+                    "IpRanges": [],
+                    "Ipv6Ranges": [],
+                    "PrefixListIds": []
+                }
+            ]
+        }
+    ]
+}
+
+Exit status: 0

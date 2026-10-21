@@ -1,26 +1,22 @@
 {
-  "reviewed_at": "2026-10-21T15:32:57.508100+05:30",
+  "reviewed_at": "2026-10-21T16:27:03.334482+05:30",
   "mode": "static-source-and-retained-evidence-review",
   "assignment_folders": 20,
   "session_mapping_correct": true,
-  "locally_complete": 15,
-  "assignments_with_required_gaps": [
-    15,
-    16,
-    17,
-    18,
-    20
-  ],
+  "completed_assignments": 20,
+  "repository_link_assignments": 1,
+  "locally_complete": 19,
+  "assignments_with_required_gaps": [],
   "checks": {
-    "markdown_links": 528,
-    "png_images": 102,
-    "yaml_files": 94,
-    "python_files": 17,
-    "bash_files": 52
+    "markdown_links": 538,
+    "png_images": 92,
+    "yaml_files": 80,
+    "python_files": 14,
+    "bash_files": 39
   },
   "yaml_validation": "performed",
   "image_validation": "performed",
-  "root_workflows": 4,
+  "root_workflows": 3,
   "workflow_lint": "passed",
   "assignments": [
     {
@@ -163,42 +159,85 @@
     {
       "assignment": 15,
       "session": "16",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "successful_records": [
-        "01-local-ci-build-workflow-check.txt"
+        "01-local-ci-build-workflow-check.txt",
+        "02-hosted-calculator-ci.txt",
+        "03-hosted-calculator-cd.txt"
       ],
-      "screenshots": 1
+      "screenshots": 3
     },
     {
       "assignment": 16,
       "session": "17",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "successful_records": [
         "01-local-devsecops-pipeline.txt",
         "04-strict-high-critical-gate.txt",
         "05-actual-alpine-runtime-page.txt",
         "03-alpine-source-scans-and-deployment.txt",
-        "06-shared-image-artifact-identity.txt"
+        "06-shared-image-artifact-identity.txt",
+        "07-hosted-devsecops.txt"
       ],
-      "screenshots": 7
+      "screenshots": 8
     },
     {
       "assignment": 17,
       "session": "18",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "successful_records": [
-        "01-local-terraform-validation.txt"
+        "01-local-terraform-validation.txt",
+        "aws-init.txt",
+        "aws-fmt.txt",
+        "aws-validate.txt",
+        "aws-plan.txt",
+        "aws-apply.txt",
+        "aws-show.txt",
+        "aws-output.txt",
+        "aws-state-list.txt",
+        "aws-bucket-exists.txt",
+        "aws-bucket-private.txt",
+        "aws-bucket-encryption.txt",
+        "aws-bucket-empty.txt",
+        "aws-destroy.txt",
+        "aws-state-empty.txt",
+        "aws-fmt-check.txt"
       ],
-      "screenshots": 1
+      "screenshots": 5
     },
     {
       "assignment": 18,
       "session": "19",
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "successful_records": [
-        "01-local-cloud-configuration-validation.txt"
+        "01-local-cloud-configuration-validation.txt",
+        "aws-init.txt",
+        "aws-fmt.txt",
+        "aws-validate.txt",
+        "aws-plan.txt",
+        "aws-apply.txt",
+        "aws-show.txt",
+        "aws-output.txt",
+        "aws-fmt-check.txt",
+        "aws-state-list.txt",
+        "aws-bucket-exists.txt",
+        "aws-bucket-private.txt",
+        "aws-bucket-encryption.txt",
+        "aws-bucket-empty.txt",
+        "aws-instance-running.txt",
+        "aws-ec2-instance.txt",
+        "aws-instance-status-ok.txt",
+        "aws-instance-health.txt",
+        "aws-vpc.txt",
+        "aws-subnet.txt",
+        "aws-security-groups.txt",
+        "aws-encrypted-root-volume.txt",
+        "aws-standard-cpu-credits.txt",
+        "aws-destroy.txt",
+        "aws-state-empty.txt",
+        "aws-instance-terminated.txt"
       ],
-      "screenshots": 1
+      "screenshots": 5
     },
     {
       "assignment": 19,
@@ -213,21 +252,9 @@
     {
       "assignment": 20,
       "session": "21",
-      "status": "BLOCKED",
-      "successful_records": [
-        "01-source-git-initialization.txt",
-        "04-build-scans-validated-after-storage-fix.txt",
-        "05-clean-image-rebuild-and-scan.txt",
-        "08-real-docker-smoke-test.txt",
-        "10-kubernetes-storage-hpa-fault-repair.txt",
-        "11-cloud-bootstrap-local-validation.txt",
-        "12-cloud-application-template-validation.txt",
-        "13-final-helm-install-upgrade-rollback.txt",
-        "15-final-monitoring-verification.txt",
-        "16-scanned-image-artifact-identity.txt",
-        "17-verified-local-source-history.txt"
-      ],
-      "screenshots": 21
+      "status": "COMPLETE",
+      "successful_records": [],
+      "screenshots": 0
     }
   ],
   "issues": []

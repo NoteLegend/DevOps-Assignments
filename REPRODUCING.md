@@ -4,7 +4,7 @@
 
 ## Evidence and current execution
 
-Most course execution records were captured on October 7 using host tools and the prepared Ubuntu VM, with the workspace shared as `/workspace`. Later Release Helpdesk records identify their own local kind or real AWS environment. The README refresh reviews retained outputs and source; it does not assert that all workloads were rerun today.
+Most course execution records were captured on October 7 using host tools and the prepared Ubuntu VM, with the workspace shared as `/workspace`. Later Release Helpdesk records identify their own local kind or real AWS environment. The October-21 follow-up executed the real Assignment 15/16 hosted workflows and Assignment 17/18 approved AWS lifecycles. Other original practical records remain dated; the portfolio does not assert that all earlier workloads were rerun.
 
 Actual execution transcripts contain the complete scripts, output and exit status. Browser views of that output are labelled explicitly; application images show real pages. Intentional failures and unsuccessful attempts remain alongside successful retries.
 
@@ -16,7 +16,7 @@ Use the portable application files, Dockerfiles, Compose files, Kubernetes manif
 
 ## Workflow layout
 
-The repository-root `.github/workflows` files are prepared for the combined submission and were linted locally. Nested workflow files remain standalone-project templates. A workflow file’s existence or a local lint result is not a real hosted run.
+The three repository-root manual workflows are the actual combined-submission entry points: Assignment 15 CI, Assignment 15 CD and Assignment 16 DevSecOps. All were linted and executed successfully on GitHub; the assignment READMEs link their run records. Nested definitions are the equivalent standalone-project workflows. GHCR uses the runner-provided `GITHUB_TOKEN`; Assignment 16 verifies deployment on runner-local kind, without a remote kubeconfig.
 
 ## Git history
 

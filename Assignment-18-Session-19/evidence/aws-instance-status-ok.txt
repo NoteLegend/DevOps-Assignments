@@ -1,0 +1,5 @@
+Captured UTC: 2026-10-21T10:47:54.497637+00:00
+Command: aws ec2 wait instance-status-ok --instance-ids i-0bac42df43fc2f9ea --region us-east-1 --output json --no-cli-pager
+
+
+Exit status: 0

@@ -1,0 +1,10 @@
+Captured UTC: 2026-10-21T10:43:32.601146+00:00
+Command: aws s3api head-bucket --bucket devops-course-a17-835582727900-20261021-rj --region us-east-1 --output json --no-cli-pager
+
+{
+    "BucketArn": "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj",
+    "BucketRegion": "us-east-1",
+    "AccessPointAlias": false
+}
+
+Exit status: 0

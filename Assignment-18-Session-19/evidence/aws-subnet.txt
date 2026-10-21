@@ -1,0 +1,49 @@
+Captured UTC: 2026-10-21T10:48:02.026590+00:00
+Command: aws ec2 describe-subnets --subnet-ids subnet-0fe3b7a10bb4bc994 --region us-east-1 --output json --no-cli-pager
+
+{
+    "Subnets": [
+        {
+            "AvailabilityZoneId": "use1-az4",
+            "MapCustomerOwnedIpOnLaunch": false,
+            "OwnerId": "835582727900",
+            "AssignIpv6AddressOnCreation": false,
+            "Ipv6CidrBlockAssociationSet": [],
+            "Tags": [
+                {
+                    "Key": "Project",
+                    "Value": "DevOpsAssignments"
+                },
+                {
+                    "Key": "Assignment",
+                    "Value": "18"
+                },
+                {
+                    "Key": "ManagedBy",
+                    "Value": "Terraform"
+                }
+            ],
+            "SubnetArn": "arn:aws:ec2:us-east-1:835582727900:subnet/subnet-0fe3b7a10bb4bc994",
+            "EnableDns64": false,
+            "Ipv6Native": false,
+            "PrivateDnsNameOptionsOnLaunch": {
+                "HostnameType": "ip-name",
+                "EnableResourceNameDnsARecord": false,
+                "EnableResourceNameDnsAAAARecord": false
+            },
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "SubnetId": "subnet-0fe3b7a10bb4bc994",
+            "State": "available",
+            "VpcId": "vpc-074903895f584b29c",
+            "CidrBlock": "10.20.1.0/24",
+            "AvailableIpAddressCount": 250,
+            "AvailabilityZone": "us-east-1c",
+            "DefaultForAz": false,
+            "MapPublicIpOnLaunch": false
+        }
+    ]
+}
+
+Exit status: 0

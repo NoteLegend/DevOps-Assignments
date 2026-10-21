@@ -1,0 +1,16 @@
+Captured UTC: 2026-10-21T10:43:20.592796+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo apply -no-color /home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/approved.tfplan
+
+aws_s3_bucket.assignment: Creating...
+aws_s3_bucket.assignment: Creation complete after 8s [id=devops-course-a17-835582727900-20261021-rj]
+aws_s3_bucket_public_access_block.assignment: Creating...
+aws_s3_bucket_public_access_block.assignment: Creation complete after 1s [id=devops-course-a17-835582727900-20261021-rj]
+
+Apply complete! Resources: 2 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj"
+bucket_name = "devops-course-a17-835582727900-20261021-rj"
+
+Exit status: 0

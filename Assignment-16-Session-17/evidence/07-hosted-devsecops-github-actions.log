@@ -1,0 +1,1138 @@
+build-scan-publish-deploy	Set up job	﻿2026-10-21T10:28:51.8988464Z Current runner version: '2.338.0'
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9015935Z ##[group]Runner Image Provisioner
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9017060Z Hosted Compute Agent
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9017689Z Version: 20261012.601
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9018345Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9019207Z Build Date: 2026-10-12T17:48:21Z
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9019949Z Worker ID: {b59e60ff-ad28-456b-87d6-76514bb50bb2}
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9020847Z Region: eastus
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9021422Z Cloud: Azure
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9022441Z ##[endgroup]
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9025076Z ##[group]Operating System
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9025828Z Ubuntu
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9026463Z 24.04.5
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9027031Z LTS
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9027628Z ##[endgroup]
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9028297Z ##[group]Runner Image
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9028998Z Image: ubuntu-24.04
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9029742Z Version: 20261012.334.1
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9030890Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9033157Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9034295Z ##[endgroup]
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9035615Z ##[group]GITHUB_TOKEN Permissions
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9037866Z Contents: read
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9038630Z Metadata: read
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9039218Z Packages: write
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9039820Z ##[endgroup]
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9042176Z Secret source: Actions
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9043292Z Cache mode: write
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9044075Z Prepare workflow directory
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9464455Z Prepare all required actions
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:51.9514413Z Getting action download info
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:52.1902615Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:52.3134872Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:52.3973284Z Download action repository 'aquasecurity/trivy-action@0.35.0' (SHA:57a97c7e7821a5776cebc9bb87c984fa69cba8f1)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:52.5560885Z Download action repository 'docker/login-action@v3' (SHA:c94ce9fb468520275223c153574b00df6fe4bcc9)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:52.7955794Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.0261169Z Getting action download info
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.1044330Z Download action repository 'aquasecurity/setup-trivy@e6c2c5e321ed9123bda567646e2f96565e34abe1' (SHA:e6c2c5e321ed9123bda567646e2f96565e34abe1)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.2112928Z Download action repository 'actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809' (SHA:0400d5f644dc74513175e3cd8d07132dd4860809)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.3657010Z Getting action download info
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.4692280Z Download action repository 'actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8' (SHA:08c6903cd8c0fde910a37f88322edcfb5dd907a8)
+build-scan-publish-deploy	Set up job	2026-10-21T10:28:53.6325030Z Complete job name: build-scan-publish-deploy
+build-scan-publish-deploy	Run actions/checkout@v4	﻿2026-10-21T10:28:53.7318442Z ##[group]Run actions/checkout@v4
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7319764Z with:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7320603Z   repository: NoteLegend/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7328737Z   token: ***
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7329509Z   ssh-strict: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7330268Z   ssh-user: git
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7331068Z   persist-credentials: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7332088Z   clean: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7332902Z   sparse-checkout-cone-mode: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7333857Z   fetch-depth: 1
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7334624Z   fetch-tags: false
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7335410Z   show-progress: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7336193Z   lfs: false
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7336922Z   submodules: false
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7337719Z   set-safe-directory: true
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7338626Z   allow-unsafe-pr-checkout: false
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7339879Z env:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7340631Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.7341516Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8414684Z Syncing repository: NoteLegend/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8417973Z ##[group]Getting Git version info
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8419452Z Working directory is '/home/runner/work/DevOps-Assignments/DevOps-Assignments'
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8421487Z [command]/usr/bin/git version
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8489613Z git version 2.55.0
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8513319Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8531279Z Temporarily overriding HOME='/home/runner/work/_temp/79808ecb-c4b0-4b08-941f-b6f84c5d3b51' before making global git config changes
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8536002Z Adding repository directory to the temporary git global config as a safe directory
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8540182Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/DevOps-Assignments/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8596525Z Deleting the contents of '/home/runner/work/DevOps-Assignments/DevOps-Assignments'
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8612809Z ##[group]Initializing the repository
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8615633Z [command]/usr/bin/git init /home/runner/work/DevOps-Assignments/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8722128Z hint: Using 'master' as the name for the initial branch. This default branch name
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8725799Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8730569Z hint: to use in all of your new repositories, which will suppress this warning,
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8733328Z hint: call:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8734706Z hint:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8736290Z hint: 	git config --global init.defaultBranch <name>
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8738667Z hint:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8740553Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8744198Z hint: 'development'. The just-created branch can be renamed via this command:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8746973Z hint:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8748449Z hint: 	git branch -m <name>
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8750197Z hint:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8752821Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8756987Z Initialized empty Git repository in /home/runner/work/DevOps-Assignments/DevOps-Assignments/.git/
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8763876Z [command]/usr/bin/git remote add origin https://github.com/NoteLegend/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8802729Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8805673Z ##[group]Disabling automatic garbage collection
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8809069Z [command]/usr/bin/git config --local gc.auto 0
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8847605Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8849796Z ##[group]Setting up auth
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8855622Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.8900733Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.9352159Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.9446064Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.9716117Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:53.9757322Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.0014256Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.0061981Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.0063537Z ##[group]Fetching the repository
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.0073102Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +ab2fbb4e5b4a59f12e99ae39df26cbafb571726f:refs/remotes/origin/main
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7674678Z From https://github.com/NoteLegend/DevOps-Assignments
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7676811Z  * [new ref]         ab2fbb4e5b4a59f12e99ae39df26cbafb571726f -> origin/main
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7680291Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7681460Z ##[group]Determining the checkout info
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7683073Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7689074Z [command]/usr/bin/git sparse-checkout disable
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7742481Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7778849Z ##[group]Checking out the ref
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.7783107Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.9683604Z Switched to a new branch 'main'
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.9691295Z branch 'main' set up to track 'origin/main'.
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.9707216Z ##[endgroup]
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.9758556Z [command]/usr/bin/git log -1 --format=%H
+build-scan-publish-deploy	Run actions/checkout@v4	2026-10-21T10:28:54.9787975Z ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Run actions/setup-python@v5	﻿2026-10-21T10:28:55.0096345Z ##[group]Run actions/setup-python@v5
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0097074Z with:
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0097640Z   python-version: 3.12
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0098260Z   check-latest: false
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0101505Z   token: ***
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0102410Z   update-environment: true
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0103053Z   allow-prereleases: false
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0103653Z   freethreaded: false
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0104210Z env:
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0104754Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.0105340Z ##[endgroup]
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.1446876Z ##[group]Installed versions
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.1787098Z (node:2320) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.1789617Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.1791588Z Successfully set up CPython (3.12.15)
+build-scan-publish-deploy	Run actions/setup-python@v5	2026-10-21T10:28:55.1794239Z ##[endgroup]
+build-scan-publish-deploy	Prepare tools and evidence	﻿2026-10-21T10:28:55.2014141Z ##[group]Run mkdir -p "$RUNNER_TEMP/a16-evidence"
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2015078Z ^[[36;1mmkdir -p "$RUNNER_TEMP/a16-evidence"^[[0m
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2015968Z ^[[36;1mpip install -r requirements.txt pytest bandit==1.9.4 pip-audit==2.10.1^[[0m
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2411562Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2412830Z env:
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2413545Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2414483Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2415627Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2416771Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2417824Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2418873Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2419906Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:55.2420664Z ##[endgroup]
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.4349841Z Collecting pytest
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.4835757Z   Downloading pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.4994659Z Collecting bandit==1.9.4
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5026004Z   Downloading bandit-1.9.4-py3-none-any.whl.metadata (7.1 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5197038Z Collecting pip-audit==2.10.1
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5229182Z   Downloading pip_audit-2.10.1-py3-none-any.whl.metadata (28 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5439099Z Collecting Flask==3.1.3 (from -r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5475473Z   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5853420Z Collecting PyYAML>=5.3.1 (from bandit==1.9.4)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.5887139Z   Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.4 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6092135Z Collecting stevedore>=1.20.0 (from bandit==1.9.4)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6120737Z   Downloading stevedore-5.9.1-py3-none-any.whl.metadata (2.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6605980Z Collecting rich (from bandit==1.9.4)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6638294Z   Downloading rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6789780Z Collecting CacheControl>=0.13.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.6823110Z   Downloading cachecontrol-0.14.4-py3-none-any.whl.metadata (3.1 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7152265Z Collecting cyclonedx-python-lib<12,>=5 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7184714Z   Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl.metadata (6.9 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7347080Z Collecting packaging>=23.0.0 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7376944Z   Downloading packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7575047Z Collecting pip-api>=0.0.28 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7606370Z   Downloading pip_api-0.0.35-py3-none-any.whl.metadata (17 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7731407Z Collecting pip-requirements-parser>=32.0.0 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7760733Z   Downloading pip_requirements_parser-32.0.1-py3-none-any.whl.metadata (9.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7970629Z Collecting requests>=2.31.0 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.7999688Z   Downloading requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.8304495Z Collecting tomli>=2.2.1 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:57.8463019Z   Downloading tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (10 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1387077Z Collecting tomli-w>=1.2.0 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1418998Z   Downloading tomli_w-1.2.0-py3-none-any.whl.metadata (5.7 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1642995Z Collecting platformdirs>=4.2.0 (from pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1676800Z   Downloading platformdirs-4.13.5-py3-none-any.whl.metadata (5.5 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1796955Z Collecting blinker>=1.9.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1825462Z   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.1985459Z Collecting click>=8.1.3 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2014143Z   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2121712Z Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2150898Z   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2279677Z Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2311393Z   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2873134Z Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.2908298Z   Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (2.7 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3086375Z Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3118952Z   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3277449Z Collecting license-expression<31,>=30 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3309376Z   Downloading license_expression-30.4.4-py3-none-any.whl.metadata (11 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3486082Z Collecting packageurl-python<2,>=0.11 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3515743Z   Downloading packageurl_python-0.17.6-py3-none-any.whl.metadata (5.1 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3668328Z Collecting py-serializable<3.0.0,>=2.1.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3697098Z   Downloading py_serializable-2.1.0-py3-none-any.whl.metadata (4.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3852332Z Collecting sortedcontainers<3.0.0,>=2.4.0 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.3881873Z   Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4049333Z Collecting typing_extensions<5.0,>=4.6 (from cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4078081Z   Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4205853Z Collecting boolean.py>=4.0 (from license-expression<31,>=30->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4235711Z   Downloading boolean_py-5.0-py3-none-any.whl.metadata (2.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4366267Z Collecting defusedxml<0.8.0,>=0.7.1 (from py-serializable<3.0.0,>=2.1.0->cyclonedx-python-lib<12,>=5->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4393980Z   Downloading defusedxml-0.7.1-py2.py3-none-any.whl.metadata (32 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4533683Z Collecting iniconfig>=1.0.1 (from pytest)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4562345Z   Downloading iniconfig-2.3.1-py3-none-any.whl.metadata (2.8 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4690566Z Collecting pluggy<2,>=1.5 (from pytest)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4719984Z   Downloading pluggy-1.7.0-py3-none-any.whl.metadata (5.0 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4889021Z Collecting pygments>=2.7.2 (from pytest)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.4917509Z   Downloading pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.5755394Z Collecting msgpack<2.0.0,>=0.5.2 (from CacheControl>=0.13.0->CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.5789795Z   Downloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (8.3 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.6053095Z Collecting filelock>=3.8.0 (from CacheControl[filecache]>=0.13.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.6082814Z   Downloading filelock-4.2.4-py3-none-any.whl.metadata (2.0 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.6163616Z Requirement already satisfied: pip in /opt/hostedtoolcache/Python/3.12.15/x64/lib/python3.12/site-packages (from pip-api>=0.0.28->pip-audit==2.10.1) (26.2.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.6370085Z Collecting pyparsing (from pip-requirements-parser>=32.0.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.6409468Z   Downloading pyparsing-3.3.3-py3-none-any.whl.metadata (5.9 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.7704609Z Collecting charset_normalizer<4,>=2 (from requests>=2.31.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.7738567Z   Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl.metadata (46 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.7907557Z Collecting idna<4,>=2.5 (from requests>=2.31.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.7936270Z   Downloading idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8145583Z Collecting urllib3<3,>=1.26 (from requests>=2.31.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8327476Z   Downloading urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8502967Z Collecting certifi>=2023.5.7 (from requests>=2.31.0->pip-audit==2.10.1)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8531827Z   Downloading certifi-2026.10.19-py3-none-any.whl.metadata (2.5 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8696694Z Collecting markdown-it-py>=2.2.0 (from rich->bandit==1.9.4)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8726247Z   Downloading markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8871184Z Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich->bandit==1.9.4)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.8899389Z   Downloading mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9034294Z Downloading bandit-1.9.4-py3-none-any.whl (134 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9094066Z Downloading pip_audit-2.10.1-py3-none-any.whl (62 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9143822Z Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9192030Z Downloading cyclonedx_python_lib-11.12.0-py3-none-any.whl (529 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9261328Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 529.5/529.5 kB 84.2 MB/s  0:00:00
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9288955Z Downloading license_expression-30.4.4-py3-none-any.whl (120 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9339797Z Downloading packageurl_python-0.17.6-py3-none-any.whl (36 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9385412Z Downloading py_serializable-2.1.0-py3-none-any.whl (23 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9431016Z Downloading defusedxml-0.7.1-py2.py3-none-any.whl (25 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9482438Z Downloading sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9528218Z Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9574969Z Downloading pytest-9.1.1-py3-none-any.whl (386 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9630223Z Downloading pluggy-1.7.0-py3-none-any.whl (27 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9678053Z Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9724782Z Downloading boolean_py-5.0-py3-none-any.whl (26 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9773002Z Downloading cachecontrol-0.14.4-py3-none-any.whl (22 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9820303Z Downloading msgpack-1.2.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (472 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9883685Z Downloading click-8.5.0-py3-none-any.whl (125 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:58.9931613Z Downloading filelock-4.2.4-py3-none-any.whl (162 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0048762Z Downloading iniconfig-2.3.1-py3-none-any.whl (7.6 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0098830Z Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0144142Z Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0201533Z Downloading markupsafe-3.0.4-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (22 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0249338Z Downloading packaging-26.3-py3-none-any.whl (129 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0323752Z Downloading pip_api-0.0.35-py3-none-any.whl (123 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0372498Z Downloading pip_requirements_parser-32.0.1-py3-none-any.whl (35 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0420251Z Downloading platformdirs-4.13.5-py3-none-any.whl (32 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0468278Z Downloading pygments-2.21.0-py3-none-any.whl (1.3 MB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0551518Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.3/1.3 MB 168.0 MB/s  0:00:00
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0582009Z Downloading pyyaml-6.0.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (807 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0637006Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 807.9/807.9 kB 163.5 MB/s  0:00:00
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0668313Z Downloading requests-2.34.2-py3-none-any.whl (73 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0720040Z Downloading charset_normalizer-3.5.2-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (257 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0775796Z Downloading idna-3.20-py3-none-any.whl (69 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0836621Z Downloading urllib3-2.8.0-py3-none-any.whl (135 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0891379Z Downloading certifi-2026.10.19-py3-none-any.whl (136 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.0941502Z Downloading rich-15.0.0-py3-none-any.whl (310 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1063784Z Downloading markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1119852Z Downloading mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1166692Z Downloading stevedore-5.9.1-py3-none-any.whl (54 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1217057Z Downloading tomli-2.5.0-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.manylinux_2_28_x86_64.whl (286 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1270188Z Downloading tomli_w-1.2.0-py3-none-any.whl (6.7 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1318523Z Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.1369300Z Downloading pyparsing-3.3.3-py3-none-any.whl (126 kB)
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:28:59.3961315Z Installing collected packages: sortedcontainers, boolean.py, urllib3, typing_extensions, tomli-w, tomli, stevedore, PyYAML, pyparsing, pygments, pluggy, platformdirs, pip-api, packaging, packageurl-python, msgpack, mdurl, markupsafe, license-expression, itsdangerous, iniconfig, idna, filelock, defusedxml, click, charset_normalizer, certifi, blinker, werkzeug, requests, pytest, py-serializable, pip-requirements-parser, markdown-it-py, jinja2, rich, Flask, cyclonedx-python-lib, CacheControl, bandit, pip-audit
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:29:02.4406409Z 
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:29:02.4447564Z Successfully installed CacheControl-0.14.4 Flask-3.1.3 PyYAML-6.0.3 bandit-1.9.4 blinker-1.9.0 boolean.py-5.0 certifi-2026.10.19 charset_normalizer-3.5.2 click-8.5.0 cyclonedx-python-lib-11.12.0 defusedxml-0.7.1 filelock-4.2.4 idna-3.20 iniconfig-2.3.1 itsdangerous-2.2.0 jinja2-3.1.6 license-expression-30.4.4 markdown-it-py-4.2.0 markupsafe-3.0.4 mdurl-0.1.2 msgpack-1.2.3 packageurl-python-0.17.6 packaging-26.3 pip-api-0.0.35 pip-audit-2.10.1 pip-requirements-parser-32.0.1 platformdirs-4.13.5 pluggy-1.7.0 py-serializable-2.1.0 pygments-2.21.0 pyparsing-3.3.3 pytest-9.1.1 requests-2.34.2 rich-15.0.0 sortedcontainers-2.4.0 stevedore-5.9.1 tomli-2.5.0 tomli-w-1.2.0 typing_extensions-4.16.0 urllib3-2.8.0 werkzeug-3.1.9
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:29:02.4457051Z 
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:29:02.4457544Z [notice] A new release of pip is available: 26.2.1 -> 26.2.2
+build-scan-publish-deploy	Prepare tools and evidence	2026-10-21T10:29:02.4458252Z [notice] To update, run: pip install --upgrade pip
+build-scan-publish-deploy	Application build	﻿2026-10-21T10:29:02.5463889Z ##[group]Run python -m compileall -q application
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5464396Z ^[[36;1mpython -m compileall -q application^[[0m
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5530207Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5530522Z env:
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5530790Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5531208Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5531938Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5532514Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5533044Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5533552Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5534062Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Application build	2026-10-21T10:29:02.5534489Z ##[endgroup]
+build-scan-publish-deploy	Unit tests	﻿2026-10-21T10:29:02.6046392Z ##[group]Run python -m pytest -v --junitxml="$RUNNER_TEMP/a16-evidence/tests.xml"
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6047093Z ^[[36;1mpython -m pytest -v --junitxml="$RUNNER_TEMP/a16-evidence/tests.xml"^[[0m
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6111376Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6111906Z env:
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6112174Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6112594Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6113177Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6113745Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6114242Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6114777Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6115286Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:02.6115725Z ##[endgroup]
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0798884Z ============================= test session starts ==============================
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0800285Z platform linux -- Python 3.12.15, pytest-9.1.1, pluggy-1.7.0 -- /opt/hostedtoolcache/Python/3.12.15/x64/bin/python
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0801472Z cachedir: .pytest_cache
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0802625Z rootdir: /home/runner/work/DevOps-Assignments/DevOps-Assignments/Assignment-16-Session-17
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0803653Z configfile: pytest.ini
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.0804146Z plugins: platformdirs-4.13.5
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.2584955Z collecting ... collected 3 items
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.2585263Z 
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3601080Z tests/test_app.py::test_health PASSED                                    [ 33%]
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3620828Z tests/test_app.py::test_add PASSED                                       [ 66%]
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3830405Z tests/test_app.py::test_invalid_input PASSED                             [100%]
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3830961Z 
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3831340Z ------ generated xml file: /home/runner/work/_temp/a16-evidence/tests.xml ------
+build-scan-publish-deploy	Unit tests	2026-10-21T10:29:03.3832601Z ============================== 3 passed in 0.29s ===============================
+build-scan-publish-deploy	SAST gate	﻿2026-10-21T10:29:03.5832394Z ##[group]Run bandit -r application -c security/bandit.yaml -f json -o "$RUNNER_TEMP/a16-evidence/bandit.json"
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5834523Z ^[[36;1mbandit -r application -c security/bandit.yaml -f json -o "$RUNNER_TEMP/a16-evidence/bandit.json"^[[0m
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5916454Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5916720Z env:
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5916931Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5917272Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5917731Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5918376Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5918772Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5919165Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5919556Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.5919889Z ##[endgroup]
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.7750116Z [main]	INFO	profile include tests: None
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.7751084Z [main]	INFO	profile exclude tests: None
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.7751616Z [main]	INFO	cli include tests: None
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.7752360Z [main]	INFO	cli exclude tests: None
+build-scan-publish-deploy	SAST gate	2026-10-21T10:29:03.7791798Z [json]	INFO	JSON output written to file: /home/runner/work/_temp/a16-evidence/bandit.json
+build-scan-publish-deploy	SCA gate	﻿2026-10-21T10:29:03.8415278Z ##[group]Run pip-audit -r requirements.txt -f json -o "$RUNNER_TEMP/a16-evidence/pip-audit.json"
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8416276Z ^[[36;1mpip-audit -r requirements.txt -f json -o "$RUNNER_TEMP/a16-evidence/pip-audit.json"^[[0m
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8480260Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8480583Z env:
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8480842Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8481277Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8481998Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8482568Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8483074Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8483577Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8484084Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:03.8484510Z ##[endgroup]
+build-scan-publish-deploy	SCA gate	2026-10-21T10:29:10.1774850Z No known vulnerabilities found
+build-scan-publish-deploy	Secret scanning gate	﻿2026-10-21T10:29:10.2222863Z ##[group]Run curl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz -o "$RUNNER_TEMP/gitleaks_8.30.1_linux_x64.tar.gz"
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2224166Z ^[[36;1mcurl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz -o "$RUNNER_TEMP/gitleaks_8.30.1_linux_x64.tar.gz"^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2225237Z ^[[36;1mcurl -fsSL https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_checksums.txt -o "$RUNNER_TEMP/gitleaks_checksums.txt"^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2226071Z ^[[36;1m(cd "$RUNNER_TEMP" && sha256sum --check --ignore-missing gitleaks_checksums.txt)^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2226657Z ^[[36;1mtar -xzf "$RUNNER_TEMP/gitleaks_8.30.1_linux_x64.tar.gz" -C "$RUNNER_TEMP" gitleaks^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2227448Z ^[[36;1m"$RUNNER_TEMP/gitleaks" dir . --config .gitleaks.toml --redact --report-format json --report-path "$RUNNER_TEMP/a16-evidence/gitleaks.json"^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2292209Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2292503Z env:
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2292704Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2293034Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2293489Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2293936Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2294332Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2294731Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2295123Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.2295448Z ##[endgroup]
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.4040296Z gitleaks_8.30.1_linux_x64.tar.gz: OK
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8266086Z 
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8266829Z     ○
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8267272Z     │╲
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8267510Z     │ ○
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8267714Z     ○ ░
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8267917Z     ░    gitleaks
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.8268063Z 
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.9886158Z ^[[90m10:29AM^[[0m ^[[32mINF^[[0m ^[[1mscanned ~22289 bytes (22.29 KB) in 12.5ms^[[0m
+build-scan-publish-deploy	Secret scanning gate	2026-10-21T10:29:10.9886925Z ^[[90m10:29AM^[[0m ^[[32mINF^[[0m ^[[1mno leaks found^[[0m
+build-scan-publish-deploy	Docker image build	﻿2026-10-21T10:29:10.9948911Z ##[group]Run image="ghcr.io/${SOURCE_REPOSITORY,,}-devsecops:$REVISION"
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:10.9949461Z ^[[36;1mimage="ghcr.io/${SOURCE_REPOSITORY,,}-devsecops:$REVISION"^[[0m
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:10.9949851Z ^[[36;1mecho "IMAGE=$image" >> "$GITHUB_ENV"^[[0m
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:10.9950628Z ^[[36;1mdocker build --label "org.opencontainers.image.source=https://github.com/$SOURCE_REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" -t "$image" .^[[0m
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:10.9951567Z ^[[36;1mdocker image inspect "$image" --format '{{.Id}}' > "$RUNNER_TEMP/a16-evidence/built-image-id.txt"^[[0m
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0015876Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0016141Z env:
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0016356Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0016695Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0017152Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0017608Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0018074Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0018484Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0018888Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0019278Z   SOURCE_REPOSITORY: NoteLegend/DevOps-Assignments
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0019647Z   REVISION: ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:11.0019970Z ##[endgroup]
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4401326Z #0 building with "default" instance using docker driver
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4402089Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4402337Z #1 [internal] load build definition from Dockerfile
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4402830Z #1 transferring dockerfile: 288B 0.0s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4403227Z #1 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4403393Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4403628Z #2 [auth] library/python:pull token for registry-1.docker.io
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4404109Z #2 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4404265Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.4404559Z #3 [internal] load metadata for docker.io/library/python:3.12-alpine
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.5933256Z #3 DONE 0.3s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7171575Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7172573Z #4 [internal] load .dockerignore
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7173150Z #4 transferring context: 141B done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7173566Z #4 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7173698Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7173803Z #5 [internal] load build context
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7174099Z #5 transferring context: 733B done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7174353Z #5 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7174516Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7175026Z #6 [1/5] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7176121Z #6 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7177206Z #6 extracting sha256:bce3d672089f7ccc5125c3f8f95542fa3971138f323fb7f77e338a14396c85aa
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7177983Z #6 sha256:979e5a8a56846771598d47ebf1f8a75b46155104e168a0b237c0783c1dedff8a 5.43kB / 5.43kB done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7178899Z #6 sha256:bce3d672089f7ccc5125c3f8f95542fa3971138f323fb7f77e338a14396c85aa 416.28kB / 416.28kB 0.0s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7179879Z #6 sha256:283ac05c32e67060aa59f8a841b02df4cc0bd7fbf8d880f67d9b622e1cbd1935 16.36MB / 16.36MB 0.1s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7180840Z #6 sha256:e203d50c86bd38d307585d33fd69e7e7fd91e7535b65af46aa1d663cfb80c0fa 248B / 248B 0.0s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7181645Z #6 sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 10.30kB / 10.30kB done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.7182903Z #6 sha256:2055081c860db8c842b663415b795b026e7e5cc63b59c5193fcc9997713ea5b8 1.74kB / 1.74kB done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:13.9441860Z #6 extracting sha256:bce3d672089f7ccc5125c3f8f95542fa3971138f323fb7f77e338a14396c85aa 0.1s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:14.4018694Z #6 extracting sha256:283ac05c32e67060aa59f8a841b02df4cc0bd7fbf8d880f67d9b622e1cbd1935
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.0523923Z #6 extracting sha256:283ac05c32e67060aa59f8a841b02df4cc0bd7fbf8d880f67d9b622e1cbd1935 0.6s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.0525596Z #6 extracting sha256:e203d50c86bd38d307585d33fd69e7e7fd91e7535b65af46aa1d663cfb80c0fa
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2504411Z #6 extracting sha256:e203d50c86bd38d307585d33fd69e7e7fd91e7535b65af46aa1d663cfb80c0fa done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2505284Z #6 DONE 1.5s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2505476Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2505619Z #7 [2/5] WORKDIR /app
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2505960Z #7 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2506141Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2506301Z #8 [3/5] COPY requirements.txt .
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2506699Z #8 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2506883Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:15.2507125Z #9 [4/5] RUN pip install --no-cache-dir -r requirements.txt
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.3253767Z #9 2.225 Collecting Flask==3.1.3 (from -r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4742727Z #9 2.255   Downloading flask-3.1.3-py3-none-any.whl.metadata (3.2 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4743559Z #9 2.266 Collecting blinker>=1.9.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4744310Z #9 2.269   Downloading blinker-1.9.0-py3-none-any.whl.metadata (1.6 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4745011Z #9 2.286 Collecting click>=8.1.3 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4745689Z #9 2.289   Downloading click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4746404Z #9 2.297 Collecting itsdangerous>=2.2.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4747272Z #9 2.300   Downloading itsdangerous-2.2.0-py3-none-any.whl.metadata (1.9 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4748002Z #9 2.313 Collecting jinja2>=3.1.2 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4748693Z #9 2.316   Downloading jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.4749404Z #9 2.374 Collecting markupsafe>=2.1.1 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7151013Z #9 2.378   Downloading markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl.metadata (2.7 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7152506Z #9 2.401 Collecting werkzeug>=3.1.0 (from Flask==3.1.3->-r requirements.txt (line 1))
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7153609Z #9 2.404   Downloading werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7154514Z #9 2.415 Downloading flask-3.1.3-py3-none-any.whl (103 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7155296Z #9 2.421 Downloading blinker-1.9.0-py3-none-any.whl (8.5 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7156039Z #9 2.424 Downloading click-8.5.0-py3-none-any.whl (125 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7156814Z #9 2.427 Downloading itsdangerous-2.2.0-py3-none-any.whl (16 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7157600Z #9 2.431 Downloading jinja2-3.1.6-py3-none-any.whl (134 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7158483Z #9 2.434 Downloading markupsafe-3.0.4-cp312-cp312-musllinux_1_2_x86_64.whl (23 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7159411Z #9 2.437 Downloading werkzeug-3.1.9-py3-none-any.whl (228 kB)
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:17.7160475Z #9 2.465 Installing collected packages: markupsafe, itsdangerous, click, blinker, werkzeug, jinja2, Flask
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.1075951Z #9 3.008 Successfully installed Flask-3.1.3 blinker-1.9.0 click-8.5.0 itsdangerous-2.2.0 jinja2-3.1.6 markupsafe-3.0.4 werkzeug-3.1.9
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.2764019Z #9 3.008 WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.2767649Z #9 3.084 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.2768239Z #9 3.084 [notice] A new release of pip is available: 25.0.1 -> 26.2.2
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.2769176Z #9 3.084 [notice] To update, run: pip install --upgrade pip
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.2769733Z #9 DONE 3.2s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4512582Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4513348Z #10 [5/5] COPY application ./application
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4514005Z #10 DONE 0.0s
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4514278Z 
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4514458Z #11 exporting to image
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:18.4515257Z #11 exporting layers
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:19.0114130Z #11 exporting layers 0.7s done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:19.0288568Z #11 writing image sha256:a6b768f58d189801cbdc898170cc8e769c47a0b0c9fcf8fe72d4ff1635fcaf02 done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:19.0293461Z #11 naming to ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f done
+build-scan-publish-deploy	Docker image build	2026-10-21T10:29:19.0295338Z #11 DONE 0.7s
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	﻿2026-10-21T10:29:19.0727955Z ##[group]Run aquasecurity/trivy-action@0.35.0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0728295Z with:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0728733Z   image-ref: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0729235Z   version: v0.76.0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0729447Z   severity: HIGH,CRITICAL
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0729677Z   ignore-unfixed: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0729889Z   exit-code: 1
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0730077Z   format: json
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0730324Z   output: /home/runner/work/_temp/a16-evidence/trivy.json
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0730636Z   scan-type: image
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0730857Z   scan-ref: .
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0731057Z   vuln-type: os,library
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0731411Z   cache-dir: /home/runner/work/DevOps-Assignments/DevOps-Assignments/.cache/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0732027Z   list-all-pkgs: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0732240Z   cache: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0732443Z   skip-setup-trivy: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0734950Z   token-setup-trivy: ***
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0735218Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0735419Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0735736Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0736165Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0736589Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0736982Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0737354Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0737733Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0738267Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0738741Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0797427Z ##[start-action display=Install Trivy;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0878868Z ##[group]Run aquasecurity/setup-trivy@e6c2c5e321ed9123bda567646e2f96565e34abe1
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0879295Z with:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0879489Z   version: v0.76.0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0879689Z   cache: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0882301Z   token: ***
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0882524Z   path: $HOME/.local/bin
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0882782Z   github-server-url: https://github.com
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0883050Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0883248Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0883560Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0883989Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0884417Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0884796Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0885178Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0885560Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0886094Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0886569Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0892299Z ##[start-action display=Binary dir;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.binary-dir]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0908797Z ##[group]Run echo "dir=$HOME/.local/bin/trivy-bin" >> $GITHUB_OUTPUT
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0909247Z ^[[36;1mecho "dir=$HOME/.local/bin/trivy-bin" >> $GITHUB_OUTPUT^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0973893Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0974244Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0974453Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0974963Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0975390Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0975812Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0976190Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0976571Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0977146Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0977700Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.0978187Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1088756Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.binary-dir;outcome=success;conclusion=success;duration_ms=19]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1093701Z ##[start-action display=Check the version for caching;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1099812Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run;outcome=skipped;conclusion=skipped;duration_ms=0]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1102398Z ##[start-action display=Restore Trivy binary from cache;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.cache]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1205866Z ##[group]Run actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1206493Z with:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1206877Z   path: /home/runner/.local/bin/trivy-bin
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1207383Z   key: trivy-binary-v0.76.0-Linux-X64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1207875Z   enableCrossOsArchive: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1208329Z   fail-on-cache-miss: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1208758Z   lookup-only: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1209140Z   save-always: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1209504Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1209860Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1210417Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1211295Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1212355Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1213101Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1213529Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1213931Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1214492Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.1214995Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2274848Z (node:2625) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2276082Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2818760Z Cache not found for input keys: trivy-binary-v0.76.0-Linux-X64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2903408Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.cache;outcome=success;conclusion=success;duration_ms=179]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2906937Z ##[start-action display=Checkout install script;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__actions_checkout]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2972822Z ##[group]Run actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2973227Z with:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2973444Z   repository: aquasecurity/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2973734Z   sparse-checkout: contrib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2973985Z   path: trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2974196Z   fetch-depth: 1
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2974438Z   github-server-url: https://github.com
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2976971Z   token: ***
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2977182Z   ssh-strict: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2977391Z   ssh-user: git
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2977604Z   persist-credentials: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2977845Z   clean: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2978054Z   sparse-checkout-cone-mode: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2978305Z   fetch-tags: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2978512Z   show-progress: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2978929Z   lfs: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2979117Z   submodules: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2979327Z   set-safe-directory: true
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2979548Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2979743Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2980052Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2980480Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2981066Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2981446Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2982096Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2982490Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2983023Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.2983506Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3850706Z Syncing repository: aquasecurity/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3853695Z ##[group]Getting Git version info
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3854564Z Working directory is '/home/runner/work/DevOps-Assignments/DevOps-Assignments/trivy'
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3901018Z [command]/usr/bin/git version
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3944954Z git version 2.55.0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3972975Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3977788Z Temporarily overriding HOME='/home/runner/work/_temp/245c481b-af3a-4415-95af-0d38b33fec2e' before making global git config changes
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3979210Z Adding repository directory to the temporary git global config as a safe directory
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.3984134Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/DevOps-Assignments/DevOps-Assignments/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4019676Z ##[group]Initializing the repository
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4024483Z [command]/usr/bin/git init /home/runner/work/DevOps-Assignments/DevOps-Assignments/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4066295Z hint: Using 'master' as the name for the initial branch. This default branch name
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4067465Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4069548Z hint: to use in all of your new repositories, which will suppress this warning,
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4070470Z hint: call:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4071079Z hint:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4071860Z hint: 	git config --global init.defaultBranch <name>
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4072598Z hint:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4073382Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4074441Z hint: 'development'. The just-created branch can be renamed via this command:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4075250Z hint:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4075767Z hint: 	git branch -m <name>
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4076359Z hint:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4077109Z hint: Disable this message with "git config set advice.defaultBranchName false"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4078470Z Initialized empty Git repository in /home/runner/work/DevOps-Assignments/DevOps-Assignments/trivy/.git/
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4081398Z [command]/usr/bin/git remote add origin https://github.com/aquasecurity/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4125964Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4127078Z ##[group]Disabling automatic garbage collection
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4131327Z [command]/usr/bin/git config --local gc.auto 0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4165489Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4166159Z ##[group]Setting up auth
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4173904Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4206454Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4486487Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4528360Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4806221Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4852856Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4853621Z ##[group]Determining the default branch
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.4856874Z Retrieving the default branch name
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.8277409Z Default branch 'main'
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.8279785Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.8281125Z ##[group]Fetching the repository
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:19.8288896Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --filter=blob:none --depth=1 origin +refs/heads/main:refs/remotes/origin/main
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0609671Z From https://github.com/aquasecurity/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0610512Z  * [new branch]      main       -> origin/main
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0615525Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0616237Z ##[group]Determining the checkout info
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0618980Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0619697Z ##[group]Setting up sparse checkout
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0626071Z [command]/usr/bin/git sparse-checkout set contrib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0669454Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0670084Z ##[group]Checking out the ref
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.0683341Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2501052Z Switched to a new branch 'main'
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2503275Z branch 'main' set up to track 'origin/main'.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2510580Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2563525Z [command]/usr/bin/git log -1 --format=%H
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2595160Z 1f93b251d810bd7690a9415e3d90ccd7d0e1066d
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2709491Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__actions_checkout;outcome=success;conclusion=success;duration_ms=980]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2712903Z ##[start-action display=Install Trivy;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run_2]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2737246Z ##[group]Run echo "installing Trivy binary"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2737605Z ^[[36;1mecho "installing Trivy binary"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2738032Z ^[[36;1mbash ./trivy/contrib/install.sh -b /home/runner/.local/bin/trivy-bin v0.76.0^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2738564Z ^[[36;1mcp -r ./trivy/contrib /home/runner/.local/bin/trivy-bin/contrib^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2738928Z ^[[36;1mrm -rf ./trivy^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2803450Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2803847Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2804073Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2804421Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2804898Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2805368Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2805788Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2806216Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2806654Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2807259Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2807796Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.2897708Z installing Trivy binary
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.3026220Z aquasecurity/trivy info checking GitHub for tag 'v0.76.0'
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:20.6218935Z aquasecurity/trivy info found version: 0.76.0 for v0.76.0/Linux/64bit
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0232676Z aquasecurity/trivy info installed /home/runner/.local/bin/trivy-bin/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0709612Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run_2;outcome=success;conclusion=success;duration_ms=1799]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0713725Z ##[start-action display=Add Trivy binary to $GITHUB_PATH;id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run_3]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0733657Z ##[group]Run echo /home/runner/.local/bin/trivy-bin >> $GITHUB_PATH
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0734317Z ^[[36;1mecho /home/runner/.local/bin/trivy-bin >> $GITHUB_PATH^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0799215Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0799625Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0799862Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0800239Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0800759Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0801472Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0802204Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0802668Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0803142Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0803802Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0804384Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0898596Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy.__run_3;outcome=success;conclusion=success;duration_ms=18]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0911068Z ##[end-action id=__aquasecurity_trivy-action.__aquasecurity_setup-trivy;outcome=success;conclusion=success;duration_ms=3011]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0913717Z ##[start-action display=Get current date;id=__aquasecurity_trivy-action.date]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0929866Z ##[group]Run echo "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0930294Z ^[[36;1mecho "date=$(date +'%Y-%m-%d')" >> $GITHUB_OUTPUT^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0992639Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0993019Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0993233Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0993596Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0994099Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0994584Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0995030Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0995464Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0995894Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0996500Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.0997035Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1099497Z ##[end-action id=__aquasecurity_trivy-action.date;outcome=success;conclusion=success;duration_ms=18]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1102027Z ##[start-action display=Restore DB from cache;id=__aquasecurity_trivy-action.__actions_cache]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1139428Z ##[group]Run actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1139775Z with:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1140099Z   path: /home/runner/work/DevOps-Assignments/DevOps-Assignments/.cache/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1140496Z   key: cache-trivy-2026-10-21
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1140747Z   restore-keys: cache-trivy-
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1141004Z   enableCrossOsArchive: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1154025Z   fail-on-cache-miss: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1154493Z   lookup-only: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1154861Z   save-always: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1155142Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1155356Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1155680Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1156142Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1156570Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1156947Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1157326Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1157719Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1158255Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.1158735Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2230016Z (node:2796) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2230922Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2812708Z Cache not found for input keys: cache-trivy-2026-10-21, cache-trivy-
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2870425Z ##[end-action id=__aquasecurity_trivy-action.__actions_cache;outcome=success;conclusion=success;duration_ms=176]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2876035Z ##[start-action display=Set GitHub Path;id=__aquasecurity_trivy-action.__run]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2893404Z ##[group]Run echo "$GITHUB_ACTION_PATH" >> $GITHUB_PATH
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2893829Z ^[[36;1mecho "$GITHUB_ACTION_PATH" >> $GITHUB_PATH^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2982471Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2983088Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2983441Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2984027Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2984830Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2985602Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2986308Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2987051Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2987762Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2988792Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2989916Z   GITHUB_ACTION_PATH: /home/runner/work/_actions/aquasecurity/trivy-action/0.35.0
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.2990659Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3114592Z ##[end-action id=__aquasecurity_trivy-action.__run;outcome=success;conclusion=success;duration_ms=23]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3116738Z ##[start-action display=Clear Trivy Envs file;id=__aquasecurity_trivy-action.__run_2]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3133269Z ##[group]Run rm -f trivy_envs.txt
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3133590Z ^[[36;1mrm -f trivy_envs.txt^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3133859Z ^[[36;1mtouch trivy_envs.txt^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3196274Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3196668Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3196893Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3197235Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3197708Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3198181Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3198595Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3199011Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3199454Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3200042Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3200584Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3314031Z ##[end-action id=__aquasecurity_trivy-action.__run_2;outcome=success;conclusion=success;duration_ms=19]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3319039Z ##[start-action display=Set Trivy environment variables;id=__aquasecurity_trivy-action.__run_3]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3337372Z ##[group]Run # Note: There is currently no way to distinguish between undefined variables and empty strings in GitHub Actions.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3338359Z ^[[36;1m# Note: There is currently no way to distinguish between undefined variables and empty strings in GitHub Actions.^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3339040Z ^[[36;1m# This limitation affects how we handle default values and empty inputs.^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3339601Z ^[[36;1m# For more information, see: https://github.com/actions/runner/issues/924^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3340028Z ^[[36;1m^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3340400Z ^[[36;1m# The following logic implements the configuration priority described in the README:^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3341036Z ^[[36;1m#^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3341227Z ^[[36;1m# Inputs^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3341444Z ^[[36;1m# Environment Variables^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3341983Z ^[[36;1m# Config File^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3342234Z ^[[36;1m# Defaults^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3342437Z ^[[36;1m#^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3342856Z ^[[36;1m# As noted above defaults are awkward to handle as GitHub Actions will inject those values as the input^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3343760Z ^[[36;1m# if the caller doesn't provide them, thus if the input matches the default we don't set it as we^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3344450Z ^[[36;1m# can't tell the difference.  Plus if we did set it when it was the default value then it could potentially^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3345203Z ^[[36;1m# override an external environment variable, or something in the callers configuration file, which then wouldn't^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3345834Z ^[[36;1m# match the configuration priority that is documented.^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3346189Z ^[[36;1mset_env_var_if_provided() {^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3346467Z ^[[36;1m  local var_name="$1"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3346720Z ^[[36;1m  local input_value="$2"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3346994Z ^[[36;1m  local default_value="$3"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3347251Z ^[[36;1m^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3347558Z ^[[36;1m  if [ -n "$input_value" ] && [ "$input_value" != "$default_value" ]; then^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3348055Z ^[[36;1m    # If action was provided with explicit input by the caller set that^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3348612Z ^[[36;1m    # Use printf %q to safely escape special characters and prevent command injection^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3349148Z ^[[36;1m    printf 'export %s=%q\n' "$var_name" "$input_value" >> trivy_envs.txt^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3349518Z ^[[36;1m  fi^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3349711Z ^[[36;1m}^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3349897Z ^[[36;1m^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3350185Z ^[[36;1m# Set environment variables, handling those with default values^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3350762Z ^[[36;1m# cf. https://aquasecurity.github.io/trivy/latest/docs/configuration/#environment-variables^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3351322Z ^[[36;1mset_env_var_if_provided "TRIVY_INPUT" "$INPUT_INPUT" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3351968Z ^[[36;1mset_env_var_if_provided "TRIVY_EXIT_CODE" "$INPUT_EXIT_CODE" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3352492Z ^[[36;1mset_env_var_if_provided "TRIVY_IGNORE_UNFIXED" "$INPUT_IGNORE_UNFIXED" "false"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3353025Z ^[[36;1mset_env_var_if_provided "TRIVY_PKG_TYPES" "$INPUT_VULN_TYPE" "os,library"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3353614Z ^[[36;1mset_env_var_if_provided "TRIVY_SEVERITY" "$INPUT_SEVERITY" "UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3354170Z ^[[36;1mset_env_var_if_provided "TRIVY_FORMAT" "$INPUT_FORMAT" "table"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3354605Z ^[[36;1mset_env_var_if_provided "TRIVY_TEMPLATE" "$INPUT_TEMPLATE" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3355028Z ^[[36;1mset_env_var_if_provided "TRIVY_OUTPUT" "$INPUT_OUTPUT" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3355452Z ^[[36;1mset_env_var_if_provided "TRIVY_SKIP_DIRS" "$INPUT_SKIP_DIRS" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3355900Z ^[[36;1mset_env_var_if_provided "TRIVY_SKIP_FILES" "$INPUT_SKIP_FILES" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3356339Z ^[[36;1mset_env_var_if_provided "TRIVY_TIMEOUT" "$INPUT_TIMEOUT" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3356807Z ^[[36;1mset_env_var_if_provided "TRIVY_IGNORE_POLICY" "$INPUT_IGNORE_POLICY" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3357276Z ^[[36;1mset_env_var_if_provided "TRIVY_QUIET" "$INPUT_HIDE_PROGRESS" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3357757Z ^[[36;1mset_env_var_if_provided "TRIVY_LIST_ALL_PKGS" "$INPUT_LIST_ALL_PKGS" "false"^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3358239Z ^[[36;1mset_env_var_if_provided "TRIVY_SCANNERS" "$INPUT_SCANNERS" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3358669Z ^[[36;1mset_env_var_if_provided "TRIVY_CONFIG" "$INPUT_TRIVY_CONFIG" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3359100Z ^[[36;1mset_env_var_if_provided "TRIVY_TF_VARS" "$INPUT_TF_VARS" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3359551Z ^[[36;1mset_env_var_if_provided "TRIVY_DOCKER_HOST" "$INPUT_DOCKER_HOST" ""^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3420612Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3421118Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3421326Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3421873Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3422339Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3422762Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3423153Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3423685Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3424070Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3424605Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3425090Z   INPUT_INPUT: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3425295Z   INPUT_EXIT_CODE: 1
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3425517Z   INPUT_IGNORE_UNFIXED: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3425765Z   INPUT_VULN_TYPE: os,library
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3426018Z   INPUT_SEVERITY: HIGH,CRITICAL
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3426254Z   INPUT_FORMAT: json
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3426467Z   INPUT_TEMPLATE: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3426755Z   INPUT_OUTPUT: /home/runner/work/_temp/a16-evidence/trivy.json
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3427092Z   INPUT_SKIP_DIRS: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3427297Z   INPUT_SKIP_FILES: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3427501Z   INPUT_TIMEOUT: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3427708Z   INPUT_IGNORE_POLICY: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3427931Z   INPUT_HIDE_PROGRESS: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3428150Z   INPUT_LIST_ALL_PKGS: false
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3428380Z   INPUT_SCANNERS: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3428583Z   INPUT_TRIVY_CONFIG: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3428799Z   INPUT_TF_VARS: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3429010Z   INPUT_DOCKER_HOST: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3429221Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3526187Z ##[end-action id=__aquasecurity_trivy-action.__run_3;outcome=success;conclusion=success;duration_ms=20]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3532198Z ##[start-action display=Run Trivy;id=__aquasecurity_trivy-action.__run_4]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3560457Z ##[group]Run entrypoint.sh
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3560898Z ^[[36;1mentrypoint.sh^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3645579Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3646197Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3646559Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3647158Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3648005Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3648849Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3649550Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3650288Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3651024Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3652321Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3653280Z   INPUT_SCAN_TYPE: image
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3654207Z   INPUT_IMAGE_REF: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3655205Z   INPUT_SCAN_REF: .
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3655664Z   INPUT_TRIVYIGNORES: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3656078Z   INPUT_GITHUB_PAT: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3656483Z   INPUT_LIMIT_SEVERITIES_FOR_SARIF: 
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3657277Z   TRIVY_CACHE_DIR: /home/runner/work/DevOps-Assignments/DevOps-Assignments/.cache/trivy
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3658141Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.3785005Z Running Trivy with options: trivy image ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.4377758Z 2026-10-21T10:29:22Z	INFO	[vulndb] Need to update DB
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.4378740Z 2026-10-21T10:29:22Z	INFO	[vulndb] Downloading vulnerability DB...
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:22.4379698Z 2026-10-21T10:29:22Z	INFO	[vulndb] Downloading artifact...	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:27.3776902Z 52.73 MiB / 129.50 MiB [------------------------>___________________________________] 40.72% ? p/s ?128.74 MiB / 129.50 MiB [---------------------------------------------------------->] 99.42% ? p/s ?129.50 MiB / 129.50 MiB [--------------------------------------------------------->] 100.00% ? p/s ?129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 127.94 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 127.94 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 127.94 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 119.68 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 119.68 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 119.68 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 111.96 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 111.96 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 111.96 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 104.74 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 104.74 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [------------------------------------------->] 100.00% 104.74 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [-------------------------------------------->] 100.00% 97.98 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [-------------------------------------------->] 100.00% 97.98 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [-------------------------------------------->] 100.00% 97.98 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [-------------------------------------------->] 100.00% 91.66 MiB p/s ETA 0s129.50 MiB / 129.50 MiB [-----------------------------------------------] 100.00% 35.22 MiB p/s 3.9s2026-10-21T10:29:27Z	INFO	[vulndb] Artifact successfully downloaded	repo="mirror.gcr.io/aquasec/trivy-db:2"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:27.3789132Z 2026-10-21T10:29:27Z	INFO	[vuln] Vulnerability scanning is enabled
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:27.3792460Z 2026-10-21T10:29:27Z	INFO	[secret] Secret scanning is enabled
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:27.3793583Z 2026-10-21T10:29:27Z	INFO	[secret] If your scanning is slow, please try '--scanners vuln' to disable secret scanning
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:27.3801432Z 2026-10-21T10:29:27Z	INFO	[secret] Please see https://trivy.dev/docs/v0.76/guide/scanner/secret#recommendation for faster secret detection
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.4991435Z 2026-10-21T10:29:31Z	INFO	[python] Licenses acquired from one or more METADATA files may be subject to additional terms. Use `--debug` flag to see all affected packages.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5076025Z 2026-10-21T10:29:31Z	INFO	Detected OS	family="alpine" version="3.24.2"
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5079898Z 2026-10-21T10:29:31Z	INFO	[alpine] Detecting vulnerabilities...	os_version="3.24" repository="3.24" pkg_num=38
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5100338Z 2026-10-21T10:29:31Z	INFO	Number of language-specific files	num=1
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5101219Z 2026-10-21T10:29:31Z	INFO	[python-pkg] Detecting vulnerabilities...
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5117158Z 2026-10-21T10:29:31Z	WARN	Using severities from other vendors for some vulnerabilities. Read https://trivy.dev/docs/v0.76/guide/scanner/vulnerability#severity-selection for details.
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5284526Z ##[end-action id=__aquasecurity_trivy-action.__run_4;outcome=success;conclusion=success;duration_ms=9175]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5289418Z ##[start-action display=Remove Trivy Envs file;id=__aquasecurity_trivy-action.__run_5]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5310030Z ##[group]Run rm -f trivy_envs.txt
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5310316Z ^[[36;1mrm -f trivy_envs.txt^[[0m
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5375033Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5375421Z env:
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5375644Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5375992Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5376469Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5377132Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5377561Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5378001Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5378435Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5379221Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5379770Z ##[endgroup]
+build-scan-publish-deploy	Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:29:31.5486461Z ##[end-action id=__aquasecurity_trivy-action.__run_5;outcome=success;conclusion=success;duration_ms=19]
+build-scan-publish-deploy	Run docker/login-action@v3	﻿2026-10-21T10:29:31.5529875Z ##[group]Run docker/login-action@v3
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5530161Z with:
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5530355Z   registry: ghcr.io
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5530574Z   username: NoteLegend
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5533361Z   password: ***
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5533587Z   logout: true
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5533801Z env:
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5534009Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5534332Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5534782Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5535208Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5535589Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5535967Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5536347Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5536875Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.5537382Z ##[endgroup]
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.9012643Z Logging into ghcr.io...
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.9039507Z (node:2832) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:31.9040886Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Run docker/login-action@v3	2026-10-21T10:29:32.0751228Z Login Succeeded!
+build-scan-publish-deploy	Publish the same scanned image	﻿2026-10-21T10:29:32.0948607Z ##[group]Run docker image inspect "$IMAGE" --format '{{.Id}}' > "$RUNNER_TEMP/a16-evidence/published-image-id.txt"
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.0949897Z ^[[36;1mdocker image inspect "$IMAGE" --format '{{.Id}}' > "$RUNNER_TEMP/a16-evidence/published-image-id.txt"^[[0m
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.0951141Z ^[[36;1mcmp "$RUNNER_TEMP/a16-evidence/built-image-id.txt" "$RUNNER_TEMP/a16-evidence/published-image-id.txt"^[[0m
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.0952460Z ^[[36;1mdocker push "$IMAGE" | tee "$RUNNER_TEMP/a16-evidence/registry-push.txt"^[[0m
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1036438Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1036837Z env:
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1037161Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1037691Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1038437Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1039207Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1039859Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1040622Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1041280Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1042450Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1043288Z ##[endgroup]
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1496153Z The push refers to repository [ghcr.io/notelegend/devops-assignments-devsecops]
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1731203Z 9492f3b756b2: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1733448Z 71daecc80b02: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1733946Z ca545f53ac2c: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1734345Z b500c03aa365: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1734716Z 4d211c3f1c45: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1735079Z 7e9021171c27: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1735445Z 41366f7f4879: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1736155Z 74d97c428c51: Preparing
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1736519Z 41366f7f4879: Waiting
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1736858Z 7e9021171c27: Waiting
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.1737196Z 74d97c428c51: Waiting
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.3037635Z 4d211c3f1c45: Layer already exists
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.3531495Z 7e9021171c27: Layer already exists
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.3964991Z 41366f7f4879: Layer already exists
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:32.4480026Z 74d97c428c51: Layer already exists
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:33.4895152Z ca545f53ac2c: Pushed
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:33.4996063Z b500c03aa365: Pushed
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:33.5425099Z 9492f3b756b2: Pushed
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:34.1310209Z 71daecc80b02: Pushed
+build-scan-publish-deploy	Publish the same scanned image	2026-10-21T10:29:35.8227255Z ab2fbb4e5b4a59f12e99ae39df26cbafb571726f: digest: sha256:fc3a7bea54be24c4077070acdac2da190e5fabc35d8485a0deaa8435c6e0c99c size: 1988
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	﻿2026-10-21T10:29:35.8289143Z ##[group]Run curl -fsSL https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-amd64 -o "$RUNNER_TEMP/kind"
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8290011Z ^[[36;1mcurl -fsSL https://kind.sigs.k8s.io/dl/v0.33.0/kind-linux-amd64 -o "$RUNNER_TEMP/kind"^[[0m
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8290825Z ^[[36;1mecho 'aee6151561422756b764a4ae28e7f44cda5af5a9eead3cc9985112b1de8d8e0d  '"$RUNNER_TEMP/kind" | sha256sum --check^[[0m
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8291443Z ^[[36;1mchmod +x "$RUNNER_TEMP/kind"^[[0m
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8292535Z ^[[36;1m"$RUNNER_TEMP/kind" create cluster --name "$KIND_CLUSTER" --image kindest/node:v1.35.8@sha256:07b2536e30b803ed61d1677a79df6115f798ce64c80f9e22f6ed45afd09323c0 --wait 180s^[[0m
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8293441Z ^[[36;1m"$RUNNER_TEMP/kind" load docker-image "$IMAGE" --name "$KIND_CLUSTER"^[[0m
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8358994Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8359291Z env:
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8359515Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8359868Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8360393Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8360867Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8361304Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8361982Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8362503Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8363161Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:35.8363737Z ##[endgroup]
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:36.1844995Z /home/runner/work/_temp/kind: OK
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:36.3912646Z Creating cluster "assignment16-ci" ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:36.3913750Z  • Ensuring node image (kindest/node:v1.35.8) 🖼️  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:44.8835494Z  ✓ Ensuring node image (kindest/node:v1.35.8) 🖼️
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:44.8836245Z  • Preparing nodes 📦   ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:46.8745757Z  ✓ Preparing nodes 📦 
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:46.9007827Z  • Writing configuration 📜  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:47.0844198Z  ✓ Writing configuration 📜
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:47.0844905Z  • Starting control-plane 🕹️  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:54.8987540Z  ✓ Starting control-plane 🕹️
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:54.8988228Z  • Installing CNI 🔌  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:55.2236792Z  ✓ Installing CNI 🔌
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:55.2237462Z  • Installing StorageClass 💾  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:55.5621914Z  ✓ Installing StorageClass 💾
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:29:55.5926024Z  • Waiting ≤ 3m0s for control-plane = Ready ⏳  ...
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.2978463Z  ✓ Waiting ≤ 3m0s for control-plane = Ready ⏳
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.2979002Z  • Ready after 16s 💚
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4395054Z Set kubectl context to "kind-assignment16-ci"
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4395753Z You can now use your cluster with:
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4396073Z 
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4396348Z kubectl cluster-info --context kind-assignment16-ci
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4396763Z 
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.4397564Z Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/quick-start/
+build-scan-publish-deploy	Create an isolated runner-local Kubernetes cluster	2026-10-21T10:30:11.6456645Z Image: "ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f" with ID "sha256:a6b768f58d189801cbdc898170cc8e769c47a0b0c9fcf8fe72d4ff1635fcaf02" not yet present on node "assignment16-ci-control-plane", loading...
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	﻿2026-10-21T10:30:14.7670162Z ##[group]Run context="kind-$KIND_CLUSTER"
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7670545Z ^[[36;1mcontext="kind-$KIND_CLUSTER"^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7670919Z ^[[36;1mkubectl --context "$context" create namespace assignment-16^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7671577Z ^[[36;1mkubectl set image -f kubernetes/deployment.yaml app="$IMAGE" --local -o yaml > "$RUNNER_TEMP/a16-deployment.yaml"^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7672788Z ^[[36;1mkubectl --context "$context" -n assignment-16 apply -f "$RUNNER_TEMP/a16-deployment.yaml" -f kubernetes/service.yaml^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7673558Z ^[[36;1mkubectl --context "$context" -n assignment-16 rollout status deployment/devsecops --timeout=180s^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7674420Z ^[[36;1mkubectl --context "$context" -n assignment-16 get pods,deployments,services -o wide | tee "$RUNNER_TEMP/a16-evidence/kubernetes-resources.txt"^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7675399Z ^[[36;1mkubectl --context "$context" -n assignment-16 port-forward svc/devsecops 8160:80 > "$RUNNER_TEMP/a16-evidence/port-forward.txt" 2>&1 &^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7676038Z ^[[36;1mforward_pid=$!^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7676327Z ^[[36;1mtrap 'kill "$forward_pid" 2>/dev/null || true' EXIT^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7676979Z ^[[36;1mcurl --retry 20 --retry-connrefused --retry-delay 2 --fail http://127.0.0.1:8160/health | tee "$RUNNER_TEMP/a16-evidence/health.json"^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7677920Z ^[[36;1mpython -c 'import json, pathlib; assert json.loads(pathlib.Path("'"$RUNNER_TEMP"'/a16-evidence/health.json").read_text())["status"] == "healthy"'^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7678822Z ^[[36;1mkubectl --context "$context" -n assignment-16 logs deployment/devsecops > "$RUNNER_TEMP/a16-evidence/application.log"^[[0m
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7746401Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7746668Z env:
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7746876Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7747326Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7747909Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7748408Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7749010Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7749406Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7750010Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7750869Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:14.7751362Z ##[endgroup]
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:17.4492887Z namespace/assignment-16 created
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:17.8815128Z deployment.apps/devsecops created
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:17.8951486Z service/devsecops created
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:18.0286579Z Waiting for deployment "devsecops" rollout to finish: 0 of 2 updated replicas are available...
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.0939694Z Waiting for deployment "devsecops" rollout to finish: 1 of 2 updated replicas are available...
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.1008938Z deployment "devsecops" successfully rolled out
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2079125Z NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE                            NOMINATED NODE   READINESS GATES
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2080837Z pod/devsecops-598574b8f8-bk9lk   1/1     Running   0          3s    10.244.0.6   assignment16-ci-control-plane   <none>           <none>
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2083069Z pod/devsecops-598574b8f8-hfkvx   1/1     Running   0          3s    10.244.0.5   assignment16-ci-control-plane   <none>           <none>
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2096331Z 
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2097470Z NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                     SELECTOR
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2099225Z deployment.apps/devsecops   2/2     2            2           3s    app          ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f   app=devsecops
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2101006Z 
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2101496Z NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2103285Z service/devsecops   ClusterIP   10.96.139.132   <none>        80/TCP    3s    app=devsecops
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2204995Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2205899Z                                  Dload  Upload   Total   Spent    Left  Speed
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2206389Z 
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2206988Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2207882Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2208487Z curl: (7) Failed to connect to 127.0.0.1 port 8160 after 0 ms: Couldn't connect to server
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2209457Z Warning: Problem : connection refused. Will retry in 2 seconds. 20 retries 
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:20.2209905Z Warning: left.
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:22.2223571Z 
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:22.2298987Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:22.2299951Z 100    21  100    21    0     0   2789      0 --:--:-- --:--:-- --:--:--  3000
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:22.2302357Z {"status":"healthy"}
+build-scan-publish-deploy	Deploy and verify the published image in Kubernetes	2026-10-21T10:30:22.3592342Z Found 2 pods, using pod/devsecops-598574b8f8-bk9lk
+build-scan-publish-deploy	Remove the assignment-owned cluster	﻿2026-10-21T10:30:22.3792149Z ##[group]Run if test -x "$RUNNER_TEMP/kind"; then "$RUNNER_TEMP/kind" delete cluster --name "$KIND_CLUSTER"; fi
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3793467Z ^[[36;1mif test -x "$RUNNER_TEMP/kind"; then "$RUNNER_TEMP/kind" delete cluster --name "$KIND_CLUSTER"; fi^[[0m
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3864601Z shell: /usr/bin/bash -e {0}
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3864884Z env:
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3865111Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3865472Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3865967Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3866473Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3866909Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3867366Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3867835Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3868505Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.3869121Z ##[endgroup]
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:22.4128547Z Deleting cluster "assignment16-ci" ...
+build-scan-publish-deploy	Remove the assignment-owned cluster	2026-10-21T10:30:23.8498307Z Deleted nodes: ["assignment16-ci-control-plane"]
+build-scan-publish-deploy	Run actions/upload-artifact@v4	﻿2026-10-21T10:30:23.8557397Z ##[group]Run actions/upload-artifact@v4
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8557702Z with:
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8557918Z   name: devsecops-execution-evidence
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8558219Z   path: /home/runner/work/_temp/a16-evidence/
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8558511Z   retention-days: 1
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8558726Z   if-no-files-found: warn
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8558975Z   compression-level: 6
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8559189Z   overwrite: false
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8559404Z   include-hidden-files: false
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8559641Z env:
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8559845Z   KIND_CLUSTER: assignment16-ci
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8560159Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8560581Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib/pkgconfig
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8561009Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8561384Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8562598Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.15/x64
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8563060Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.15/x64/lib
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8563604Z   IMAGE: ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:23.8564083Z ##[endgroup]
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.0252929Z (node:12002) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.0254648Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.0351215Z With the provided path, there will be 12 files uploaded
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.0358291Z Artifact name is valid!
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.0358802Z Root directory input is valid!
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.2466855Z Beginning upload of artifact content to blob storage
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.2845772Z (node:12002) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.3101240Z Uploaded bytes 18120
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.3242569Z Finished uploading artifact content to blob storage!
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.3243913Z SHA256 digest of uploaded artifact zip is d8af6a6f6dbac14b85b9be15f7f6752cf334b737bcc6e115407b10561068c14c
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.3246028Z Finalizing artifact upload
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.5513159Z Artifact devsecops-execution-evidence.zip successfully finalized. Artifact ID 12338019204
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.5515618Z Artifact devsecops-execution-evidence has been successfully uploaded! Final size is 18120 bytes. Artifact ID is 12338019204
+build-scan-publish-deploy	Run actions/upload-artifact@v4	2026-10-21T10:30:24.5521000Z Artifact download URL: https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376/artifacts/12338019204
+build-scan-publish-deploy	Post Run docker/login-action@v3	﻿2026-10-21T10:30:24.5713518Z Post job cleanup.
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.8917335Z ##[group]Logout from ghcr.io
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.8941253Z (node:12014) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.8942841Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.8982106Z [command]/usr/bin/docker logout ghcr.io
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.9160293Z Removing login credentials for ghcr.io
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.9196362Z ##[endgroup]
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.9197161Z ##[group]Post cache
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.9198513Z State not set
+build-scan-publish-deploy	Post Run docker/login-action@v3	2026-10-21T10:30:24.9199459Z ##[endgroup]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	﻿2026-10-21T10:30:24.9602114Z Post job cleanup.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:24.9609330Z ##[start-action display=Restore DB from cache;id=__81a93d04-3125-4423-8273-e843b298b926.__actions_cache]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:24.9662129Z Post job cleanup.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:25.0714994Z (node:12035) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:25.0716303Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:25.0881153Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/DevOps-Assignments/DevOps-Assignments --files-from manifest.txt --use-compress-program zstdmt
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:27.1275316Z (node:12035) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.1189487Z Sent 88211456 of 96180463 (91.7%), 84.2 MBs/sec
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.5114786Z Sent 96180463 of 96180463 (100.0%), 65.9 MBs/sec
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6238297Z Cache saved with key: cache-trivy-2026-10-21
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6337313Z ##[end-action id=__81a93d04-3125-4423-8273-e843b298b926.__actions_cache;outcome=success;conclusion=success;duration_ms=3672]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6341240Z ##[start-action display=Install Trivy;id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6422062Z Post job cleanup.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6426309Z ##[start-action display=Checkout install script;id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy.__actions_checkout]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.6473963Z Post job cleanup.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.7378287Z ##[end-action id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy.__actions_checkout;outcome=success;conclusion=success;duration_ms=95]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.7381280Z ##[start-action display=Restore Trivy binary from cache;id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy.cache]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.7436551Z Post job cleanup.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.8546590Z (node:12064) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.8547806Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:28.8711898Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/DevOps-Assignments/DevOps-Assignments --files-from manifest.txt --use-compress-program zstdmt
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:29.3815171Z (node:12064) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:30.3585869Z Sent 47815219 of 47815219 (100.0%), 46.3 MBs/sec
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:30.4194502Z Cache saved with key: trivy-binary-v0.76.0-Linux-X64
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:30.4279502Z ##[end-action id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy.cache;outcome=success;conclusion=success;duration_ms=1689]
+build-scan-publish-deploy	Post Container image scan and HIGH/CRITICAL security gate	2026-10-21T10:30:30.4285428Z ##[end-action id=__81a93d04-3125-4423-8273-e843b298b926.__aquasecurity_setup-trivy;outcome=success;conclusion=success;duration_ms=1794]
+build-scan-publish-deploy	Post Run actions/setup-python@v5	﻿2026-10-21T10:30:30.4337957Z Post job cleanup.
+build-scan-publish-deploy	Post Run actions/setup-python@v5	2026-10-21T10:30:30.5565110Z (node:12084) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+build-scan-publish-deploy	Post Run actions/setup-python@v5	2026-10-21T10:30:30.5566229Z (Use `node --trace-deprecation ...` to show where the warning was created)
+build-scan-publish-deploy	Post Run actions/checkout@v4	﻿2026-10-21T10:30:30.5756564Z Post job cleanup.
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6659226Z [command]/usr/bin/git version
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6702753Z git version 2.55.0
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6744150Z Temporarily overriding HOME='/home/runner/work/_temp/e8ef3f26-63a5-4f82-8b6e-d33a1e3df8be' before making global git config changes
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6745594Z Adding repository directory to the temporary git global config as a safe directory
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6750778Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/DevOps-Assignments/DevOps-Assignments
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6796891Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.6836098Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7109193Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7143424Z http.https://github.com/.extraheader
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7156358Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7192875Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7467838Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+build-scan-publish-deploy	Post Run actions/checkout@v4	2026-10-21T10:30:30.7524696Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+build-scan-publish-deploy	Complete job	﻿2026-10-21T10:30:30.7977647Z Cleaning up orphan processes
+build-scan-publish-deploy	Complete job	2026-10-21T10:30:30.8355567Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@0400d5f644dc74513175e3cd8d07132dd4860809, actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4, docker/login-action@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

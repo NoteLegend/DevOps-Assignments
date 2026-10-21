@@ -1,0 +1,22 @@
+Captured UTC: 2026-10-21T10:43:36.610823+00:00
+Command: aws s3api get-bucket-encryption --bucket devops-course-a17-835582727900-20261021-rj --region us-east-1 --output json --no-cli-pager
+
+{
+    "ServerSideEncryptionConfiguration": {
+        "Rules": [
+            {
+                "ApplyServerSideEncryptionByDefault": {
+                    "SSEAlgorithm": "AES256"
+                },
+                "BucketKeyEnabled": false,
+                "BlockedEncryptionTypes": {
+                    "EncryptionType": [
+                        "SSE-C"
+                    ]
+                }
+            }
+        ]
+    }
+}
+
+Exit status: 0

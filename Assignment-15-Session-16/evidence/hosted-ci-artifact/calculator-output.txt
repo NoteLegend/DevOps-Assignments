@@ -1,0 +1,8 @@
+Calculator Application
+----------------------
+Available operations: +, -, *, /
+Type 'q' or 'quit' to exit.
+
+Enter calculation (e.g., 10 + 5): Result: 15.0
+
+Enter calculation (e.g., 10 + 5): Goodbye!

@@ -1,0 +1,61 @@
+Captured UTC: 2026-10-21T10:45:18.286129+00:00
+Command: aws ec2 describe-instances --instance-ids i-0bac42df43fc2f9ea --query Reservations[].Instances[].{InstanceId:InstanceId,State:State.Name,ImageId:ImageId,InstanceType:InstanceType,VpcId:VpcId,SubnetId:SubnetId,PrivateIpAddress:PrivateIpAddress,PublicIpAddress:PublicIpAddress,SecurityGroups:SecurityGroups,BlockDeviceMappings:BlockDeviceMappings,MetadataOptions:MetadataOptions,Tags:Tags} --region us-east-1 --output json --no-cli-pager
+
+[
+    {
+        "InstanceId": "i-0bac42df43fc2f9ea",
+        "State": "running",
+        "ImageId": "ami-0567589d25e06853e",
+        "InstanceType": "t3.micro",
+        "VpcId": "vpc-074903895f584b29c",
+        "SubnetId": "subnet-0fe3b7a10bb4bc994",
+        "PrivateIpAddress": "10.20.1.119",
+        "PublicIpAddress": null,
+        "SecurityGroups": [
+            {
+                "GroupId": "sg-0605861d9487c9933",
+                "GroupName": "devops-course-05152371802b66b592918139ca"
+            }
+        ],
+        "BlockDeviceMappings": [
+            {
+                "DeviceName": "/dev/xvda",
+                "Ebs": {
+                    "AttachTime": "2026-10-21T10:44:38+00:00",
+                    "DeleteOnTermination": true,
+                    "Status": "attached",
+                    "VolumeId": "vol-05988be6a7754b044",
+                    "EbsCardIndex": 0
+                }
+            }
+        ],
+        "MetadataOptions": {
+            "State": "applied",
+            "HttpTokens": "required",
+            "HttpPutResponseHopLimit": 2,
+            "HttpEndpoint": "enabled",
+            "HttpProtocolIpv6": "disabled",
+            "InstanceMetadataTags": "disabled"
+        },
+        "Tags": [
+            {
+                "Key": "ManagedBy",
+                "Value": "Terraform"
+            },
+            {
+                "Key": "Project",
+                "Value": "DevOpsAssignments"
+            },
+            {
+                "Key": "Name",
+                "Value": "devops-course"
+            },
+            {
+                "Key": "Assignment",
+                "Value": "18"
+            }
+        ]
+    }
+]
+
+Exit status: 0

@@ -1,0 +1,6 @@
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19/terraform-project validate -no-color
+
+Success! The configuration is valid.
+
+
+Exit status: 0

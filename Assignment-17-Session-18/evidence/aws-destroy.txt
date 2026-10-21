@@ -1,0 +1,91 @@
+Captured UTC: 2026-10-21T10:44:05.174210+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo destroy -auto-approve -no-color -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate
+
+
+Warning: Deprecated flag: -state
+
+Use the "path" attribute within the "local" backend to specify a file for
+state storage
+aws_s3_bucket.assignment: Refreshing state... [id=devops-course-a17-835582727900-20261021-rj]
+aws_s3_bucket_public_access_block.assignment: Refreshing state... [id=devops-course-a17-835582727900-20261021-rj]
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_s3_bucket.assignment will be destroyed
+  - resource "aws_s3_bucket" "assignment" {
+      - arn                         = "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj" -> null
+      - bucket                      = "devops-course-a17-835582727900-20261021-rj" -> null
+      - bucket_domain_name          = "devops-course-a17-835582727900-20261021-rj.s3.amazonaws.com" -> null
+      - bucket_namespace            = "global" -> null
+      - bucket_region               = "us-east-1" -> null
+      - bucket_regional_domain_name = "devops-course-a17-835582727900-20261021-rj.s3.us-east-1.amazonaws.com" -> null
+      - force_destroy               = false -> null
+      - hosted_zone_id              = "Z3AQBSTGFYJSTF" -> null
+      - id                          = "devops-course-a17-835582727900-20261021-rj" -> null
+      - object_lock_enabled         = false -> null
+      - region                      = "us-east-1" -> null
+      - request_payer               = "BucketOwner" -> null
+      - tags                        = {
+          - "Project" = "DevOpsAssignment18"
+        } -> null
+      - tags_all                    = {
+          - "Assignment" = "17"
+          - "ManagedBy"  = "Terraform"
+          - "Project"    = "DevOpsAssignment18"
+        } -> null
+        # (3 unchanged attributes hidden)
+
+      - grant {
+          - id          = "9edae480a30fc80876563ea518b9baec04820e4509892b058d1253d6c5f2c4e1" -> null
+          - permissions = [
+              - "FULL_CONTROL",
+            ] -> null
+          - type        = "CanonicalUser" -> null
+            # (1 unchanged attribute hidden)
+        }
+
+      - server_side_encryption_configuration {
+          - rule {
+              - bucket_key_enabled = false -> null
+
+              - apply_server_side_encryption_by_default {
+                  - sse_algorithm     = "AES256" -> null
+                    # (1 unchanged attribute hidden)
+                }
+            }
+        }
+
+      - versioning {
+          - enabled    = false -> null
+          - mfa_delete = false -> null
+        }
+    }
+
+  # aws_s3_bucket_public_access_block.assignment will be destroyed
+  - resource "aws_s3_bucket_public_access_block" "assignment" {
+      - block_public_acls       = true -> null
+      - block_public_policy     = true -> null
+      - bucket                  = "devops-course-a17-835582727900-20261021-rj" -> null
+      - id                      = "devops-course-a17-835582727900-20261021-rj" -> null
+      - ignore_public_acls      = true -> null
+      - region                  = "us-east-1" -> null
+      - restrict_public_buckets = true -> null
+    }
+
+Plan: 0 to add, 0 to change, 2 to destroy.
+
+Changes to Outputs:
+  - bucket_arn  = "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj" -> null
+  - bucket_name = "devops-course-a17-835582727900-20261021-rj" -> null
+aws_s3_bucket_public_access_block.assignment: Destroying... [id=devops-course-a17-835582727900-20261021-rj]
+aws_s3_bucket_public_access_block.assignment: Destruction complete after 2s
+aws_s3_bucket.assignment: Destroying... [id=devops-course-a17-835582727900-20261021-rj]
+aws_s3_bucket.assignment: Destruction complete after 0s
+
+Destroy complete! Resources: 2 destroyed.
+
+Exit status: 0

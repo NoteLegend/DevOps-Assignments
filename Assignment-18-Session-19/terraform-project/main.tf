@@ -14,15 +14,22 @@ resource "aws_security_group" "course" {
   vpc_id      = aws_vpc.course.id
 }
 resource "aws_instance" "course" {
-  ami                    = var.ami_id
-  instance_type          = var.instance_type
-  subnet_id              = aws_subnet.course.id
-  vpc_security_group_ids = [aws_security_group.course.id]
+  ami                         = var.ami_id
+  associate_public_ip_address = false
+  instance_type               = var.instance_type
+  subnet_id                   = aws_subnet.course.id
+  vpc_security_group_ids      = [aws_security_group.course.id]
   metadata_options {
     http_tokens = "required"
   }
   root_block_device {
-    encrypted = true
+    encrypted             = true
+    volume_type           = "gp3"
+    volume_size           = 8
+    delete_on_termination = true
+  }
+  credit_specification {
+    cpu_credits = "standard"
   }
   tags = { Name = "devops-course" }
 }

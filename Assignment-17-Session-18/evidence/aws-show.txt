@@ -1,0 +1,73 @@
+Captured UTC: 2026-10-21T10:43:26.009749+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo show -no-color /home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate
+
+# aws_s3_bucket.assignment:
+resource "aws_s3_bucket" "assignment" {
+    acceleration_status         = null
+    arn                         = "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj"
+    bucket                      = "devops-course-a17-835582727900-20261021-rj"
+    bucket_domain_name          = "devops-course-a17-835582727900-20261021-rj.s3.amazonaws.com"
+    bucket_namespace            = "global"
+    bucket_prefix               = null
+    bucket_region               = "us-east-1"
+    bucket_regional_domain_name = "devops-course-a17-835582727900-20261021-rj.s3.us-east-1.amazonaws.com"
+    force_destroy               = false
+    hosted_zone_id              = "Z3AQBSTGFYJSTF"
+    id                          = "devops-course-a17-835582727900-20261021-rj"
+    object_lock_enabled         = false
+    policy                      = null
+    region                      = "us-east-1"
+    request_payer               = "BucketOwner"
+    tags                        = {
+        "Project" = "DevOpsAssignment18"
+    }
+    tags_all                    = {
+        "Assignment" = "17"
+        "ManagedBy"  = "Terraform"
+        "Project"    = "DevOpsAssignment18"
+    }
+
+    grant {
+        id          = "9edae480a30fc80876563ea518b9baec04820e4509892b058d1253d6c5f2c4e1"
+        permissions = [
+            "FULL_CONTROL",
+        ]
+        type        = "CanonicalUser"
+        uri         = null
+    }
+
+    server_side_encryption_configuration {
+        rule {
+            bucket_key_enabled = false
+
+            apply_server_side_encryption_by_default {
+                kms_master_key_id = null
+                sse_algorithm     = "AES256"
+            }
+        }
+    }
+
+    versioning {
+        enabled    = false
+        mfa_delete = false
+    }
+}
+
+# aws_s3_bucket_public_access_block.assignment:
+resource "aws_s3_bucket_public_access_block" "assignment" {
+    block_public_acls       = true
+    block_public_policy     = true
+    bucket                  = "devops-course-a17-835582727900-20261021-rj"
+    id                      = "devops-course-a17-835582727900-20261021-rj"
+    ignore_public_acls      = true
+    region                  = "us-east-1"
+    restrict_public_buckets = true
+}
+
+
+Outputs:
+
+bucket_arn = "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj"
+bucket_name = "devops-course-a17-835582727900-20261021-rj"
+
+Exit status: 0

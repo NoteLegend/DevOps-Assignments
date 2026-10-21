@@ -1,0 +1,27 @@
+Captured UTC: 2026-10-21T10:44:52.576357+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-18-Session-19/terraform-project apply -no-color /home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-18/approved.tfplan
+
+aws_vpc.course: Creating...
+aws_s3_bucket.course: Creating...
+aws_vpc.course: Creation complete after 6s [id=vpc-074903895f584b29c]
+aws_security_group.course: Creating...
+aws_subnet.course: Creating...
+aws_subnet.course: Creation complete after 2s [id=subnet-0fe3b7a10bb4bc994]
+aws_s3_bucket.course: Creation complete after 8s [id=devops-course-a18-835582727900-20261021-rj]
+aws_s3_bucket_public_access_block.course: Creating...
+aws_s3_bucket_public_access_block.course: Creation complete after 1s [id=devops-course-a18-835582727900-20261021-rj]
+aws_security_group.course: Creation complete after 4s [id=sg-0605861d9487c9933]
+aws_instance.course: Creating...
+aws_instance.course: Still creating... [00m10s elapsed]
+aws_instance.course: Creation complete after 17s [id=i-0bac42df43fc2f9ea]
+
+Apply complete! Resources: 6 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+bucket_name = "devops-course-a18-835582727900-20261021-rj"
+instance_id = "i-0bac42df43fc2f9ea"
+subnet_id = "subnet-0fe3b7a10bb4bc994"
+vpc_id = "vpc-074903895f584b29c"
+
+Exit status: 0

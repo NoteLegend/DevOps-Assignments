@@ -1,0 +1,171 @@
+{
+  "result": "PASSED",
+  "assignment": 17,
+  "account": "835582727900",
+  "region": "us-east-1",
+  "started_at_utc": "2026-10-21T10:43:04.800271+00:00",
+  "finished_at_utc": "2026-10-21T10:44:12.103235+00:00",
+  "elapsed_seconds": 67.3,
+  "resources_created": 2,
+  "resource_outputs": {
+    "bucket_arn": "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj",
+    "bucket_name": "devops-course-a17-835582727900-20261021-rj"
+  },
+  "destroyed": true,
+  "remaining_managed_state_objects": 0,
+  "account_upgraded": false,
+  "expected_missing_resource_checks": "aws-bucket-removed and aws-vpc-removed intentionally return a nonzero not-found result after successful teardown",
+  "approval": "Exact saved create/verify/destroy plans approved by the owner before apply",
+  "commands": [
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "apply",
+        "-no-color",
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/approved.tfplan"
+      ],
+      "evidence": "evidence/aws-apply.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "show",
+        "-no-color",
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate"
+      ],
+      "evidence": "evidence/aws-show.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "output",
+        "-json",
+        "-state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate"
+      ],
+      "evidence": "evidence/aws-output.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "state",
+        "list",
+        "-state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate"
+      ],
+      "evidence": "evidence/aws-state-list.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "aws",
+        "s3api",
+        "head-bucket",
+        "--bucket",
+        "devops-course-a17-835582727900-20261021-rj",
+        "--region",
+        "us-east-1",
+        "--output",
+        "json",
+        "--no-cli-pager"
+      ],
+      "evidence": "evidence/aws-bucket-exists.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "aws",
+        "s3api",
+        "get-public-access-block",
+        "--bucket",
+        "devops-course-a17-835582727900-20261021-rj",
+        "--region",
+        "us-east-1",
+        "--output",
+        "json",
+        "--no-cli-pager"
+      ],
+      "evidence": "evidence/aws-bucket-private.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "aws",
+        "s3api",
+        "get-bucket-encryption",
+        "--bucket",
+        "devops-course-a17-835582727900-20261021-rj",
+        "--region",
+        "us-east-1",
+        "--output",
+        "json",
+        "--no-cli-pager"
+      ],
+      "evidence": "evidence/aws-bucket-encryption.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "aws",
+        "s3api",
+        "list-objects-v2",
+        "--bucket",
+        "devops-course-a17-835582727900-20261021-rj",
+        "--query",
+        "{KeyCount:KeyCount}",
+        "--region",
+        "us-east-1",
+        "--output",
+        "json",
+        "--no-cli-pager"
+      ],
+      "evidence": "evidence/aws-bucket-empty.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "destroy",
+        "-auto-approve",
+        "-no-color",
+        "-state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate"
+      ],
+      "evidence": "evidence/aws-destroy.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "/home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform",
+        "-chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo",
+        "state",
+        "list",
+        "-state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate"
+      ],
+      "evidence": "evidence/aws-state-empty.txt",
+      "exit_status": 0
+    },
+    {
+      "command": [
+        "aws",
+        "s3api",
+        "head-bucket",
+        "--bucket",
+        "devops-course-a17-835582727900-20261021-rj",
+        "--region",
+        "us-east-1",
+        "--output",
+        "json",
+        "--no-cli-pager"
+      ],
+      "evidence": "evidence/aws-bucket-removed.txt",
+      "exit_status": 254
+    }
+  ],
+  "error": null
+}

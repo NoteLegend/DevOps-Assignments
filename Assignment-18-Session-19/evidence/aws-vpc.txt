@@ -1,0 +1,48 @@
+Captured UTC: 2026-10-21T10:47:59.672529+00:00
+Command: aws ec2 describe-vpcs --vpc-ids vpc-074903895f584b29c --region us-east-1 --output json --no-cli-pager
+
+{
+    "Vpcs": [
+        {
+            "OwnerId": "835582727900",
+            "InstanceTenancy": "default",
+            "CidrBlockAssociationSet": [
+                {
+                    "AssociationId": "vpc-cidr-assoc-06431e8e3b532b369",
+                    "CidrBlock": "10.20.0.0/16",
+                    "CidrBlockState": {
+                        "State": "associated"
+                    }
+                }
+            ],
+            "IsDefault": false,
+            "Tags": [
+                {
+                    "Key": "Project",
+                    "Value": "DevOpsAssignments"
+                },
+                {
+                    "Key": "Name",
+                    "Value": "devops-course"
+                },
+                {
+                    "Key": "Assignment",
+                    "Value": "18"
+                },
+                {
+                    "Key": "ManagedBy",
+                    "Value": "Terraform"
+                }
+            ],
+            "BlockPublicAccessStates": {
+                "InternetGatewayBlockMode": "off"
+            },
+            "VpcId": "vpc-074903895f584b29c",
+            "State": "available",
+            "CidrBlock": "10.20.0.0/16",
+            "DhcpOptionsId": "dopt-0eff959635cc11dc2"
+        }
+    ]
+}
+
+Exit status: 0

@@ -1,8 +1,0 @@
-groups:
-  - name: coursework
-    rules:
-      - alert: ApplicationDown
-        expr: up{job="application"} == 0
-        for: 5s
-        labels: {severity: critical}
-        annotations: {summary: Local assignment application is unavailable}

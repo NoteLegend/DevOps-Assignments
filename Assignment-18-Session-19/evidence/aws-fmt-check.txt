@@ -1,0 +1,4 @@
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=DevOps-Assignments/Assignment-18-Session-19/terraform-project fmt -check -no-color
+
+
+Exit status: 0

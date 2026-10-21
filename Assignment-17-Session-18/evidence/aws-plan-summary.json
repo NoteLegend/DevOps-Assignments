@@ -1,0 +1,86 @@
+{
+  "account": "835582727900",
+  "region": "us-east-1",
+  "assignment": 17,
+  "resources_to_create": 2,
+  "resources_to_change": 0,
+  "resources_to_destroy": 0,
+  "changes": [
+    {
+      "address": "aws_s3_bucket.assignment",
+      "actions": [
+        "create"
+      ],
+      "after": {
+        "bucket": "devops-course-a17-835582727900-20261021-rj",
+        "force_destroy": false,
+        "region": "us-east-1",
+        "tags": {
+          "Project": "DevOpsAssignment18"
+        },
+        "tags_all": {
+          "Assignment": "17",
+          "ManagedBy": "Terraform",
+          "Project": "DevOpsAssignment18"
+        },
+        "timeouts": null
+      },
+      "unknown": {
+        "acceleration_status": true,
+        "acl": true,
+        "arn": true,
+        "bucket_domain_name": true,
+        "bucket_namespace": true,
+        "bucket_prefix": true,
+        "bucket_region": true,
+        "bucket_regional_domain_name": true,
+        "cors_rule": true,
+        "grant": true,
+        "hosted_zone_id": true,
+        "id": true,
+        "lifecycle_rule": true,
+        "logging": true,
+        "object_lock_configuration": true,
+        "object_lock_enabled": true,
+        "policy": true,
+        "replication_configuration": true,
+        "request_payer": true,
+        "server_side_encryption_configuration": true,
+        "tags": {},
+        "tags_all": {},
+        "versioning": true,
+        "website": true,
+        "website_domain": true,
+        "website_endpoint": true
+      }
+    },
+    {
+      "address": "aws_s3_bucket_public_access_block.assignment",
+      "actions": [
+        "create"
+      ],
+      "after": {
+        "block_public_acls": true,
+        "block_public_policy": true,
+        "ignore_public_acls": true,
+        "region": "us-east-1",
+        "restrict_public_buckets": true,
+        "skip_destroy": null
+      },
+      "unknown": {
+        "bucket": true,
+        "id": true
+      }
+    }
+  ],
+  "outputs": {
+    "bucket_arn": {
+      "sensitive": false
+    },
+    "bucket_name": {
+      "sensitive": false
+    }
+  },
+  "created_at_utc": "2026-10-21T10:38:43.332865+00:00",
+  "execution": "Saved plan approved and applied; all managed resources subsequently destroyed. See aws-lifecycle-summary.json."
+}

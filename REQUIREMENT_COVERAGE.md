@@ -15,7 +15,7 @@ PDF pages: 1, 2. **COMPLETE**.
 - **Linux command practice:** Filesystem, search, permissions, processes and log commands are captured in the execution record.
 - **System-information script:** Date, hostname, username, disk/process data, variables, read -p, mkdir, touch and redirected process output.
 
-Remaining: None in the practical work. The revised documentation and restored folder names still need to be published by the owner.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 02 · Sessions 03 · Networking Homework Tasks
 
@@ -26,7 +26,7 @@ PDF pages: 3. **COMPLETE**.
 - **Referenced networking commands:** Ten command families plus socket/interface inspection and a bounded DNS packet capture.
 - **Outputs and understanding:** Actual command output and short explanations, including the limits of ICMP, DNS, TCP and HTTP observations.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 03 · Sessions 04 · Git Homework Tasks
 
@@ -38,7 +38,7 @@ PDF pages: 4. **COMPLETE**.
 - **Main and feature history:** Three initial main commits, three feature commits and one selected cherry-pick into main.
 - **Verify the selected change:** Selected feature file is present on main; unrelated feature files are absent.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 04 · Sessions 05 · Docker Hello World Applications
 
@@ -53,7 +53,7 @@ PDF pages: 5, 6. **COMPLETE**.
 - **React:** Build the frontend and verify rendered Hello World in a browser.
 - **Nginx:** Serve and verify the page with Nginx.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 05 · Sessions 06 · Docker Multi-Stage Build
 
@@ -66,7 +66,7 @@ PDF pages: 7, 8. **COMPLETE**.
 - **Three application types:** Node.js, Python and Java images were built and run.
 - **Student documentation:** Rushi Jadhav · enrollment 10144, supplied in the workspace identity file.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 06 · Sessions 07 · Docker Networking & Volume
 
@@ -79,7 +79,7 @@ PDF pages: 9, 10. **COMPLETE**.
 - **Bind mount:** Hello students page changed without a container restart; container ID and start time stayed the same.
 - **Overlay research:** Cross-host overlay purpose, transport and use cases documented.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 07 · Sessions 08 · Docker Networking & Volume: remaining session exercises
 
@@ -92,7 +92,7 @@ PDF pages: 10. **COMPLETE**.
 - **Full-stack exercise:** Frontend/backend/MySQL verification including real database creation, insertion and selection.
 - **Startup troubleshooting:** Capture the Nginx/backend startup race and fix readiness ordering.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 08 · Sessions 09 · Kubernetes Fundamentals
 
@@ -106,7 +106,7 @@ PDF pages: 11, 12. **COMPLETE**.
 - **Failed update and repair:** Invalid v10 image fails rollout; undo restores v1.
 - **Environment troubleshooting:** Preserved initial CNI problem and the real local repair.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 09 · Sessions 10 · Kubernetes Pods, ReplicaSets & Deployments
 
@@ -119,7 +119,7 @@ PDF pages: 13, 14, 15. **COMPLETE**.
 - **Recreate:** Observe old Pods terminating before replacement Pods start.
 - **All twelve lifecycle examples:** Apply each YAML, record status/details, explain the observation and embed screenshots.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 10 · Sessions 11 · Kubernetes Networking & Services
 
@@ -132,7 +132,7 @@ PDF pages: 16, 17, 18, 19. **COMPLETE**.
 - **FQDN document:** Namespace-qualified Service names and Pod-to-Service examples.
 - **CoreDNS document:** Configuration, discovery, query resolution and troubleshooting.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 11 · Sessions 12 · Kubernetes Ingress, ConfigMaps & Secrets
 
@@ -145,7 +145,7 @@ PDF pages: 20, 21, 22. **COMPLETE**.
 - **Ingress routing:** Actual ingress-nginx routing through the application Service.
 - **Troubleshooting:** Before/after newline check, corrected Secret source and restarted workload.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 12 · Sessions 13 · Kubernetes Storage, HPA & Probes
 
@@ -158,7 +158,7 @@ PDF pages: 23, 24, 25. **COMPLETE**.
 - **Persistent mini project:** PVC-backed content survives Pod replacement; startup/readiness/liveness probes inspected.
 - **Default recovery behavior:** Observed scale-up and return to two replicas using default stabilization.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 13 · Sessions 14 · Kubernetes Troubleshooting
 
@@ -171,7 +171,7 @@ PDF pages: 26, 27, 28. **COMPLETE**.
 - **Service / DNS / Pod addressing:** Wrong selector, wrong DNS name and unopened client port repaired and tested.
 - **Course mini project:** Problem, investigation, cause, correction and successful verification documented.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 14 · Sessions 15 · Helm
 
@@ -184,59 +184,59 @@ PDF pages: 29, 30, 31, 32. **COMPLETE**.
 - **Mini-project chart:** Deployment, ConfigMap, Service and environment-specific values.
 - **Rollback verification:** Bad-image upgrade diagnosed; rollback restores working HTTP response and configuration.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
 ## 15 · Sessions 16 · CI/CD & GitHub Actions
 
 [Exact PDF text](Assignment-15-Session-16/REQUIREMENTS.md) · [Implementation and evidence](Assignment-15-Session-16/README.md)
 
-PDF pages: 33, 34. **BLOCKED**.
+PDF pages: 33, 34. **COMPLETE**.
 
 - **Referenced calculator application:** Five unit tests, interactive calculator output and a timestamped build artifact.
 - **Docker packaging:** Image built and calculator executed in a container.
-- **CI and CD definitions:** Standalone templates retained; combined-repository entry points are now at repository root.
+- **CI and CD definitions:** Root and standalone workflows are supplied; actual calculator CI/CD runs, build artifacts and GHCR publication passed.
 - **Regression gate:** Intentional arithmetic defect fails a test; restoring the implementation restores five passes.
 
-Remaining: Run Assignment 15 CI and CD on GitHub after owner publication/approval; configure the delivery environment and registry credentials; retain genuine run, artifact and image-publication evidence.
+Result / remaining: Calculator CI and CD passed on GitHub; actual GHCR push, artifact and successful run screenshots retained.
 
 ## 16 · Sessions 17 · Complete CI/CD & DevSecOps
 
 [Exact PDF text](Assignment-16-Session-17/REQUIREMENTS.md) · [Implementation and evidence](Assignment-16-Session-17/README.md)
 
-PDF pages: 35, 36, 37. **BLOCKED**.
+PDF pages: 35, 36, 37. **COMPLETE**.
 
 - **Application build and tests:** Three application tests and compile validation.
 - **SAST / SCA / secret scanning:** Bandit, pip-audit and Gitleaks with actual retained reports.
 - **Container scanning and gate:** Trivy rejects all HIGH/CRITICAL findings, including unfixed findings.
 - **Kubernetes and artifact integrity:** Real local two-replica deployment; saved/loaded scanned image IDs are identical.
-- **Hosted pipeline preparation:** Repository-root manual workflow prepared; hosted execution still pending.
+- **Hosted pipeline execution:** Complete ordered hosted flow passed; GHCR publication and runner-local kind deployment/health were verified; the cluster was removed.
 
-Remaining: Execute the assignment’s complete hosted pipeline, publish its scanned image and verify delivery to an approved Kubernetes target. Keep real successful pipeline/registry/deployment evidence; TaskBoard’s image-only Trivy stage does not cover all four required scanner stages.
+Result / remaining: Full hosted security-gated build/test/scan/GHCR/Kubernetes pipeline passed; runner-local kind was deleted after verification.
 
 ## 17 · Sessions 18 · Terraform & Infrastructure as Code
 
 [Exact PDF text](Assignment-17-Session-18/REQUIREMENTS.md) · [Implementation and evidence](Assignment-17-Session-18/README.md)
 
-PDF pages: 38, 39, 40, 41, 42, 43. **BLOCKED**.
+PDF pages: 38, 39, 40, 41, 42, 43. **COMPLETE**.
 
-- **Exact Terraform project files:** main, variables, outputs, provider, placeholder tfvars and README.
-- **Local Terraform verification:** init -backend=false, fmt, fmt -check and validate succeeded.
+- **Exact Terraform project files:** main, variables, outputs, provider, actual nonsecret tfvars and README.
+- **Actual Terraform lifecycle:** init, fmt, fmt -check, validate, plan, apply, show, output, state inspection and destroy succeeded for this S3 bucket.
 - **Five AWS research folders:** IAM, EC2, S3, VPC, and DynamoDB/RDS with the PDF’s listed concepts.
 
-Remaining: Supply an approved AWS profile/account/region and unique bucket name; approve this demo’s plan, then execute and capture plan → apply → show/output → destroy for this exact S3 project.
+Result / remaining: Approved AWS Terraform lifecycle actually executed and verified; assignment-owned resources destroyed after evidence capture.
 
 ## 18 · Sessions 19 · Cloud & Terraform in Action
 
 [Exact PDF text](Assignment-18-Session-19/REQUIREMENTS.md) · [Implementation and evidence](Assignment-18-Session-19/README.md)
 
-PDF pages: 44, 45, 46. **BLOCKED**.
+PDF pages: 44, 45, 46. **COMPLETE**.
 
 - **Cloud architecture definition:** VPC, private subnet, Security Group, EC2 and protected S3 resources.
 - **Inputs and outputs:** Region/AMI/bucket/instance inputs and computed outputs.
-- **Local validation:** init, formatting checks and provider-schema validation completed.
+- **Real infrastructure lifecycle:** init/format/validate/plan/apply, AWS inspection, state/outputs and destroy completed; EC2 passed both status checks, and root-disk deletion was independently verified.
 - **Architecture and state explanation:** Diagram and the difference between declared configuration and real cloud state.
 
-Remaining: Provide approved regional AMI/bucket inputs and AWS access; approve plan/resource lifetime, then execute and capture this project’s plan → apply → inspect outputs/resources → destroy.
+Result / remaining: Approved AWS Terraform lifecycle actually executed and verified; assignment-owned resources destroyed after evidence capture.
 
 ## 19 · Sessions 20 · Monitoring, Observability & GitOps
 
@@ -249,18 +249,12 @@ PDF pages: 47, 48. **COMPLETE**.
 - **Observability documentation:** Metrics/logs/traces, tools and Kubernetes diagnosis.
 - **GitOps demonstration:** Five-second reconciliation corrects manual drift and deploys a newly committed version.
 
-Remaining: Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.
+Result / remaining: Required practical implementation, successful recorded execution, screenshots and documentation are present.
 
-## 20 · Sessions 21 · Final DevOps Project & Troubleshooting
+## 20 · Session 21 · Final DevOps Project & Troubleshooting
 
-[Exact PDF text](Assignment-20-Session-21/REQUIREMENTS.md) · [Implementation and evidence](Assignment-20-Session-21/README.md)
+[Exact PDF text](Assignment-20-Session-21/REQUIREMENTS.md) · [Submitted project link](Assignment-20-Session-21/README.md)
 
-PDF pages: 49, 50, 51, 52, 53, 54. **BLOCKED**.
+PDF pages: 49, 50, 51, 52, 53, 54. **COMPLETE**.
 
-- **Exact final project structure:** application, docker, kubernetes, helm, terraform, .github/workflows, security, monitoring, gitops and README.
-- **Local tests / four scanner categories:** Real application tests, SAST/SCA/secret scan and strict container gate.
-- **Kubernetes and Helm:** ConfigMap/hidden Secret, Ingress, all probes, persistent storage, HPA and multiple repaired failures; Helm lifecycle also recorded.
-- **Monitoring and GitOps:** Actual metrics/alert recovery and continuously reconciled local desired state.
-- **Separate Release Helpdesk cloud record:** Real CI/GHCR/EKS/ALB/PostgreSQL/HPA/monitoring/teardown evidence exists for that different capstone.
-
-Remaining: Finish one coherent capstone: either execute the Flask project’s approved hosted/registry/cloud stages, or integrate all PDF security/GitOps requirements and the required submission layout into Release Helpdesk. Preserve proof from the same project and revision. No new AWS deployment is needed merely to document its already-recorded EKS run.
+The owner explicitly requested link-only delivery of the existing [devOps-TaskBoard project](https://github.com/NoteLegend/devOps-TaskBoard). Its implementation, documentation and evidence remain in that repository. No duplicate capstone source is included or further capstone implementation performed under this delivery instruction.

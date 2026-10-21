@@ -1,41 +1,31 @@
 # Terraform S3 Demo
 
-[Assignment 17](../README.md) · [Variables](variables.tf) · [Outputs](outputs.tf)
+[Assignment 17 — full workflow and evidence](../README.md) · [Variables](variables.tf) · [Outputs](outputs.tf)
 
-> Prepare and validate S3 bucket and Public Access Block. Real provisioning and teardown remain pending for this exact project.
+This project completed a real approved AWS plan → apply → inspect state/outputs/resources → destroy lifecycle on 21 October 2026. All 2 Terraform resources were removed after verification. See the [actual lifecycle result](../evidence/aws-lifecycle-summary.json).
 
-## Configuration guide
-
-| File | Responsibility |
-| --- | --- |
-| provider.tf | Terraform/provider version and region configuration |
-| main.tf | Resource declarations and reference-based dependencies |
-| variables.tf | Nonsecret input definitions |
-| outputs.tf | Computed resource values, available after actual provisioning |
-| terraform.tfvars | Public placeholders to replace before an approved plan |
-| .terraform.lock.hcl | Verified provider dependency selection |
-
-## Proposed architecture
+## Architecture
 
 ```mermaid
 flowchart LR
-  T[Terraform configuration] --> B[S3 bucket]
-  B --> P[Public Access Block]
+  T[Terraform / AWS provider] --> S[Private S3 bucket]
+  S --> B[Public Access Block]
 ```
 
-## Executed local checks
+## Files
 
-```bash
-terraform init -backend=false -input=false
-terraform fmt
-terraform fmt -check
-terraform validate
-```
+| File | Responsibility |
+| --- | --- |
+| provider.tf | Local state backend, locked AWS provider, region and allowed-account guard |
+| main.tf | AWS resources and reference-based dependencies |
+| variables.tf | Typed region and resource inputs |
+| outputs.tf | Values read from the created resources |
+| terraform.tfvars | Actual nonsecret inputs used for this dated demonstration |
+| terraform.tfvars.example | Input template for an independently approved rerun |
+| .terraform.lock.hcl | AWS provider 6.67.0 dependency lock |
 
-The successful output is linked from the assignment README. These commands checked syntax and provider schemas; no real cloud state or resource result was produced.
+## Workflow
 
-## Remaining approved workflow
+Initialization, formatting, validation, saved plan, apply, show/output/state inspection and destroy were actually executed. The complete commands, recorded output and screenshots are embedded in the [assignment README](../README.md).
 
-After choosing the approved account/region/resource inputs and reviewing the actual plan, the required remaining operations are plan, apply, inspect resources/outputs and destroy. Assignment 17 additionally explicitly requests terraform show/output. Capture genuine command output and screenshots, then record cleanup.
-
-These cloud/state operations are **not yet executed here**. Keep credentials outside source and exclude real state, saved plans and secret-bearing output from the submission. A valid Terraform configuration is not evidence of a created resource.
+`terraform.tfvars` contains the actual nonsecret region/resource inputs used for this dated run. It contains no credentials. The local backend points to a private runtime directory supplied during initialization; real state and saved plans are excluded from Git. Any new resource lifecycle requires its own current plan and approval.

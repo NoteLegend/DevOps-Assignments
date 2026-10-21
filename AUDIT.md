@@ -1,42 +1,39 @@
-# Submission audit · 21 October 2026
+# Final submission audit — 21 October 2026
 
-[Portfolio](README.md) · [Exact remaining work](SUBMISSION_READINESS.md) · [Machine-readable checks](AUDIT.json)
+[Portfolio](README.md) · [Submission checklist](SUBMISSION_READINESS.md) · [Machine-readable checks](AUDIT.json)
 
 ## Outcome
 
-**15 assignments have verified practical evidence. Assignments 15, 16, 17, 18 and 20 still have mandatory gaps.** The submission must not be described as 20/20 finished until those stages are executed and verified.
+**20 assignments accounted for; no required stage remains pending under the approved delivery scope.** Assignments 01–19 have practical implementation and retained execution/evidence. Assignment 20 is submitted as the existing [devOps-TaskBoard repository link](Assignment-20-Session-21/README.md), as explicitly requested by the owner.
 
-The full 54-page Homework PDF was reread. Sessions 1–2 are combined in Assignment 01, followed by Sessions 3–21 individually. The current source, retained execution records and the later Helpdesk cloud evidence were reviewed. This is a source/evidence audit, not a claim of a fresh cloud deployment or rerun of every workload.
+The authoritative 54-page Homework PDF was reread and mapped to exactly 20 folders: Sessions 1–2 combined, then Sessions 3–21. Original exercises remain dated; the October-21 follow-up actually completed Assignment 15/16 hosted delivery and Assignment 17/18 AWS lifecycles.
 
 ## Checks performed
 
-| Check | Result |
+| Check | Actual result |
 | --- | --- |
-| Exact 20-folder assignment/session map | PASS |
-| Required named deliverables / all assignment READMEs | PASS |
-| Course Markdown/image/file links | PASS; see current JSON counts |
-| Course screenshots | 102 PNGs decoded; all embedded in assignment READMEs |
-| YAML / Python / Bash syntax | 94 YAML, 17 Python and 52 Bash files checked |
-| Prepared combined-repository workflows | Four manual entry points; actionlint PASS; none triggered |
-| Original evidence, requirement text and Git bundles | 313 byte comparisons; no changes |
-| Original application/configuration source | 212 byte comparisons; no changes |
-| Separate Helpdesk Markdown links | 363 checked; no broken local targets |
-| Separate Helpdesk capture manifest | 49 recorded hashes match; no capture changed |
-| Current submission source secret scan | Gitleaks PASS; zero findings with redaction enabled |
-| Visual documentation review | Portfolio, Docker assignment and Helpdesk README previews inspected locally |
+| Folder/session map | Exactly 20 canonical folders; correct combined Assignment 01 |
+| Required files and documentation | Present; link-only capstone is an explicit owner-directed delivery exception |
+| Markdown links | 538 local links checked; zero broken targets or linked-but-ignored files |
+| Screenshots | 92 valid PNGs; assignment screenshots embedded with relative paths |
+| Source/configuration syntax | 80 YAML, 14 Python and 39 Bash files checked |
+| Root workflows | Three executable entry points; actionlint passed |
+| Calculator CI / CD | Real successful runs [39584561631](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584561631) / [39584567670](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584567670); artifacts and GHCR push retained |
+| Full DevSecOps delivery | Real successful run [39584880376](https://github.com/NoteLegend/DevOps-Assignments/actions/runs/39584880376); tests, four scanner categories, strict gate, GHCR and two Ready Kubernetes replicas/HTTP health |
+| Scanned artifact identity | Built and published image IDs match; same image loaded into the runner-local kind cluster |
+| S3 Terraform exercise | 2 resources created, inspected and destroyed; bucket not found afterward; state empty |
+| EC2/S3 Terraform exercise | 6 resources created, inspected and destroyed; EC2 checks OK before teardown; VPC/bucket absent, instance terminated and EBS root disk absent afterward |
+| Credential audit | Gitleaks working-tree and full reachable-history scans passed with redaction; zero findings |
+| Runtime isolation | Only assignment-owned temporary resources cleaned; no replacement host Docker or new VM |
 
-Generated scanner evidence is excluded from Gitleaks signatures to avoid known public signing-key fingerprint false positives. The static audit additionally checks all readable files for private-key/AWS-key/cookie patterns. Original generated evidence is preserved, not silently removed or relabelled.
+## Evidence integrity and cleanup
 
-## What was repaired
+The GitHub pages are actual successful-run screenshots; downloaded logs/artifacts preserve real step output. AWS screenshots are browser captures of saved actual CLI transcripts, explicitly labelled in the READMEs. No AWS console dashboard or hosted result was fabricated. Failed first attempts and expected post-destroy not-found responses remain distinguishable from successful verification.
 
-All canonical assignment folders and mapping links were restored, including the accidental nested Hello World/CI folders. Each assignment now has a requirement table, dated observations, actual evidence links, collapsible image gallery and honest remaining scope. Required DNS, volume, Helm, AWS-service and Terraform project READMEs were refreshed. Identity instructions now use the supplied Rushi Jadhav / 10144 details.
+Terraform plans/state, exported temporary credentials, runtime files and provider caches remain outside the submission. Account `835582727900` retained its Free plan; no upgrade was performed. Both exact resource lifecycles were explicitly approved before apply and finished within the approved 30-minute lifetime. Settled AWS usage reporting can lag; zero cash charges are not inferred from unchanged credit displays.
 
-The portfolio index/status/coverage and Helpdesk handover were reconciled. The separate EKS deployment and teardown are recognized, while missing SAST/GitOps integration and the unperformed S3/EC2 exercises remain explicit. The technical work and final repository submission are the only handover gates documented here.
+The earlier Assignment-20 Flask prototype and an intermediate source snapshot were preserved outside the submission when the owner requested the existing capstone link only. Its old source/evidence also remains recoverable in earlier portfolio commits. No duplicate capstone source or presentation deliverable is included in the final assignment folders.
 
-## Scope and limitations
+## Reproduction limits
 
-Original practice output remains dated and unchanged. The old VM-based helper scripts are environment-specific; [reproduction notes](REPRODUCING.md) explain native-tool use and Git-bundle restoration. Successful historical scans are not a promise that future advisory databases will return the same result.
-
-The pre-existing local kind container was observed and left untouched. No new workload, external login, Git push, registry publication, hosted CI execution or AWS operation was performed during this review. The existing public GitHub portfolio and recorded successful Helpdesk run were inspected anonymously. Revised local files are not yet published.
-
-Current cloud billing/resources were not re-queried. Use the dated Helpdesk records as historical evidence, not as a new AWS account-wide inventory. The remaining checklist identifies the precise access/approval needed before any future external stage.
+Original VM/Minikube transcripts retain their environment labels; their historical helper scripts require the workspace adapters described in [REPRODUCING.md](REPRODUCING.md). New hosted runs and cloud evidence identify their own revisions and dates. A dated clean security scan is not a promise about future advisory databases. The static checker validates deliverables and retained proof; it does not create resources or rerun all workloads.

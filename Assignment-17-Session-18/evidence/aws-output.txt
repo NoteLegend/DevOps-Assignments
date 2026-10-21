@@ -1,0 +1,17 @@
+Captured UTC: 2026-10-21T10:43:28.292258+00:00
+Command: /home/rushixd/Wurk/Scaler/DevOps/.local-tools/downloads/terraform -chdir=/home/rushixd/Wurk/Scaler/DevOps/DevOps-Assignments/Assignment-17-Session-18/terraform-s3-demo output -json -state=/home/rushixd/Wurk/Scaler/DevOps/.local-tools/runtime/course-aws-20261021/assignment-17/terraform.tfstate
+
+{
+  "bucket_arn": {
+    "sensitive": false,
+    "type": "string",
+    "value": "arn:aws:s3:::devops-course-a17-835582727900-20261021-rj"
+  },
+  "bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "devops-course-a17-835582727900-20261021-rj"
+  }
+}
+
+Exit status: 0

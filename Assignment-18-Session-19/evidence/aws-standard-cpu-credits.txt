@@ -1,0 +1,13 @@
+Captured UTC: 2026-10-21T10:48:09.184164+00:00
+Command: aws ec2 describe-instance-credit-specifications --instance-ids i-0bac42df43fc2f9ea --region us-east-1 --output json --no-cli-pager
+
+{
+    "InstanceCreditSpecifications": [
+        {
+            "InstanceId": "i-0bac42df43fc2f9ea",
+            "CpuCredits": "standard"
+        }
+    ]
+}
+
+Exit status: 0

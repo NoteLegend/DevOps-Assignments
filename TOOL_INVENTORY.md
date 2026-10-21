@@ -60,3 +60,9 @@ kube-system     storage-provisioner                         1/1     Running     
 ```
 
 The host received user-local downloads/virtual environments, not a replacement Docker installation. Docker, Compose, networking packages and ShellCheck were installed in the one prepared Ubuntu VM. Minikube, kubectl and Helm run there through workspace adapters. The VM and cluster are stopped after the final audit; see [CLEANUP.md](CLEANUP.md).
+
+## October-21 follow-up
+
+The follow-up used native host Docker 29.9.1, AWS CLI 2.37.9, Terraform 1.16.5 and locked AWS provider 6.67.0. GitHub-hosted Ubuntu runners executed the calculator and DevSecOps pipelines; the DevSecOps job checksum-verified kind 0.33.0 and used Kubernetes 1.35.8 in an ephemeral runner-local cluster. The VM was not restarted.
+
+Bandit 1.9.4, pip-audit 2.10.1, Gitleaks 8.30.1 and Trivy 0.76.0 versions are recorded in the hosted workflow/logs. No host Docker replacement or second VM was installed. Local Python PDF/browser/Markdown validation dependencies were kept in the workspace tooling environment outside submission.

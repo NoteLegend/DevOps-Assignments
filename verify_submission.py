@@ -41,14 +41,33 @@ def main():
     }
     for a in meta:
         d = ROOT/a['folder'];number = a['number']
-        for name in ['README.md','REQUIREMENTS.md']+extra_required.get(number,[]):
+        linked_capstone=number==20 and a.get('delivery')=='existing-repository-link'
+        for name in ['README.md','REQUIREMENTS.md']+([] if linked_capstone else extra_required.get(number,[])):
             if not (d/name).exists():issues.append(f'{d.name}: missing {name}')
-        expected = 'BLOCKED' if number in [15,16,17,18,20] else 'COMPLETE'
-        if a['status'] != expected:issues.append(f'{d.name}: status not reconciled with recorded gaps')
+        if a['status'] not in {'COMPLETE','BLOCKED','IN PROGRESS','NOT STARTED'}:
+            issues.append(f'{d.name}: invalid status')
+        # A completed hosted/cloud assignment must include its own real result.
+        remote_proofs = {
+            15:['evidence/02-hosted-calculator-ci-run.json','evidence/03-hosted-calculator-cd-run.json'],
+            16:['evidence/07-hosted-devsecops-run.json'],
+            17:['evidence/aws-lifecycle-summary.json'],18:['evidence/aws-lifecycle-summary.json'],
+            20:['evidence/capstone-evidence.json'],
+        }
+        if a['status']=='COMPLETE' and not linked_capstone:
+            for proof in remote_proofs.get(number,[]):
+                p=d/proof
+                if not p.is_file():
+                    issues.append(f'{d.name}: completed status lacks {proof}')
+                    continue
+                result=json.loads(p.read_text())
+                if result.get('conclusion')!='success' and result.get('result')!='PASSED':
+                    issues.append(f'{d.name}: required hosted/cloud proof is unsuccessful: {proof}')
+                if number in [17,18] and not result.get('destroyed'):
+                    issues.append(f'{d.name}: approved AWS cleanup is unverified')
         records = [p.name for p in (d/'evidence').glob('*.txt') if 'Exit status: 0' in p.read_text(errors='replace')]
-        if not records:issues.append(f'{d.name}: no successful recorded execution')
+        if not records and not linked_capstone:issues.append(f'{d.name}: no successful recorded execution')
         images = list((d/'screenshots').glob('*.png'))
-        if not images:issues.append(f'{d.name}: screenshot evidence missing')
+        if not images and not linked_capstone:issues.append(f'{d.name}: screenshot evidence missing')
         readme = (d/'README.md').read_text() if (d/'README.md').exists() else ''
         for p in images:
             if f'(screenshots/{p.name})' not in readme:issues.append(f'{d.name}: screenshot not embedded: {p.name}')
@@ -112,7 +131,7 @@ def main():
         result=subprocess.run([actionlint,'-shellcheck=',*[str(p) for p in workflows]],capture_output=True,text=True)
         workflow_status='passed' if result.returncode==0 else 'failed'
         if result.returncode:issues.append('Root workflow validation: '+result.stdout+result.stderr)
-    report=dict(reviewed_at=datetime.datetime.now().astimezone().isoformat(),mode='static-source-and-retained-evidence-review',assignment_folders=len(dirs),session_mapping_correct=not any('assignment' in x.lower() for x in issues),locally_complete=sum(a['status']=='COMPLETE' for a in meta),assignments_with_required_gaps=[a['number'] for a in meta if a['status']=='BLOCKED'],checks=counts,yaml_validation='performed' if yaml else 'PyYAML unavailable',image_validation='performed' if Image else 'Pillow unavailable',root_workflows=len(workflows),workflow_lint=workflow_status,assignments=checks,issues=issues)
+    report=dict(reviewed_at=datetime.datetime.now().astimezone().isoformat(),mode='static-source-and-retained-evidence-review',assignment_folders=len(dirs),session_mapping_correct=not any('assignment' in x.lower() for x in issues),completed_assignments=sum(a['status']=='COMPLETE' for a in meta),repository_link_assignments=sum(a.get('delivery')=='existing-repository-link' for a in meta),locally_complete=sum(a['status']=='COMPLETE' and a.get('delivery')!='existing-repository-link' for a in meta),assignments_with_required_gaps=[a['number'] for a in meta if a['status']=='BLOCKED'],checks=counts,yaml_validation='performed' if yaml else 'PyYAML unavailable',image_validation='performed' if Image else 'Pillow unavailable',root_workflows=len(workflows),workflow_lint=workflow_status,assignments=checks,issues=issues)
     if args.write_report:(ROOT/'AUDIT.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({k:v for k,v in report.items() if k!='assignments'},indent=2))
     return bool(issues)

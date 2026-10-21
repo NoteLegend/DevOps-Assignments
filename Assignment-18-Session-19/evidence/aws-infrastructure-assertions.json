@@ -1,0 +1,15 @@
+{
+  "result": "PASSED",
+  "instance_checks": "Both EC2 status checks OK",
+  "private_instance": true,
+  "imds_v2_required": true,
+  "attached_security_group_ingress_rules": 0,
+  "attached_security_group_egress_rules": 0,
+  "root_disk": {
+    "encrypted": true,
+    "size_gib": 8,
+    "type": "gp3"
+  },
+  "cpu_credits": "standard",
+  "source": "Assertions against the actual AWS CLI verification records captured before teardown"
+}

@@ -1,0 +1,9 @@
+NAME                             READY   STATUS    RESTARTS   AGE   IP           NODE                            NOMINATED NODE   READINESS GATES
+pod/devsecops-598574b8f8-bk9lk   1/1     Running   0          3s    10.244.0.6   assignment16-ci-control-plane   <none>           <none>
+pod/devsecops-598574b8f8-hfkvx   1/1     Running   0          3s    10.244.0.5   assignment16-ci-control-plane   <none>           <none>
+
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE   CONTAINERS   IMAGES                                                                                     SELECTOR
+deployment.apps/devsecops   2/2     2            2           3s    app          ghcr.io/notelegend/devops-assignments-devsecops:ab2fbb4e5b4a59f12e99ae39df26cbafb571726f   app=devsecops
+
+NAME                TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)   AGE   SELECTOR
+service/devsecops   ClusterIP   10.96.139.132   <none>        80/TCP    3s    app=devsecops

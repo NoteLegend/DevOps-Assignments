@@ -4,7 +4,13 @@
 
 ## Review on 21 October 2026
 
-Host Docker is now accessible and reported server version 29.9.1 in a read-only local version check. The pre-existing taskboard-local-control-plane kind container was observed running and left untouched. No workload, cloud resource, credential session, registry or hosted workflow was changed for this review. The original records below describe the October-7 execution environment and are not a statement of current host limitations. Later Helpdesk local/AWS records describe their own environments.
+Host Docker 29.9.1 is accessible. The prepared Ubuntu VM was not restarted. Original Linux/Docker/Minikube evidence remains labelled as VM execution; the existing host kind environment and unrelated services were preserved.
+
+With explicit owner approval, Assignment 15 ran successful hosted calculator CI/CD and published its verified image to GHCR. Assignment 16 ran its complete hosted build/test/SAST/SCA/secret/image-scan/gate/push/deploy sequence, using an isolated kind cluster on the GitHub runner. That cluster was deleted before the successful job completed. Actual hosted run URLs, logs and screenshots are retained in each assignment.
+
+AWS browser CLI sign-in supplied temporary credentials for account `835582727900`. The owner separately reviewed and approved the exact Assignment 17/18 create → verify → destroy plans in `us-east-1`. Their individual READMEs and lifecycle summaries record actual resource results and cleanup; no account upgrade was authorized. Plans, state, tokens and exported credentials are excluded from submission.
+
+Assignment 20 is delivered as the existing devOps-TaskBoard repository link, per the owner's latest instruction. No duplicate capstone implementation is submitted.
 
 ## Original October-7 execution record
 
@@ -22,9 +28,9 @@ Workspace adapters in `../.local-tools/bin/` forward Docker, Minikube, kubectl a
 
 Host user-local tools: Playwright/Chromium, PDF/image readers, actionlint, Bandit, pip-audit, pytest, Gitleaks, Trivy and Terraform. Locally extracted QEMU runs the VM. Minikube, kubectl and Helm were downloaded and installed into the VM. Ubuntu packages include Docker/buildx/Compose, Git, network utilities and ShellCheck. Detailed observed versions are recorded in the final runtime inventory and assignment transcripts.
 
-## External actions
+## Original external-access record
 
-No GitHub login, registry login, image publication, hosted workflow trigger or cloud provisioning was performed during resumed work. External credentials were not used. Public course repositories, official downloads, chart indexes, advisory databases and container images were retrieved anonymously.
+The October-7 practical records preceded the later approved hosted/cloud follow-up. Public course repositories, official downloads, chart indexes, advisory databases and base container images were retrieved anonymously. The October-21 hosted/AWS actions are identified above and in the assignment-specific evidence.
 
 An earlier attempt to clone the PDF's obsolete/mistyped public Kubernetes URL returned Authentication failed through the default Git helper path; no credential was supplied or deliberate sign-in performed. Subsequent public clones disabled interactive prompts. It caused no repository change or publication.
 
