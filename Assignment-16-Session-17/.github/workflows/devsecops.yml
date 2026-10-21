@@ -75,7 +75,7 @@ jobs:
           context="kind-$KIND_CLUSTER"
           kubectl --context "$context" create namespace assignment-16
           kubectl set image -f kubernetes/deployment.yaml app="$IMAGE" --local -o yaml > "$RUNNER_TEMP/a16-deployment.yaml"
-          kubectl --context "$context" -n assignment-16 apply -f "$RUNNER_TEMP/a16-deployment.yaml"
+          kubectl --context "$context" -n assignment-16 apply -f "$RUNNER_TEMP/a16-deployment.yaml" -f kubernetes/service.yaml
           kubectl --context "$context" -n assignment-16 rollout status deployment/devsecops --timeout=180s
           kubectl --context "$context" -n assignment-16 get pods,deployments,services -o wide | tee "$RUNNER_TEMP/a16-evidence/kubernetes-resources.txt"
           kubectl --context "$context" -n assignment-16 port-forward svc/devsecops 8160:80 > "$RUNNER_TEMP/a16-evidence/port-forward.txt" 2>&1 &

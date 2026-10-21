@@ -1,6 +1,6 @@
 # DevOps Practical Portfolio
 
-**Rushi Jadhav · Enrollment 10144**  
+**Rushi Jadhav · Enrollment 10144**
 **21 course sessions · 20 assignments · PDF-based requirement mapping**
 
 > From Linux and Git to containers, Kubernetes, security, infrastructure and operations. Each assignment links its implementation to actual command output and screenshots.
@@ -75,4 +75,3 @@ Original privileged exercises used the prepared Ubuntu VM; the transcripts ident
 1. Finish the five assignments with outstanding requirements using [the exact checklist](SUBMISSION_READINESS.md).
 2. Keep genuine results with the project/version that produced them; do not reuse another application’s hosted run as proof.
 3. Review [the static audit](AUDIT.md), then publish the updated assignment repository yourself and submit its URL together with the relevant capstone evidence.
-

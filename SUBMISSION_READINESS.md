@@ -1,6 +1,6 @@
 # Final submission readiness
 
-**Reviewed against all 54 PDF pages on 21 October 2026.**  
+**Reviewed against all 54 PDF pages on 21 October 2026.**
 **Practical work verified: 15 assignments. Mandatory stages pending: 5 assignments.**
 
 [Portfolio](README.md) · [Per-assignment status](ASSIGNMENT_STATUS.md) · [Audit results](AUDIT.md)
