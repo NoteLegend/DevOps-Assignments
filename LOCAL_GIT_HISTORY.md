@@ -1,11 +1,10 @@
 # Actual local Git history
 
-Four isolated local repositories were initialized for the practical work. Their histories were scanned with Gitleaks, all with zero findings. Each portable bundle was verified before archiving the assignment-owned `.git` metadata outside this submission. This prevents nested repositories becoming Git submodule links when the owner publishes the combined repository. Working files remain in place; nothing was pushed.
+Four isolated local repositories were initialized for the practical work. Their histories were scanned with Gitleaks, all with zero findings. Each portable bundle was verified before archiving the assignment-owned `.git` metadata outside this submission. This prevents nested repositories becoming Git submodule links when the owner publishes the combined repository. Working files remain in place. No remote was configured for these four isolated exercise repositories. The enclosing assignment portfolio was subsequently published separately.
 
 ## assignment03
 
-Original working folder: `Assignment-03-Session-04/exercise-repo`. Branches: `feature
-main`. No remote was configured.
+Original working folder: `Assignment-03-Session-04/exercise-repo`. Branches: `feature`, `main`. No remote was configured.
 
 [Verified portable history bundle](Assignment-03-Session-04/exercise-history.bundle)
 

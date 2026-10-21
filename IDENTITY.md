@@ -1,7 +1,8 @@
-# Required student identity
+# Student details
 
-NAME: <Rushi Jadhav>
+| Field | Value |
+| --- | --- |
+| Name | Rushi Jadhav |
+| Enrollment number | 10144 |
 
-ENROLLMENT NUMBER: <10144>
-
-Replace these two placeholders before submitting Assignments 05 and 12 (PDF multi-stage documentation requirement). Assignment 12 also stores the NAME placeholder in its persistence demonstration. No identity was invented.
+These values were supplied in the workspace identity file and are reflected in Assignment 05’s required documentation. No credentials belong in this file. Historical screenshots/logs retain their original test markers; they have not been altered to replace a placeholder after execution.

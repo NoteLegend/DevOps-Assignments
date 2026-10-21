@@ -1,46 +1,17 @@
-# Final local cleanup
+# Cleanup and runtime scope
 
-Assignment-owned application containers, Compose services/networks/volumes, Kubernetes workload namespaces/PVCs/static PV, Helm releases, GitOps controllers, proxies, tunnels and port-forwards were cleaned up after evidence capture. The assignment Minikube profile was stopped; the single prepared Ubuntu VM was shut down. No assignment-owned service is currently running. The pre-existing host Docker installation/service was left untouched.
+[Portfolio](README.md) · [Execution environment](EXECUTION_ENVIRONMENT.md)
 
-The final host checks found no VM PID and none of its forwarded ports listening. Actual checks follow.
+## Original local exercises
 
-```text
-devops-course gcr.io/k8s-minikube/kicbase:v0.0.51 Up About an hour
-NAME              STATUS   AGE
-default           Active   83m
-ingress-nginx     Active   66m
-kube-node-lease   Active   83m
-kube-public       Active   83m
-kube-system       Active   83m
-* Stopping node "devops-course"  ...
-* Powering off "devops-course" via SSH ...
-* 1 node stopped.
-```
+The October-7 assignment application containers, Compose resources, Kubernetes namespaces/PVCs/static PV, Helm releases, controllers and port-forwards were cleaned up after evidence. Its Minikube profile and prepared Ubuntu VM were stopped. Runtime-secret files were removed, and the isolated exercise histories were preserved as verified portable bundles. That is a historical execution record.
 
-```json
-{
-  "checked_at": "2026-10-07T14:53:24.107578+05:30",
-  "assignment_vm_running": false,
-  "pid_file_present": false,
-  "forwarded_ports_listening": {
-    "2222": false,
-    "8080": false,
-    "8081": false,
-    "8082": false,
-    "8083": false,
-    "8084": false,
-    "8085": false,
-    "8086": false,
-    "8088": false,
-    "8090": false,
-    "8091": false,
-    "8092": false,
-    "9090": false,
-    "3000": false
-  }
-}
-```
+## Separate Helpdesk cloud record
 
-Three temporary runtime-secret files were checked against submission text/history and removed from the workspace runtime directory. Submission caches, Python bytecode and downloaded Terraform provider directories were removed; provider lock files and actual build/test evidence remain. Four isolated `.git` directories were archived outside the submission, with verified portable history bundles retained inside it.
+The October-16 Helpdesk evidence records authorized teardown of its EKS/VPC/ALB/workers and related resources after evidence publication. The original logs and residual checks remain with the separate capstone. They are not a teardown record for the still-unexecuted Assignment 17/18 Terraform projects.
 
-No further service cleanup is needed. Downloaded tools, public reference checkouts, the stopped VM disk and caches remain in `../.local-tools/` for reproducibility; the runtime directory occupies approximately 16 GB. They are outside the submission and are not part of the proposed Git publication. Removing that runtime later would remove the reusable VM; preserve any tooling/history you want first. No unrelated files were deleted.
+## Review on 21 October
+
+The pre-existing local `taskboard-local-control-plane` kind container was observed running. It was left untouched. No assignment services were started/stopped for this documentation review, and no AWS login or cloud-state operation was performed. Existing local application data and unrelated services were preserved.
+
+User-local tools, reference checkouts and the prepared stopped VM remain outside the submission in the parent workspace’s `.local-tools/`. Real secret/runtime files, caches and nested Git metadata are excluded from the public assignment files. Current AWS billing or KMS deletion state was not re-queried; use the dated Helpdesk records rather than assuming a fresh account-wide cleanup check.

@@ -1,225 +1,220 @@
 {
+  "reviewed_at": "2026-10-21T15:32:57.508100+05:30",
+  "mode": "static-source-and-retained-evidence-review",
   "assignment_folders": 20,
-  "mapping_correct": true,
-  "completed": 15,
-  "externally_blocked": 5,
-  "screenshots_checked": 102,
-  "local_markdown_links_checked": 318,
-  "yaml_files_parsed": 90,
-  "python_files_parsed": 16,
-  "bash_files_checked": 52,
-  "checks": [
+  "session_mapping_correct": true,
+  "locally_complete": 15,
+  "assignments_with_required_gaps": [
+    15,
+    16,
+    17,
+    18,
+    20
+  ],
+  "checks": {
+    "markdown_links": 528,
+    "png_images": 102,
+    "yaml_files": 94,
+    "python_files": 17,
+    "bash_files": 52
+  },
+  "yaml_validation": "performed",
+  "image_validation": "performed",
+  "root_workflows": 4,
+  "workflow_lint": "passed",
+  "assignments": [
     {
       "assignment": 1,
       "session": "01-02",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-links-linux-journal.txt",
         "02-system-information.txt",
         "03-ubuntu-user-and-commands.txt"
       ],
-      "screenshots": 3,
-      "readme": true
+      "screenshots": 3
     },
     {
       "assignment": 2,
       "session": "03",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-networking.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 3,
       "session": "04",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-git-history.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 4,
       "session": "05",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-build-and-run.txt"
       ],
-      "screenshots": 7,
-      "readme": true
+      "screenshots": 7
     },
     {
       "assignment": 5,
       "session": "06",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-build-and-run.txt"
       ],
-      "screenshots": 2,
-      "readme": true
+      "screenshots": 2
     },
     {
       "assignment": 6,
       "session": "07",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-networking-volume.txt"
       ],
-      "screenshots": 4,
-      "readme": true
+      "screenshots": 4
     },
     {
       "assignment": 7,
       "session": "08",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "03-startup-diagnosis-and-fix.txt",
         "01-compose-exercises.txt"
       ],
-      "screenshots": 3,
-      "readme": true
+      "screenshots": 3
     },
     {
       "assignment": 8,
       "session": "09",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "03-cni-diagnosis-repair.txt",
         "02-local-image-preload.txt",
         "05-tutorial-success.txt",
         "06-tutorial-api-labels-failed-update.txt"
       ],
-      "screenshots": 7,
-      "readme": true
+      "screenshots": 7
     },
     {
       "assignment": 9,
       "session": "10",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-deployment-strategies.txt",
         "02-all-pod-lifecycle-cases.txt"
       ],
-      "screenshots": 14,
-      "readme": true
+      "screenshots": 14
     },
     {
       "assignment": 10,
       "session": "11",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-all-service-types.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 11,
       "session": "12",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-config-secret-ingress-troubleshooting.txt"
       ],
-      "screenshots": 3,
-      "readme": true
+      "screenshots": 3
     },
     {
       "assignment": 12,
       "session": "13",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-volume-lifetimes.txt",
         "03-service-and-identity-placeholder.txt",
         "02-hpa-probes-persistence.txt",
         "08-probe-examples-and-owned-cleanup.txt",
         "07-complete-default-scaling-cycle-retry.txt"
       ],
-      "screenshots": 6,
-      "readme": true
+      "screenshots": 6
     },
     {
       "assignment": 13,
       "session": "14",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-troubleshooting-before-and-after.txt"
       ],
-      "screenshots": 13,
-      "readme": true
+      "screenshots": 13
     },
     {
       "assignment": 14,
       "session": "15",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-helm-install-upgrade-rollback.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 15,
       "session": "16",
       "status": "BLOCKED",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-local-ci-build-workflow-check.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 16,
       "session": "17",
       "status": "BLOCKED",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-local-devsecops-pipeline.txt",
         "04-strict-high-critical-gate.txt",
         "05-actual-alpine-runtime-page.txt",
         "03-alpine-source-scans-and-deployment.txt",
         "06-shared-image-artifact-identity.txt"
       ],
-      "screenshots": 7,
-      "readme": true
+      "screenshots": 7
     },
     {
       "assignment": 17,
       "session": "18",
       "status": "BLOCKED",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-local-terraform-validation.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 18,
       "session": "19",
       "status": "BLOCKED",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-local-cloud-configuration-validation.txt"
       ],
-      "screenshots": 1,
-      "readme": true
+      "screenshots": 1
     },
     {
       "assignment": 19,
       "session": "20",
       "status": "COMPLETE",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "04-monitoring-content-type-fix-and-verification.txt",
         "05-local-gitops-reconciliation.txt"
       ],
-      "screenshots": 5,
-      "readme": true
+      "screenshots": 5
     },
     {
       "assignment": 20,
       "session": "21",
       "status": "BLOCKED",
-      "passed_execution_transcripts": [
+      "successful_records": [
         "01-source-git-initialization.txt",
         "04-build-scans-validated-after-storage-fix.txt",
         "05-clean-image-rebuild-and-scan.txt",
@@ -232,8 +227,7 @@
         "16-scanned-image-artifact-identity.txt",
         "17-verified-local-source-history.txt"
       ],
-      "screenshots": 21,
-      "readme": true
+      "screenshots": 21
     }
   ],
   "issues": []

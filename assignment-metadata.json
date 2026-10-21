@@ -9,7 +9,9 @@
       2
     ],
     "status": "COMPLETE",
-    "notes": "Local Linux and shell tasks verified; GitHub publication deferred."
+    "notes": "None in the practical work. The revised documentation and restored folder names still need to be published by the owner.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 2,
@@ -20,7 +22,9 @@
       3
     ],
     "status": "COMPLETE",
-    "notes": "Networking commands and packet capture verified in local VM."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 3,
@@ -31,7 +35,9 @@
       4
     ],
     "status": "COMPLETE",
-    "notes": "Git commit comparison and cherry-pick verified locally; publication deferred."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 4,
@@ -43,7 +49,9 @@
       6
     ],
     "status": "COMPLETE",
-    "notes": "Six images built, containers and browser pages verified; removed after evidence."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 5,
@@ -55,7 +63,9 @@
       8
     ],
     "status": "COMPLETE",
-    "notes": "Multi-stage and three runtimes verified; identity placeholders and publication pending."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 6,
@@ -67,7 +77,9 @@
       10
     ],
     "status": "COMPLETE",
-    "notes": "Network isolation, VM host port 80, live bind edit and overlay research complete."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 7,
@@ -78,7 +90,9 @@
       10
     ],
     "status": "COMPLETE",
-    "notes": "All three Compose examples verified; backend startup race diagnosed and fixed."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 8,
@@ -90,7 +104,9 @@
       12
     ],
     "status": "COMPLETE",
-    "notes": "Local VM tutorial verified; GitHub publication owner-deferred."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 9,
@@ -103,7 +119,9 @@
       15
     ],
     "status": "COMPLETE",
-    "notes": "All strategies and 12 lifecycle cases executed locally."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 10,
@@ -117,7 +135,9 @@
       19
     ],
     "status": "COMPLETE",
-    "notes": "Five Service types, HTTP and DNS verified locally."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 11,
@@ -130,7 +150,9 @@
       22
     ],
     "status": "COMPLETE",
-    "notes": "ConfigMap, hidden Secret, Ingress and before/after encoding checks verified."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 12,
@@ -143,7 +165,9 @@
       25
     ],
     "status": "COMPLETE",
-    "notes": "Volume persistence, real HPA scale-up/default scale-down, probes and mini project verified."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 13,
@@ -156,7 +180,9 @@
       28
     ],
     "status": "COMPLETE",
-    "notes": "Actual Pod/Service/DNS/port failures diagnosed and repaired; before/after evidence retained."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 14,
@@ -170,7 +196,9 @@
       32
     ],
     "status": "COMPLETE",
-    "notes": "All required Helm commands, upgrades, rollback and cleanup verified locally."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 15,
@@ -182,7 +210,9 @@
       34
     ],
     "status": "BLOCKED",
-    "notes": "Local tests/build/Docker/actionlint passed; actual GitHub CI/CD and registry publication require owner approval."
+    "notes": "Run Assignment 15 CI and CD on GitHub after owner publication/approval; configure the delivery environment and registry credentials; retain genuine run, artifact and image-publication evidence.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 16,
@@ -195,7 +225,9 @@
       37
     ],
     "status": "BLOCKED",
-    "notes": "All local scans, strict image gate and deployment passed; hosted CI/registry push remain approval-dependent."
+    "notes": "Execute the assignment\u2019s complete hosted pipeline, publish its scanned image and verify delivery to an approved Kubernetes target. Keep real successful pipeline/registry/deployment evidence; TaskBoard\u2019s image-only Trivy stage does not cover all four required scanner stages.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 17,
@@ -211,7 +243,9 @@
       43
     ],
     "status": "BLOCKED",
-    "notes": "Local Terraform validation and five AWS research folders complete; real S3 workflow forbidden pending approval."
+    "notes": "Supply an approved AWS profile/account/region and unique bucket name; approve this demo\u2019s plan, then execute and capture plan \u2192 apply \u2192 show/output \u2192 destroy for this exact S3 project.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 18,
@@ -224,7 +258,9 @@
       46
     ],
     "status": "BLOCKED",
-    "notes": "Terraform init/fmt/check/validate passed; AWS plan/provisioning/output/destroy await owner approval."
+    "notes": "Provide approved regional AMI/bucket inputs and AWS access; approve plan/resource lifetime, then execute and capture this project\u2019s plan \u2192 apply \u2192 inspect outputs/resources \u2192 destroy.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 19,
@@ -236,7 +272,9 @@
       48
     ],
     "status": "COMPLETE",
-    "notes": "Live metrics, real alert/recovery and local Git drift correction/version promotion verified."
+    "notes": "Required practical work is supported by recorded successful execution and evidence; revised submission awaits owner publication.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   },
   {
     "number": 20,
@@ -252,6 +290,8 @@
       54
     ],
     "status": "BLOCKED",
-    "notes": "All local components, tests/scans, Kubernetes/Helm, monitoring/GitOps and Terraform validation passed; hosted CI/registry/cloud execution remains approval-dependent."
+    "notes": "Finish one coherent capstone: either execute the Flask project\u2019s approved hosted/registry/cloud stages, or integrate all PDF security/GitOps requirements and the required submission layout into Release Helpdesk. Preserve proof from the same project and revision. No new AWS deployment is needed merely to document its already-recorded EKS run.",
+    "reviewed_at": "2026-10-21",
+    "scope": "PDF practical requirements; recorded execution, not a fresh runtime recertification"
   }
 ]

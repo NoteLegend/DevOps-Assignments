@@ -1,0 +1,45 @@
+name: Calculator CD
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+  packages: write
+defaults:
+  run:
+    working-directory: Assignment-15-Session-16
+jobs:
+  delivery:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test the release
+        run: |
+          pip install -r requirements.txt
+          pytest -v
+          bash build.sh
+      - name: Build and verify the release image
+        env:
+          SOURCE_REPOSITORY: ${{ github.repository }}
+          REVISION: ${{ github.sha }}
+        run: |
+          image="ghcr.io/${SOURCE_REPOSITORY,,}-calculator:$REVISION"
+          echo "IMAGE=$image" >> "$GITHUB_ENV"
+          docker build --label "org.opencontainers.image.source=https://github.com/$SOURCE_REPOSITORY" --label "org.opencontainers.image.revision=$REVISION" -t "$image" .
+          printf '10 + 5\nq\n' | docker run --rm -i "$image" | tee calculator-output.txt | grep 'Result: 15.0'
+      - uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Publish the verified image to GHCR
+        run: docker push "$IMAGE" | tee registry-push.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: calculator-delivery-evidence
+          path: |
+            Assignment-15-Session-16/calculator-output.txt
+            Assignment-15-Session-16/registry-push.txt
+          retention-days: 1

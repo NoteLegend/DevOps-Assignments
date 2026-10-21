@@ -1,4 +1,12 @@
-# Actual execution environment
+# Execution environment and evidence dates
+
+[Portfolio](README.md) · [Reproduction guide](REPRODUCING.md)
+
+## Review on 21 October 2026
+
+Host Docker is now accessible and reported server version 29.9.1 in a read-only local version check. The pre-existing taskboard-local-control-plane kind container was observed running and left untouched. No workload, cloud resource, credential session, registry or hosted workflow was changed for this review. The original records below describe the October-7 execution environment and are not a statement of current host limitations. Later Helpdesk local/AWS records describe their own environments.
+
+## Original October-7 execution record
 
 Source PDF: `../DevOps Homework.pdf` (54 pages). Workspace: `/home/rushixd/Wurk/Scaler/DevOps`. Submission contains exactly 20 assignment directories; Sessions 1–2 are combined.
 

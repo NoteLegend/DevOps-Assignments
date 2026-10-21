@@ -1,4 +1,6 @@
-# Observed tool versions and runtime inventory
+# Historical tool inventory · 7 October 2026
+
+> These versions and runtime listings were captured for the original course execution. The README review is dated 21 October 2026; see [execution environment](EXECUTION_ENVIRONMENT.md) for the later host observation.
 
 Actual command output captured after assignment workloads were cleaned up, before stopping the assignment-owned Minikube control plane and VM. The pre-existing host Docker service was not changed. Versions below are observed, not assumed.
 

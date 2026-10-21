@@ -1,26 +1,38 @@
 # Assignment status
 
-COMPLETE means local required work, verification, evidence and README are complete. BLOCKED means required work remains; see the assignment README. User-deferred GitHub publishing alone is not counted as a technical blocker.
+**Reviewed: 21 October 2026.** COMPLETE means the PDF practical work is supported by retained successful execution and required files/evidence. BLOCKED means a mandatory stage is still absent; passing local checks alone does not clear it. Publishing this revised local submission is a final owner action.
 
-| Assignment | Session | Topic | Implementation | Verification | Screenshots | README | Status | External blockers / observations |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| [01](Assignment-01-Session-01-02/README.md) | 01-02 | Linux Homework Tasks and Shell Scripting Homework Task | Executed locally | 3 successful transcripts; 6 files | 3 | Yes | COMPLETE | Local Linux and shell tasks verified; GitHub publication deferred. |
-| [02](Assignment-02-Session-03/README.md) | 03 | Networking Homework Tasks | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | COMPLETE | Networking commands and packet capture verified in local VM. |
-| [03](Assignment-03-Session-04/README.md) | 04 | Git Homework Tasks | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | COMPLETE | Git commit comparison and cherry-pick verified locally; publication deferred. |
-| [04](Assignment-04-Session-05/README.md) | 05 | Docker Hello World Applications | Executed locally | 1 successful transcripts; 8 files | 7 | Yes | COMPLETE | Six images built, containers and browser pages verified; removed after evidence. |
-| [05](Assignment-05-Session-06/README.md) | 06 | Docker Multi-Stage Build | Executed locally | 1 successful transcripts; 6 files | 2 | Yes | COMPLETE | Multi-stage and three runtimes verified; identity placeholders and publication pending. |
-| [06](Assignment-06-Session-07/README.md) | 07 | Docker Networking & Volume | Executed locally | 1 successful transcripts; 6 files | 4 | Yes | COMPLETE | Network isolation, VM host port 80, live bind edit and overlay research complete. |
-| [07](Assignment-07-Session-08/README.md) | 08 | Docker Networking & Volume: remaining session exercises | Executed locally | 2 successful transcripts; 8 files | 3 | Yes | COMPLETE | All three Compose examples verified; backend startup race diagnosed and fixed. |
-| [08](Assignment-08-Session-09/README.md) | 09 | Kubernetes Fundamentals | Executed locally | 4 successful transcripts; 13 files | 7 | Yes | COMPLETE | Local VM tutorial verified; GitHub publication owner-deferred. |
-| [09](Assignment-09-Session-10/README.md) | 10 | Kubernetes Pods, ReplicaSets & Deployments | Executed locally | 2 successful transcripts; 20 files | 14 | Yes | COMPLETE | All strategies and 12 lifecycle cases executed locally. |
-| [10](Assignment-10-Session-11/README.md) | 11 | Kubernetes Networking & Services | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | COMPLETE | Five Service types, HTTP and DNS verified locally. |
-| [11](Assignment-11-Session-12/README.md) | 12 | Kubernetes Ingress, ConfigMaps & Secrets | Executed locally | 1 successful transcripts; 4 files | 3 | Yes | COMPLETE | ConfigMap, hidden Secret, Ingress and before/after encoding checks verified. |
-| [12](Assignment-12-Session-13/README.md) | 13 | Kubernetes Storage, HPA & Probes | Executed locally | 5 successful transcripts; 14 files | 6 | Yes | COMPLETE | Volume persistence, real HPA scale-up/default scale-down, probes and mini project verified. |
-| [13](Assignment-13-Session-14/README.md) | 14 | Kubernetes Troubleshooting | Executed locally | 1 successful transcripts; 14 files | 13 | Yes | COMPLETE | Actual Pod/Service/DNS/port failures diagnosed and repaired; before/after evidence retained. |
-| [14](Assignment-14-Session-15/README.md) | 15 | Helm | Executed locally | 1 successful transcripts; 4 files | 1 | Yes | COMPLETE | All required Helm commands, upgrades, rollback and cleanup verified locally. |
-| [15](Assignment-15-Session-16/README.md) | 16 | CI/CD & GitHub Actions | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | BLOCKED | Local tests/build/Docker/actionlint passed; actual GitHub CI/CD and registry publication require owner approval. |
-| [16](Assignment-16-Session-17/README.md) | 17 | Complete CI/CD & DevSecOps | Executed locally | 5 successful transcripts; 19 files | 7 | Yes | BLOCKED | All local scans, strict image gate and deployment passed; hosted CI/registry push remain approval-dependent. |
-| [17](Assignment-17-Session-18/README.md) | 18 | Terraform & Infrastructure as Code | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | BLOCKED | Local Terraform validation and five AWS research folders complete; real S3 workflow forbidden pending approval. |
-| [18](Assignment-18-Session-19/README.md) | 19 | Cloud & Terraform in Action | Executed locally | 1 successful transcripts; 2 files | 1 | Yes | BLOCKED | Terraform init/fmt/check/validate passed; AWS plan/provisioning/output/destroy await owner approval. |
-| [19](Assignment-19-Session-20/README.md) | 20 | Monitoring, Observability & GitOps | Executed locally | 2 successful transcripts; 12 files | 5 | Yes | COMPLETE | Live metrics, real alert/recovery and local Git drift correction/version promotion verified. |
-| [20](Assignment-20-Session-21/README.md) | 21 | Final DevOps Project & Troubleshooting | Executed locally | 11 successful transcripts; 40 files | 21 | Yes | BLOCKED | All local components, tests/scans, Kubernetes/Helm, monitoring/GitOps and Terraform validation passed; hosted CI/registry/cloud execution remains approval-dependent. |
+| Assignment | Session | Implementation | Verification | Screenshots | README | Status | Remaining scope |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| [01](Assignment-01-Session-01-02/README.md) | 01-02 | Files present | 3 successful records | 3 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [02](Assignment-02-Session-03/README.md) | 03 | Files present | 1 successful records | 1 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [03](Assignment-03-Session-04/README.md) | 04 | Files present | 1 successful records | 1 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [04](Assignment-04-Session-05/README.md) | 05 | Files present | 1 successful records | 7 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [05](Assignment-05-Session-06/README.md) | 06 | Files present | 1 successful records | 2 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [06](Assignment-06-Session-07/README.md) | 07 | Files present | 1 successful records | 4 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [07](Assignment-07-Session-08/README.md) | 08 | Files present | 2 successful records | 3 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [08](Assignment-08-Session-09/README.md) | 09 | Files present | 4 successful records | 7 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [09](Assignment-09-Session-10/README.md) | 10 | Files present | 2 successful records | 14 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [10](Assignment-10-Session-11/README.md) | 11 | Files present | 1 successful records | 1 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [11](Assignment-11-Session-12/README.md) | 12 | Files present | 1 successful records | 3 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [12](Assignment-12-Session-13/README.md) | 13 | Files present | 5 successful records | 6 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [13](Assignment-13-Session-14/README.md) | 14 | Files present | 1 successful records | 13 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [14](Assignment-14-Session-15/README.md) | 15 | Files present | 1 successful records | 1 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [15](Assignment-15-Session-16/README.md) | 16 | Files present | 1 successful records | 1 | Complete | BLOCKED | See required remaining steps below. |
+| [16](Assignment-16-Session-17/README.md) | 17 | Files present | 5 successful records | 7 | Complete | BLOCKED | See required remaining steps below. |
+| [17](Assignment-17-Session-18/README.md) | 18 | Files present | 1 successful records | 1 | Complete | BLOCKED | See required remaining steps below. |
+| [18](Assignment-18-Session-19/README.md) | 19 | Files present | 1 successful records | 1 | Complete | BLOCKED | See required remaining steps below. |
+| [19](Assignment-19-Session-20/README.md) | 20 | Files present | 2 successful records | 5 | Complete | COMPLETE | Practical requirements supported by recorded evidence. |
+| [20](Assignment-20-Session-21/README.md) | 21 | Files present | 11 successful records | 21 | Complete | BLOCKED | See required remaining steps below. |
+
+## Remaining mandatory stages
+
+| Assignment | Still required |
+| --- | --- |
+| 15 | Real GitHub Actions CI/CD execution for the referenced calculator, with successful run/artifact/publication evidence |
+| 16 | Real ordered hosted DevSecOps execution, scanned-image publication and approved Kubernetes delivery for this application |
+| 17 | The exact S3 demo’s plan/apply/show/output/destroy and real evidence |
+| 18 | The exact EC2/S3 infrastructure project’s plan/apply/resource/outputs/destroy and real evidence |
+| 20 | One coherent final project covering all PDF security/GitOps/hosted/cloud requirements; see the two-project comparison in the checklist |
+
+[Full gap report and access needed](SUBMISSION_READINESS.md). Existing TaskBoard cloud results are recognized but do not automatically close these distinct exercises.
